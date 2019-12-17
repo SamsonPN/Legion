@@ -1,4 +1,4 @@
-# vue_crash_todolist
+# Maplestory Legion Board
 
 ## Project setup
 ```
