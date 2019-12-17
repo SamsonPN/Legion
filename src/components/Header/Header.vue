@@ -1,8 +1,13 @@
 <template>
   <header>
-      <router-link to="/">Board</router-link>
-      <p>{{" "}}|{{" "}}</p>
-      <router-link to="/select">Select</router-link>
+      <p>Samson Nguyen</p>
+      <div>
+        <router-link to="/">Board</router-link>
+        <p>{{" "}}|{{" "}}</p>
+        <router-link to="/select">Select</router-link>
+        <p>{{" "}}|{{" "}}</p>
+        <router-link to="/options">Options</router-link>
+      </div>
   </header>
 </template>
 
@@ -15,11 +20,22 @@ export default {
 <style scoped lang="scss">
     header {
         width: 100%;
-        height: 10vh;
+        // height: 10vh;
+        height: auto;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         background-color: rgba(0, 0, 0, 1);
+        padding: 0px 5px;
+        > p {
+            flex: 1;
+        }
+        > div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+        }
     }
 
     a, p{
@@ -30,5 +46,9 @@ export default {
         }
         color: white;
         white-space: pre;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 </style>

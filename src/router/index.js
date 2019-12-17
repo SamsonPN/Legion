@@ -15,6 +15,10 @@ const routes = [
     path: '/select',
     name: 'select',
     component: Select
+  },
+  {
+    path: '/options',
+    name: 'options'
   }
 ]
 

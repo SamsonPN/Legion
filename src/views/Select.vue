@@ -21,18 +21,18 @@ export default {
                         {
                             class: 'Dark Knight',
                             level: '',
-                            name: '',
+                            ign: '',
                             
                         },
                         {
                             class: 'Hero',
                             level: '',
-                            name: ''
+                            ign: ''
                         },
                         {
                             class: 'Paladin',
                             level: '',
-                            name: ''
+                            ign: ''
                         }
                     ]
                 },
@@ -42,17 +42,78 @@ export default {
                         {
                             class: 'Bishop',
                             level: '',
-                            name: ''
+                            ign: ''
                             }, 
                         {
                             class: 'Archmage F/P',
                             level: '',
-                            name: ''
+                            ign: ''
                         }, 
                         {
                             class: 'Archmage I/L',
                             level: '',
-                            name: ''
+                            ign: ''
+                        }
+                    ]
+                },
+                {
+                    archetype: 'Bowman',
+                    classes: [
+                        {
+                            class: 'Bow Master',
+                            level: '',
+                            ign: '',
+                            
+                        },
+                        {
+                            class: 'Marksman',
+                            level: '',
+                            ign: ''
+                        },
+                        {
+                            class: 'Pathfinder',
+                            level: '',
+                            ign: ''
+                        }
+                    ]
+                },
+                {
+                    archetype: 'Thief',
+                    classes: [
+                        {
+                            class: 'Night Lord',
+                            level: '',
+                            ign: ''
+                            }, 
+                        {
+                            class: 'Shadower',
+                            level: '',
+                            ign: ''
+                        }, 
+                        {
+                            class: 'Dual Blade',
+                            level: '',
+                            ign: ''
+                        }
+                    ]
+                },
+                {
+                    archetype: 'Pirate',
+                    classes: [
+                        {
+                            class: 'Buccaneer',
+                            level: '',
+                            ign: ''
+                            }, 
+                        {
+                            class: 'Corsair',
+                            level: '',
+                            ign: ''
+                        }, 
+                        {
+                            class: 'Cannoneer',
+                            level: '',
+                            ign: ''
                         }
                     ]
                 }
@@ -66,22 +127,15 @@ export default {
     #Select{
         min-height: 100vh;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.9);
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        > div{
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            border-bottom: 3px solid white;
-            font-size: 2em;
-        }
     }
-    #WarriorSelect{ color: red;}
-    #MagicianSelect{ color: blue;}
-    #BowmanSelect{ color: green;}
-    #ThiefSelect{ color: violet;}
-    #PirateSelect{ color: orange;}
+    
+    #WarriorSelect{ color: red; }
+    #MagicianSelect{ color: #1414ff; }
+    #BowmanSelect{ color: #90ee90; } 
+    #ThiefSelect{ color: #4e4ee4; }
+    #PirateSelect{ color: orange; }
 </style>

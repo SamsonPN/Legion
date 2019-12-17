@@ -37,6 +37,7 @@
     min-height: 100vh;
     width: 100%;
     background-image: url('../../assets/Header-Image.jpg');
+    background-position: center;
     background-size: cover;
     font-family: 'Nunito', sans-serif;
   }
