@@ -1,27 +1,27 @@
 <template>
   <div class="CharacterCard">
-      <p>Name</p>
+      <!-- <p>Name</p>
       <p>Class</p>
       <p>Level</p>
-      <p>Effect</p>
-      <Piece />
+      <p>Effect</p> -->
+      <UniversalPiece />
   </div>
 </template>
 
 <script>
-import Piece from '../Pieces/Piece';
+import UniversalPiece from '../Pieces/UniversalPiece';
 
 export default {
     name: "CharacterCard",
     components: {
-        Piece
+        UniversalPiece
     }
 }
 </script>
 
 <style scoped lang="scss">
     .CharacterCard {
-        height: 15vh;
+        height: 30vh;
         width: 100%;
         position: relative;
         display: grid;

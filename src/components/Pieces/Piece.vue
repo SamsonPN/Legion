@@ -36,9 +36,6 @@ export default {
         height: auto;
         width: auto;
         position: absolute;
-        position: static;
-        top: 0;
-        left: 0;
         z-index: 0;
         display: flex;
         justify-content: center;
@@ -48,13 +45,13 @@ export default {
             height: $size;
             color: white;
             text-align: center;
-            background-color: black;
+            background-color: red;
             &[piece="main"]{
                 cursor: pointer;
             }
         }
         &:hover > div{
-            border: 1px dashed gold;
+            border: 1px solid white;
         }
     }
 </style>

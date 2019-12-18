@@ -15,7 +15,7 @@ export default {
     },
     data() {
         return {
-            cards: [...new Array(30)].map(( x, i) => i)
+            cards: [...new Array(2)].map(( x, i) => i)
         }
     }
 }

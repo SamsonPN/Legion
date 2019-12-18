@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home';
 import Select from '../views/Select';
+import Options from '../views/Options';
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,8 @@ const routes = [
   },
   {
     path: '/options',
-    name: 'options'
+    name: 'options',
+    component: Options
   }
 ]
 
