@@ -1,14 +1,18 @@
 <template>
   <div>
-      <UniversalPiece />
+      <LegionPiece />
+      <Grid />
   </div>
 </template>
 
 <script>
-import UniversalPiece from '../components/Pieces/UniversalPiece';
+import LegionPiece from '../components/Pieces/LegionPiece';
+import Grid from '../components/Grid/Grid';
+
 export default {
     components: {
-        UniversalPiece
+        LegionPiece,
+        Grid
     }
 }
 </script>
@@ -17,6 +21,6 @@ export default {
     div {
         height: 100vh;
         width: 100%;
-        background-color: black;
+        background-color: white;
     }
 </style>

@@ -1,10 +1,22 @@
 <template>
   <div id="Select">
-      <ClassSelect v-for="archetype in archetypes" :key="archetype.archetype" :archetype="archetype" />
+      <!-- <ClassSelect 
+        v-for="archetype in archetypes" 
+        :key="archetype.archetype" 
+        :archetype="archetype" /> -->
+      <ClassSelect 
+        v-for="(classList, archetype) in allCharacters" 
+        :key="archetype" 
+        :archetype="archetype"
+        :classList="classList" />
+        <!-- <div v-for="(classList, archetype) in allCharacters" :key="archetype">
+            {{archetype}}
+        </div> -->
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import ClassSelect from '../components/ClassSelect/ClassSelect';
 
 export default {
@@ -119,6 +131,11 @@ export default {
                 }
             ]
         }
+    },
+    methods: mapActions(['fetchCharacters']),
+    computed: mapGetters(['allCharacters']),
+    created(){
+        this.fetchCharacters();
     }
 }
 </script>

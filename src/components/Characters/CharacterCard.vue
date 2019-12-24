@@ -4,17 +4,17 @@
       <p>Class</p>
       <p>Level</p>
       <p>Effect</p> -->
-      <UniversalPiece />
+      <LegionPiece />
   </div>
 </template>
 
 <script>
-import UniversalPiece from '../Pieces/UniversalPiece';
+import LegionPiece from '../Pieces/LegionPiece';
 
 export default {
     name: "CharacterCard",
     components: {
-        UniversalPiece
+        LegionPiece
     }
 }
 </script>

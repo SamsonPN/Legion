@@ -27,12 +27,6 @@ export default {
     GridMenu,
     GridButtons,
     CharacterList
-  },
-  data(){
-    return{
-    }
-  },
-  methods:{
   }
 }
 </script>
@@ -50,6 +44,7 @@ export default {
     width: 49vw;
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 1vh;
   }
 

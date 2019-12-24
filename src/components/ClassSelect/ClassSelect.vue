@@ -1,10 +1,11 @@
 <template>
-  <div :id="archetype.archetype + 'Select'" class="ClassSelect">
-      <p>{{archetype.archetype}}</p>
-      <div v-for="item in archetype.classes" :key="item.class">
-          <p>{{item.class}}</p>
+  <div :id="archetype + 'Select'" class="ClassSelect">
+      <p>{{archetype}}</p>
+      <div v-for="(_class, key) in classList" :key="key">
+          <p>{{key}}</p>
           <textarea 
             placeholder="IGN"
+            :value="_class.name"
             @change="ignChange"
             @keypress="preventEnter"
             maxLength="12"
@@ -12,6 +13,7 @@
           </textarea>
           <textarea 
             placeholder="Level"
+            :value="_class.level"
             @change="levelChange"
             @keypress="preventEnter"
             maxLength="3"
@@ -24,7 +26,7 @@
 <script>
 export default {
     name: "Select",
-    props: ['archetype'],
+    props: ['archetype', 'classList'],
     methods: {
         ignChange(e){
             console.log(e.target.value);
@@ -37,6 +39,9 @@ export default {
                 e.preventDefault()
             }
         }
+    },
+    created(){
+        console.log(this.classList)
     }
 }
 </script>

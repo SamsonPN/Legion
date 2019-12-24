@@ -4,26 +4,12 @@ import ClassSelect from './ClassSelect';
 describe('ClassSelect', () => {
     const wrapper = mount(ClassSelect, {
         propsData: {
-            archetype: {
-                archetype: 'Warrior',
-                    classes: [
-                        {
-                            class: 'Dark Knight',
-                            level: '',
-                            name: '',
-                            
-                        },
-                        {
-                            class: 'Hero',
-                            level: '',
-                            name: ''
-                        },
-                        {
-                            class: 'Paladin',
-                            level: '',
-                            name: ''
-                        }
-                    ]
+            archetype: "Warrior",
+            classList: {
+                "Aran": {
+                    "name": "SotaAran",
+                    "level": "210"
+                }
             }
         }
     })
@@ -32,9 +18,13 @@ describe('ClassSelect', () => {
         expect(wrapper.contains('#WarriorSelect')).toBe(true);
     })
 
-    it('Renders all subClasses', () => {
-        expect(wrapper.html()).toContain('Dark Knight');
-        expect(wrapper.html()).toContain('Hero');
-        expect(wrapper.html()).toContain('Paladin');        
+    it('Renders all classes', () => {
+        expect(wrapper.html()).toContain('Aran');     
+    })
+
+    it ('Contains IGN and level', () => {
+        let textarea = wrapper.findAll('div > textarea');
+        expect(textarea.at(0).element.value).toEqual('SotaAran')
+        expect(textarea.at(1).element.value).toEqual('210');
     })
 })
