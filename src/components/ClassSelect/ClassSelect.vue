@@ -3,15 +3,17 @@
       <p>{{archetype}}</p>
       <div v-for="(_class, key) in classList" :key="key">
           <p>{{key}}</p>
-          <textarea 
-            placeholder="IGN"
+          <textarea
+            :class="key"
             :value="_class.name"
             @change="ignChange"
             @keypress="preventEnter"
+            placeholder="IGN"
             maxLength="12"
             rows="1">
           </textarea>
-          <textarea 
+          <textarea
+            :class="key"
             placeholder="Level"
             :value="_class.level"
             @change="levelChange"
@@ -24,15 +26,32 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
     name: "Select",
     props: ['archetype', 'classList'],
     methods: {
+        ...mapActions(['updateCharData']),
         ignChange(e){
-            console.log(e.target.value);
+            let {value, className} = e.target;
+            let data = {
+                field: 'name',
+                value,
+                archetype: this.archetype,
+                className
+            }
+            this.updateCharData(data)
         },
         levelChange(e){
-            console.log(e.target.value);
+            let {value, className} = e.target;
+            let data = {
+                field: 'level',
+                value,
+                archetype: this.archetype,
+                className
+            };
+            this.updateCharData(data);
         },
         preventEnter(e){
             if(e.key === 'Enter'){

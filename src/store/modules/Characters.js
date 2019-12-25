@@ -1,5 +1,5 @@
 const state = {
-    characters: []
+    characters: {}
 };
 
 const getters = {
@@ -13,16 +13,21 @@ const actions = {
             .then(res => res.json())
             .then(data => {
                 let {id,...characters} = data; 
-                characters.Warrior.Aran.name = 'SotaAran';
-                characters.Warrior.Aran.level = '210';
                 commit('setCharacters', characters)
             })
             .catch(err => console.error(err))
+    },
+    updateCharData({  commit }, charInfo){
+        commit('setCharData', charInfo)
     }
 }
 
 const mutations = {
-    setCharacters: (state, characters) => (state.characters = characters)
+    setCharacters: (state, characters) => (state.characters = characters),
+    setCharData: (state, charInfo) => {
+        let {field, value, className, archetype} = charInfo;
+        state.characters[archetype][className][field] = value;
+    }
 }
 
 export default {

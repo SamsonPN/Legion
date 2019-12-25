@@ -54,9 +54,11 @@ export default {
     }
   },
   mounted(){
+    let piece = document.getElementById('piece');
+    console.dir(piece.children[0].children);
     let rowIndex = 2;
     let cellIndex = 2;
-    let row = [...document.getElementsByClassName('pieceRow')];
+    let row = piece.children;
     let cell = row[rowIndex].children[cellIndex];
     cell.classList.add('main');
     let image = document.createElement('img');
@@ -70,21 +72,21 @@ export default {
     // this information 
     let obj = [
       {
-        rowIndex: 1,
-        cellIndex: 2,
+        x: 2,
+        y: 1,
       },
       {
-        rowIndex: 2,
-        cellIndex: 3,
+        x: 3,
+        y: 2,
       },
       {
-        rowIndex: 2,
-        cellIndex: 4,
+        x: 4,
+        y: 2,
       }
     ];
     obj.forEach(item => {
       let row = [...document.getElementsByClassName('pieceRow')];
-      let cell = row[item.rowIndex].children[item.cellIndex];
+      let cell = row[item.y].children[item.x];
       cell.classList.add('side');
     })
   }
@@ -100,11 +102,8 @@ export default {
     display: flex;
     flex-direction: column;
     border-collapse: collapse;
-    top: 0;
-    left: 0;
     top: 50%;
     left: 50%;
-    z-index: 0;
     transform: translate( -50%, -50%);
     background: none;
     > .pieceRow {
