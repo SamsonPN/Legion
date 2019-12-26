@@ -2,10 +2,10 @@
   <header>
       <p>Samson Nguyen</p>
       <div>
-        <router-link to="/">Board</router-link>
-        <p>{{" "}}|{{" "}}</p>
-        <router-link to="/select">Select</router-link>
-        <p>{{" "}}|{{" "}}</p>
+        <router-link to="/">Board</router-link> |
+        <!-- <p>{{" "}}|{{" "}}</p> -->
+        <router-link to="/select">Select</router-link> |
+        <!-- <p>{{" "}}|{{" "}}</p> -->
         <router-link to="/options">Options</router-link>
       </div>
   </header>
@@ -27,23 +27,25 @@ export default {
         align-items: center;
         background-color: rgba(0, 0, 0, 1);
         padding: 0px 5px;
+        font: {
+            size: 3em;
+            weight: 200;
+        }
         > p {
             flex: 1;
+            pointer-events: none;
         }
         > div {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex: 1;
+            color: white;
         }
     }
 
     a, p{
         text-decoration: none;
-        font: {
-            size: 3em;
-            weight: 200;
-        }
         color: white;
         white-space: pre;
         cursor: pointer;

@@ -1,18 +1,13 @@
 <template>
   <div>
-      <LegionPiece />
-      <Grid />
   </div>
 </template>
 
 <script>
-import LegionPiece from '../components/Pieces/LegionPiece';
-import Grid from '../components/Grid/Grid';
+// import LegionPiece from '../components/Pieces/LegionPiece';
 
 export default {
     components: {
-        LegionPiece,
-        Grid
     }
 }
 </script>
@@ -21,6 +16,6 @@ export default {
     div {
         height: 100vh;
         width: 100%;
-        background-color: white;
+        background-color: rgba(0, 0, 0, 0.5);
     }
 </style>
