@@ -8,18 +8,20 @@
             <p @click="fillLevels">200</p> |
             <p @click="fillLevels">250</p>
         </div>
-        <button @click="saveCharData" >Save Characters</button>
+        <button @click="saveChars">Save Characters</button>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     name: "ClassSelectBar",
     methods: {
-        saveCharData(){
+        ...mapActions(['saveCharData']),
+        saveChars(){
             let SaveChars = window.confirm('Save character data?')
             if(SaveChars){
-                alert('Character information saved! Please allow some time for it to save properly!')
+                this.saveCharData()
             }
         },
         fillLevels(e){

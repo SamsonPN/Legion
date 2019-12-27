@@ -34,5 +34,5 @@ describe('Mutation functions', () => {
         }
         mutations.setCharData(state, data);
         expect(state.characters.Warrior.Aran.level).toEqual('210');
-    })
+    }
 })

@@ -58,9 +58,6 @@ export default {
                 e.preventDefault()
             }
         }
-    },
-    created(){
-        console.log(this.classList)
     }
 }
 </script>
