@@ -1,13 +1,19 @@
 <template>
     <div id="CharacterList">
         <div>
-            <CharacterCard v-for="(card, index) in cards" :key="index" />
+            <CharacterCard 
+                v-for="(character, name) in charInfo" 
+                :key="name" 
+                :charInfo="character" 
+                :charName="name"/>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CharacterCard from './CharacterCard';
+
 export default {
     name: "CharacterList",
     components: {
@@ -17,6 +23,10 @@ export default {
         return {
             cards: [...new Array(2)].map(( x, i) => i)
         }
+    },
+    computed: mapGetters(['charInfo']),
+    mounted(){
+        console.log(this.charInfo)
     }
 }
 </script>

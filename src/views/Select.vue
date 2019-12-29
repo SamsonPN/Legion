@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import ClassSelect from '../components/SelectPage/ClassSelect';
 import Bar from '../components/SelectPage/ClassSelectBar';
 
@@ -20,11 +20,7 @@ export default {
         ClassSelect,
         Bar
     },
-    methods: mapActions(['fetchCharacters']),
     computed: mapGetters(['allCharacters']),
-    created(){
-        this.fetchCharacters();
-    }
 }
 </script>
 

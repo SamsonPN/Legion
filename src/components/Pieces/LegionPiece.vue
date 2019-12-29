@@ -1,6 +1,7 @@
 <template>
     <div 
-    id="piece"
+    :id="charName + 'Piece'"
+    class="piece"
     draggable="true"
     @dragstart="dragStart"
     @dragend="dragEnd">
@@ -20,9 +21,9 @@
 </template>
 
 <script>
-import maple from '../../assets/ClassIcons/PHANTOM.png';
 export default {
   name: 'LegionPiece',
+  props: ['charInfo', 'charName'],
   data(){
     return {
       rows: [...new Array(5)].map((x, i) => i),
@@ -32,61 +33,41 @@ export default {
     dragStart(e){
       let object = {
         id: e.target.id,
-        coordinates: [
-          {
-            x: 0,
-            y: -1
-          },
-          {
-            x: 1,
-            y: 0
-          },
-          {
-            x: 2,
-            y: 0
-          }
-        ]
+        coordinates: this.charInfo.coordinates
       }
       e.dataTransfer.setData("text/plain", JSON.stringify(object));
     },
     dragEnd(e){
       e.dataTransfer.clearData();
+    },
+    getImage(charName){
+      let newName;
+      if(charName === 'Archmage Fire/Poison'){
+        newName = 'FP';
+      }
+      else if (charName === 'Archmage Ice/Lightning'){
+        newName = 'IL';
+      }
+      else {
+        newName = charName;
+      }
+      return require(`../../assets/ClassIcons/${newName}.png`);
     }
   },
   mounted(){
-    let piece = document.getElementById('piece');
-    console.dir(piece.children[0].children);
-    let rowIndex = 2;
-    let cellIndex = 2;
-    let row = piece.children;
-    let cell = row[rowIndex].children[cellIndex];
-    cell.classList.add('main');
+    let {charName, charInfo} = this;
+    let icon = this.getImage(charName);
+    let piece = document.getElementById(charName + 'Piece');
+    let cell = piece.children[2].children[2];
     let image = document.createElement('img');
-    image.src = maple;
+    cell.classList.add('main');
+    image.src = icon;
     image.style.cssText = "position: absolute; top: 0; width: 30px; height: 30px;";
     image.setAttribute('draggable', false);
-    image.className = 'maple';
+    image.className = 'main';
     cell.appendChild(image);
-
-    // this obj will be replaced with props from Character Card that will contain
-    // this information 
-    let obj = [
-      {
-        x: 2,
-        y: 1,
-      },
-      {
-        x: 3,
-        y: 2,
-      },
-      {
-        x: 4,
-        y: 2,
-      }
-    ];
-    obj.forEach(item => {
-      let row = [...document.getElementsByClassName('pieceRow')];
-      let cell = row[item.y].children[item.x];
+    charInfo.coordinates.forEach(coordinate => {
+      let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
       cell.classList.add('side');
     })
   }
@@ -95,19 +76,21 @@ export default {
 
 <style scoped lang="scss">
   $size: 30px;
-  #piece {
+  .piece {
     position: absolute;
     width: auto;
     height: auto;
     display: flex;
     flex-direction: column;
     border-collapse: collapse;
-    top: 50%;
-    left: 50%;
-    transform: translate( -50%, -50%);
+    // transform: translate( -50%, -50%);
+    // transform: translate( 0%, 0%);
+    top: 0;
+    left: 0;
     background: none;
     > .pieceRow {
       display: flex;
+      visibility: hidden;
     }
   }
 
@@ -128,6 +111,7 @@ export default {
 
   .main{
     background: none;
+    border: none;
   }
 
   .side{

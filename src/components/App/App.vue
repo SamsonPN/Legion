@@ -6,12 +6,17 @@
 </template>
 
  <script>
+ import { mapActions } from 'vuex';
  import Header from '../Header/Header';
    export default {
      name: "app",
      components: {
        Header
-     }
+     },
+    methods: mapActions(['fetchCharacters']),
+    created(){
+      this.fetchCharacters();
+    }
    }
  </script>
  

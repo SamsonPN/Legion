@@ -4,7 +4,11 @@ const state = {
 };
 
 const getters = {
-    allCharacters: (state) => state.characters
+    allCharacters: (state) => state.characters,
+    charInfo(){
+        let {Warrior, Magician, Bowman, Thief, Pirate} = state.characters;
+        return {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
+    }
 };
 
 
@@ -35,7 +39,6 @@ const actions = {
 
 const mutations = {
     fillLevels: (state, level) => {
-        console.log(typeof level);
         let {characters} = state;
         let rankList = {
             "60": "B",
@@ -44,7 +47,6 @@ const mutations = {
             "200": "SS",
             "250": "SSS"
         }
-        console.log(Ranks);
         for(let archetypes in characters){
             for(let _class in characters[archetypes]){
                 let rank = rankList[level];
