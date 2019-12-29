@@ -21,7 +21,7 @@ describe('Mutation functions', () => {
             className: "Aran",
             archetype: "Warrior" 
         }
-        mutations.setCharData(state, data);
+        mutations.updateCharData(state, data);
         expect(state.characters.Warrior.Aran.name).toEqual('SotaAran');
     })
 
@@ -32,7 +32,7 @@ describe('Mutation functions', () => {
             className: "Aran",
             archetype: "Warrior"
         }
-        mutations.setCharData(state, data);
+        mutations.updateCharData(state, data);
         expect(state.characters.Warrior.Aran.level).toEqual('210');
-    }
+    })
 })

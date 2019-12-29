@@ -4,20 +4,21 @@
       <div v-for="(_class, key) in classList" :key="key">
           <p>{{key}}</p>
           <textarea
-            :class="key"
+            :id="key"
             :value="_class.name"
             @change="ignChange"
-            @keypress="preventEnter"
+            @keypress="isAlphaNum"
             placeholder="IGN"
             maxLength="12"
             rows="1">
           </textarea>
           <textarea
-            :class="key"
+            :id="key"
+            class="levelTextArea"
             placeholder="Level"
             :value="_class.level"
             @change="levelChange"
-            @keypress="preventEnter"
+            @keypress="checkNumbersOnly"
             maxLength="3"
             rows="1">
           </textarea>
@@ -26,39 +27,89 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import Ranks from './ClassSelectRanks';
 
 export default {
     name: "Select",
     props: ['archetype', 'classList'],
     methods: {
-        ...mapActions(['updateCharData']),
+        ...mapMutations(['updateCharData']),
+        checkNumbersOnly(e){
+            let numericalInput = parseInt(e.key);
+            if(e.key === 'Enter'){
+                e.preventDefault()
+            }
+            if(isNaN(numericalInput)){
+                alert('Enter numbers only!')
+                e.preventDefault();
+            }
+        },
+        isAlphaNum(e){
+            let alphnum = /\w/;
+            let match = e.key.match(alphnum) ? true : false;
+            if (! match) {
+                alert('Letters/Numbers only!');
+                e.preventDefault();
+            }
+            if(e.key === 'Enter'){
+                e.preventDefault();
+            }
+        },
         ignChange(e){
-            let {value, className} = e.target;
+            let {id, value} = e.target;
             let data = {
                 field: 'name',
                 value,
                 archetype: this.archetype,
-                className
+                className: id
             }
             this.updateCharData(data)
         },
         levelChange(e){
-            let {value, className} = e.target;
+            let {id, value} = e.target;
+            let {archetype} = this;
+            value = parseInt(value);
+            if(isNaN(value)){
+                alert('Please enter numbers only!');
+                e.target.value = '0';
+                return
+            }
+            let rank = this.rankCheck(value);
+            console.log(rank)
+            let coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetype];
+            console.log(Ranks[rank])
+            console.log(coordinates)
             let data = {
                 field: 'level',
                 value,
-                archetype: this.archetype,
-                className
+                archetype,
+                className: id,
+                coordinates
             };
             this.updateCharData(data);
         },
-        preventEnter(e){
-            if(e.key === 'Enter'){
-                e.preventDefault()
+        rankCheck(level){
+            let rank;
+            console.log(level)
+            if(60 <= level && level < 100){
+                rank = 'B';
             }
+            else if (100 <= level && level < 140){
+               rank = 'A' 
+            }
+            else if (140 <= level && level < 200){
+                rank = 'S'
+            }
+            else if (200 <= level && level < 250){
+                rank = 'SS'
+            }
+            else {
+                rank = 'SSS'
+            }
+            return rank;
         }
-    }
+    },
 }
 </script>
 

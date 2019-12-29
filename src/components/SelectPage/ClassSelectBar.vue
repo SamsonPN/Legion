@@ -2,30 +2,36 @@
     <div id="ClassSelectBar">
         <div>  
             <span>Auto Fill Levels: </span>
-            <p @click="fillLevels">60</p> |
-            <p @click="fillLevels">100</p> |
-            <p @click="fillLevels">140</p> |
-            <p @click="fillLevels">200</p> |
-            <p @click="fillLevels">250</p>
+            <p @click="fillLevelHandler">60</p> |
+            <p @click="fillLevelHandler">100</p> |
+            <p @click="fillLevelHandler">140</p> |
+            <p @click="fillLevelHandler">200</p> |
+            <p @click="fillLevelHandler">250</p>
         </div>
         <button @click="saveChars">Save Characters</button>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 export default {
     name: "ClassSelectBar",
     methods: {
         ...mapActions(['saveCharData']),
+        ...mapMutations(['fillLevels']),
         saveChars(){
             let SaveChars = window.confirm('Save character data?')
             if(SaveChars){
                 this.saveCharData()
             }
         },
-        fillLevels(e){
-            alert(e.target.textContent)
+        fillLevelHandler(e){
+            let level = e.target.textContent;
+            let levelTextArea = document.getElementsByClassName('levelTextArea');
+            [...levelTextArea].forEach(textarea => {
+                textarea.value = level;
+            })
+            this.fillLevels(level);
         }
     }
 }
