@@ -1,14 +1,15 @@
 import Ranks from '../../components/SelectPage/ClassSelectRanks';
 const state = {
-    characters: {}
+    characters: {},
+    charInfo: {},
+    currentPreset: 1,
+    presets: []
 };
 
 const getters = {
     allCharacters: (state) => state.characters,
-    charInfo(){
-        let {Warrior, Magician, Bowman, Thief, Pirate} = state.characters;
-        return {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
-    }
+    charInfo: (state) => state.charInfo
+    
 };
 
 
@@ -56,11 +57,22 @@ const mutations = {
             }
         }
     },
-    setCharacters: (state, characters) => (state.characters = characters),
+    setCharacters: (state, characters) => {
+        let {Warrior, Magician, Bowman, Thief, Pirate} = characters;
+        state.characters = characters
+        state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
+    },
     updateCharData: (state, charInfo) => {
         let {field, value, className, archetype} = charInfo;
         state.characters[archetype][className][field] = value;
-    }
+        console.log(state.characters[archetype][className][field]);
+    },
+    updateCoordinates: (state, charInfo) => {
+        let { className, field, value } = charInfo;
+        let newCharInfo = {...state.charInfo};
+        newCharInfo[className][field] = value;
+        state.charInfo = newCharInfo;
+    },
 }
 
 export default {

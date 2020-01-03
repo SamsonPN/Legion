@@ -35,8 +35,8 @@ export default {
     }
     
     #WarriorSelect{ color: red; }
-    #MagicianSelect{ color: #1414ff; }
-    #BowmanSelect{ color: #90ee90; } 
-    #ThiefSelect{ color: #4e4ee4; }
+    #MagicianSelect{ color: #1414FF; }
+    #BowmanSelect{ color: #90EE90; } 
+    #ThiefSelect{ color: #4E4EE4; }
     #PirateSelect{ color: orange; }
 </style>

@@ -36,22 +36,24 @@ export default {
             e.currentTarget.style.border = '3px solid yellow';          
         },
         dragLeave(e){
-            e.currentTarget.style.border = '0.1px solid #FF22FF';
+            e.currentTarget.style.border = '1px solid #FF22FF';
         },
         dragDrop(e){
             let charInfo = JSON.parse(e.dataTransfer.getData("text"));
             let piece = document.getElementById(charInfo.id);
-            e.currentTarget.appendChild(piece);
-            e.currentTarget.style.border = '0.1px solid #FF22FF';
+            let mainPiece = piece.children[2].children[2];
+            let copy = piece.cloneNode(true);
+            e.currentTarget.appendChild(copy);
+            e.currentTarget.style.border = '1px solid #FF22FF';
             let {row, cell} = e.currentTarget.attributes;
             let legionrow = [...document.getElementsByClassName('LegionRow')];
             charInfo.coordinates.forEach(coordinate => {
                 let {x, y} = coordinate;
                 x += parseInt(cell.value);
                 y += parseInt(row.value);
-                if( y > 0 && y < 20 && 
-                    x > 0 && x < 22 ){
-                        legionrow[y].children[x].style.cssText = "background-color: red; border: none;";
+                if( y >= 0 && y < 20 && 
+                    x >= 0 && x < 22 ){
+                        legionrow[y].children[x].style.cssText = "background-color: red; border: 1px solid white;";
                 }
             })
             e.dataTransfer.clearData();
@@ -68,10 +70,10 @@ export default {
         max-width: $size * 22;
         display: flex;
         flex-direction: column;
-        // border: 1px solid black;
         margin-top: 3px;   
         background-color: rgba(21, 21, 21, 1);     
         opacity: 0.95;
+        z-index: 0;
     }
 
     .LegionRow {
@@ -83,8 +85,9 @@ export default {
         display: flex;
         width: $size;
         height: $size;
-        border: 0.1px solid #FF22FF;
-        position: relative;
+        border: 1px solid #FF22FF;
+        // position: relative;
+        border-radius: 3.5px;
     }
 
 

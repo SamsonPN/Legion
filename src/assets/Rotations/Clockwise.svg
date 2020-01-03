@@ -1,0 +1,11 @@
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px" viewBox="0 0 100 125">
+    <g transform="translate(0,-952.36218)">
+        <path style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;
+                     text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;
+                     word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;
+                     text-anchor:start;baseline-shift:baseline;opacity:1;color:#000000;fill:white;fill-opacity:1;
+                     stroke:none;stroke-width:3.99999951999999980;marker:none;visibility:visible;display:inline;
+                     overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" 
+              d="M 46 10 C 23.932299 10 6 27.93227 6 50 C 6 72.0677 23.932298 90 46 90 A 2.0001998 2.0001998 0 1 0 46 86 C 26.09406 86 10 69.9059 10 50 C 10 30.09403 26.094059 14 46 14 C 65.905941 14 82 30.09403 82 50 C 82 59.666343 78.1875 68.411719 72 74.875 L 72 57 A 2.0001999 2.0001999 0 0 0 69.78125 54.96875 A 2.0001999 2.0001999 0 0 0 68 57 L 68 79 A 2.0001999 2.0001999 0 0 0 70 81 L 92 81 A 2.0001999 2.0001999 0 1 0 92 77 L 75.5 77 C 82.013522 69.883947 86 60.39655 86 50 C 86 27.93227 68.067701 10 46 10 z " transform="translate(0,952.36218)"/>
+    </g>
+</svg>

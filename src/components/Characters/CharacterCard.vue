@@ -1,36 +1,43 @@
 <template>
   <div class="CharacterCard">
       <div>
-        <p>{{charName}}</p>
-        <p>{{charInfo.name}}</p>
-        <p>{{charInfo.level}}</p>
+        <p>Class: {{charName}}</p>
+        <p>Level: {{charInfo[charName].level}}</p>
+        <p>
+            Effect: Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p> 
       </div>
-      <!-- <p>Effect</p> MAYBE-->
       <div>
-        <LegionPiece :charInfo="charInfo" :charName="charName"/>
-      </div>
+        <LegionPiece :charName="charName" />
+        <CharacterRotation :charName="charName" />
+      </div> 
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import CharacterRotation from './CharacterRotation';
 import LegionPiece from '../Pieces/LegionPiece';
 
 export default {
     name: "CharacterCard",
     components: {
+        CharacterRotation,
         LegionPiece
     },
-    props: ['charInfo', 'charName']
+    props: ['charName'],
+    computed: mapGetters(['charInfo'])
 }
 </script>
 
 <style scoped lang="scss">
     .CharacterCard {
-        height: 25vh;
+        height: auto;
         width: 100%;
         position: relative;
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: column;
         background-color: rgba(0,0,0, 0.9);
         border: 1px solid white;
         border-radius: 20px;
@@ -39,15 +46,16 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            align-items: center;
             flex: 1;
             background: none;
             > p {
                 padding: 5px;
-                font-size: 1.5em;
-                text-align: center;
+                font-size: 1.1em;
                 flex: 1;
             }
+        }
+        > div:last-child {
+            align-items: center;
         }
     }
 </style>

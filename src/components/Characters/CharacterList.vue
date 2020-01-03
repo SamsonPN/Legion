@@ -3,9 +3,10 @@
         <div>
             <CharacterCard 
                 v-for="(character, name) in charInfo" 
-                :key="name" 
-                :charInfo="character" 
-                :charName="name"/>
+                :key="name"
+                :charInfo="{character, name}"
+                :charName="name"
+                />
         </div>
     </div>
 </template>
@@ -19,15 +20,7 @@ export default {
     components: {
         CharacterCard
     },
-    data() {
-        return {
-            cards: [...new Array(2)].map(( x, i) => i)
-        }
-    },
-    computed: mapGetters(['charInfo']),
-    mounted(){
-        console.log(this.charInfo)
-    }
+    computed: mapGetters(['charInfo'])
 }
 </script>
 
