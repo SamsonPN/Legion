@@ -1,5 +1,7 @@
 <template>
-  <div class="CharacterCard">
+  <div 
+      :id="charName + 'Card'"
+      class="CharacterCard">
       <div>
         <p>Class: {{charName}}</p>
         <p>Level: {{charInfo[charName].level}}</p>

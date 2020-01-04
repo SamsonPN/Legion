@@ -2,9 +2,7 @@
     <div 
     :id="charName + 'Piece'"
     class="piece"
-    draggable="true"
-    @dragstart="dragStart"
-    @dragend="dragEnd">
+    @click="highlightCard">
         <div
             class="pieceRow"       
             v-for="(row, index) in rows"
@@ -20,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'LegionPiece',
   props: ['charName'],
@@ -30,30 +28,47 @@ export default {
     } 
   },
   methods: {
-    dragStart(e){
-      let object = {
-        id: e.target.id,
-        coordinates: this.charInfo.coordinates
-      }
-      e.dataTransfer.setData("text/plain", JSON.stringify(object));
-    },
-    dragEnd(e){
-      e.dataTransfer.clearData();
-    },
+    ...mapMutations(['setCurrentCharacter', 'removeCurrentCharacter']),
     getImage(){
       let {charName} = this;
-      let newName;
       if(charName === 'Archmage Fire/Poison'){
-        newName = 'FP';
+        charName = 'FP';
       }
       else if (charName === 'Archmage Ice/Lightning'){
-        newName = 'IL';
+        charName = 'IL';
+      }
+      return require(`../../assets/ClassIcons/${charName}.png`);
+    },
+    highlightCard(e){
+      let {charName} = this;
+      let card = document.getElementById(this.charName + 'Card');
+      let toggled = card.getAttribute('toggled');
+      if(toggled){
+        this.removeCurrentCharacter();
+        card.style.cssText = "border: 1px solid white;";
+        card.removeAttribute('toggled');
       }
       else {
-        newName = charName;
+        this.removeAllHighlights();
+        this.setCurrentCharacter(charName)
+        card.style.cssText = "border: 5px solid yellow;";
+        card.setAttribute('toggled', true);
       }
-      return require(`../../assets/ClassIcons/${newName}.png`);
-    }
+    },
+    mapCoordinates(coordinates){
+      let piece = document.getElementById(this.charName + 'Piece');
+      coordinates.forEach(coordinate => {
+        let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
+        cell.classList.add('side');
+      })
+    },
+    removeAllHighlights(){
+      let cards = [...document.getElementsByClassName('CharacterCard')];
+      cards.forEach(card => {
+          card.style.cssText = "border: 1px solid white";
+          card.removeAttribute('toggled');
+      })
+    },
   },
   mounted(){
     let {charInfo, charName} = this;
@@ -68,19 +83,13 @@ export default {
     image.setAttribute('draggable', false);
     image.className = 'main';
     cell.appendChild(image);
-    character.coordinates.forEach(coordinate => {
-      let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
-      cell.classList.add('side');
-    })
+    this.mapCoordinates(character.coordinates);
   },
   computed: mapGetters(['charInfo']),
   updated(){
     let character = this.charInfo[this.charName];
     let piece = document.getElementById(this.charName + 'Piece');
-    character.coordinates.forEach(coordinate => {
-      let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
-      cell.classList.add('side');
-    })
+    this.mapCoordinates(character.coordinates)
   }
 }
 </script>
@@ -109,7 +118,6 @@ export default {
     display: flex;
     height: $size;
     width: $size;
-    // visibility: hidden;
     z-index: 0;
     border-radius: 3.5px;
       &[archetype="Warrior"]{ background-color: red; }

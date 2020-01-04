@@ -11,16 +11,15 @@
                 :key="cellIndex"
                 :row="rowIndex"
                 :cell="cellIndex"
-                @dragover.prevent="dragOver"
-                @dragenter="dragEnter"
-                @dragleave="dragLeave"
-                @drop="dragDrop">
+                @mouseover="highlightCells"
+                @mouseout="highlightCells">
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
     name: "Grid",
     data(){
@@ -30,35 +29,28 @@ export default {
         }
     },
     methods:{
-        dragOver(){
-        },
-        dragEnter(e){
-            e.currentTarget.style.border = '3px solid yellow';          
-        },
-        dragLeave(e){
-            e.currentTarget.style.border = '1px solid #FF22FF';
-        },
-        dragDrop(e){
-            let charInfo = JSON.parse(e.dataTransfer.getData("text"));
-            let piece = document.getElementById(charInfo.id);
-            let mainPiece = piece.children[2].children[2];
-            let copy = piece.cloneNode(true);
-            e.currentTarget.appendChild(copy);
-            e.currentTarget.style.border = '1px solid #FF22FF';
-            let {row, cell} = e.currentTarget.attributes;
-            let legionrow = [...document.getElementsByClassName('LegionRow')];
-            charInfo.coordinates.forEach(coordinate => {
-                let {x, y} = coordinate;
-                x += parseInt(cell.value);
-                y += parseInt(row.value);
-                if( y >= 0 && y < 20 && 
-                    x >= 0 && x < 22 ){
-                        legionrow[y].children[x].style.cssText = "background-color: red; border: 1px solid white;";
-                }
-            })
-            e.dataTransfer.clearData();
+        highlightCells(e){
+            let mouseover = e.type === 'mouseover' ? true : false;
+            if(this.currentCharacter){
+                let {coordinates} = this.currentCharacter;
+                let {row, cell} = e.target.attributes;
+                let legionrow = [...document.getElementsByClassName('LegionRow')];
+                row = parseInt(row.value);
+                cell = parseInt(cell.value);
+                legionrow[row].children[cell].style.cssText = mouseover ? 'border: 3px solid yellow' : 'border: 1px solid #FF22FF';
+                coordinates.forEach(coord => {
+                    let {x, y} = coord;
+                    x += cell;
+                    y += row;
+                    if( y >= 0 && y < 20 &&
+                        x >= 0 && x < 22){
+                            legionrow[y].children[x].style.cssText = mouseover ? 'border: 3px solid yellow' : 'border: 1px solid #FF22FF';
+                    }
+                })
+            }
         }
-    }
+    },
+    computed: mapGetters(['currentCharacter'])
 }
 </script>
 
