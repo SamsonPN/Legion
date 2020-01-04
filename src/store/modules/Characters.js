@@ -25,7 +25,7 @@ const actions = {
             })
             .catch(err => console.error(err))
     },
-    saveCharData({ commit, dispatch }){
+    saveCharData({ dispatch }){
         let {characters} = state;
         fetch('http://localhost:3000/characters/save', {
             method: 'POST',
@@ -37,6 +37,13 @@ const actions = {
         .then(() => {
             dispatch('fetchCharacters');
         })
+    },
+    updateAllCoordinates({ commit }, charInfo){
+        commit('updateCoordinates', charInfo);
+        let {currentCharacter} = state;
+        if(currentCharacter && currentCharacter.className === charInfo.className){
+            commit('updateCurrentCharCoords', charInfo.value);
+        }
     }
 }
 
@@ -78,6 +85,10 @@ const mutations = {
         let newCharInfo = {...state.charInfo};
         newCharInfo[className][field] = value;
         state.charInfo = newCharInfo;
+    },
+    updateCurrentCharCoords: (state, coordinates) => {
+        let currentCharCopy = {...state.currentCharacter, coordinates};
+        state.currentCharacter = currentCharCopy;
     }
 }
 

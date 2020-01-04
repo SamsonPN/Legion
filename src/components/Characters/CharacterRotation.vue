@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     name: "CharacterRotation",
     props: ['charName'],
     methods: {
-        ...mapMutations(['updateCoordinates']),
+        ...mapActions(['updateAllCoordinates']),
         rotateClockwise(){
             let piece = document.getElementById(this.charName + 'Piece');
             let {coordinates} = this.charInfo[this.charName];
@@ -29,7 +29,7 @@ export default {
                 field: 'coordinates',
                 value: rotatedCoords
             }
-            this.updateCoordinates(charInfo);
+            this.updateAllCoordinates(charInfo);
         },
         rotateCounterClockwise(){
             let piece = document.getElementById(this.charName + 'Piece');
@@ -46,7 +46,7 @@ export default {
                 field: 'coordinates',
                 value: rotatedCoords
             }
-            this.updateCoordinates(charInfo);
+            this.updateAllCoordinates(charInfo);
         },
         mirrorX(){
             let piece = document.getElementById(this.charName + 'Piece');
@@ -62,7 +62,7 @@ export default {
                 field: 'coordinates',
                 value: rotatedCoords
             }
-            this.updateCoordinates(charInfo);
+            this.updateAllCoordinates(charInfo);
         },
         mirrorY(){
             let piece = document.getElementById(this.charName + 'Piece');
@@ -78,7 +78,7 @@ export default {
                 field: 'coordinates',
                 value: rotatedCoords
             }
-            this.updateCoordinates(charInfo);
+            this.updateAllCoordinates(charInfo);
         }
     },
     computed: mapGetters(['charInfo'])
