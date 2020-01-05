@@ -43,6 +43,7 @@ export default {
         background-color: rgba(0,0,0, 0.9);
         border: 1px solid white;
         border-radius: 20px;
+        z-index: 0;
         > div {
             position: relative;
             display: flex;
@@ -50,6 +51,7 @@ export default {
             justify-content: space-around;
             flex: 1;
             background: none;
+            z-index: 0;
             > p {
                 padding: 5px;
                 font-size: 1.1em;

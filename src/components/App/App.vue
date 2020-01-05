@@ -13,9 +13,10 @@
      components: {
        Header
      },
-    methods: mapActions(['fetchCharacters']),
+    methods: mapActions(['fetchCharacters', 'fetchPresets']),
     created(){
       this.fetchCharacters();
+      this.fetchPresets();
     }
    }
  </script>

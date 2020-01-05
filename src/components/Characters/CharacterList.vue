@@ -1,6 +1,6 @@
 <template>
     <div id="CharacterList">
-        <div>
+        <div id="CardContainer">
             <CharacterCard 
                 v-for="(character, name) in charInfo" 
                 :key="name"
@@ -36,6 +36,7 @@ export default {
         color: white;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        z-index: 0;
          > div {
             overflow: auto;
             height: 100%;

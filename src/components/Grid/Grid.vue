@@ -11,17 +11,26 @@
                 :key="cellIndex"
                 :row="rowIndex"
                 :cell="cellIndex"
+                @click="insertPiece(rowIndex, cellIndex)"
                 @mouseover="highlightCells"
                 @mouseout="highlightCells">
+                    <GridPiece 
+                        v-if="((currentPreset || {})['characters'] || {})[rowIndex * 22 + cellIndex]" 
+                        :charInfo="currentPreset['characters'][rowIndex * 22 + cellIndex]"
+                        :position="{rowIndex, cellIndex}"/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import GridPiece from './GridPiece';
+import { mapActions, mapGetters } from 'vuex';
 export default {
     name: "Grid",
+    components: {
+        GridPiece
+    },
     data(){
         return {
             rows: [...new Array(20)].map((x, i) => i),
@@ -29,6 +38,7 @@ export default {
         }
     },
     methods:{
+        ...mapActions(['updatePreset']),
         highlightCells(e){
             let mouseover = e.type === 'mouseover' ? true : false;
             if(this.currentCharacter){
@@ -48,9 +58,13 @@ export default {
                     }
                 })
             }
+        },
+        insertPiece(row, cell){
+            let position = (row * 22) + cell;
+            this.updatePreset(position);
         }
     },
-    computed: mapGetters(['currentCharacter'])
+    computed: mapGetters(['currentCharacter', 'currentPreset'])
 }
 </script>
 
@@ -64,7 +78,6 @@ export default {
         flex-direction: column;
         margin-top: 3px;   
         background-color: rgba(21, 21, 21, 1);     
-        opacity: 0.95;
         z-index: 0;
     }
 
@@ -78,7 +91,6 @@ export default {
         width: $size;
         height: $size;
         border: 1px solid #FF22FF;
-        // position: relative;
         border-radius: 3.5px;
     }
 

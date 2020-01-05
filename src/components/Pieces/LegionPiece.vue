@@ -41,18 +41,21 @@ export default {
     },
     highlightCard(e){
       let {charName} = this;
+      let cardList = document.getElementById('CardContainer');
       let card = document.getElementById(this.charName + 'Card');
       let toggled = card.getAttribute('toggled');
       if(toggled){
         this.removeCurrentCharacter();
         card.style.cssText = "border: 1px solid white;";
         card.removeAttribute('toggled');
+        // cardList.style.cssText = "overflow: auto;";
       }
       else {
         this.removeAllHighlights();
         this.setCurrentCharacter(charName)
         card.style.cssText = "border: 5px solid yellow;";
         card.setAttribute('toggled', true);
+        // cardList.style.cssText = "overflow: hidden";
       }
     },
     mapCoordinates(coordinates){
@@ -73,10 +76,10 @@ export default {
   mounted(){
     let {charInfo, charName} = this;
     let character = charInfo[charName];
-    let icon = this.getImage();
     let piece = document.getElementById(charName + 'Piece');
     let cell = piece.children[2].children[2];
     let image = document.createElement('img');
+    let icon = this.getImage();
     cell.classList.add('main');
     image.src = icon;
     image.style.cssText = "position: absolute; top: 0; max-width: 100%;";
