@@ -28,12 +28,10 @@ export default {
         // },
         ...mapMutations(['setCurrentCharacter']),
         fillCoordinateColors(style){
-            // let {archetype, coordinates} = this.charInfo;
             let {rowIndex, cellIndex} = this.position;
             let position = (rowIndex * 22) + cellIndex;
             let {className, coordinates, archetype} = this.currentPreset[position];
             let legionrow = [...document.getElementsByClassName('LegionRow')]; 
-            legionrow[rowIndex].children[cellIndex].style.cssText = style;
             coordinates.forEach(coord => {
                 let {x, y} = coord;
                 x += cellIndex;
@@ -57,10 +55,29 @@ export default {
             let {rowIndex, cellIndex} = this.position;
             let position = (rowIndex * 22) + cellIndex;
             let {className, coordinates, archetype} = this.currentPreset[position];
-            // let {archetype} = this.charInfo;
-            let mouseover = e.type === 'mouseover' ? true: false;
-            let style = mouseover ? 'border: 4px dashed yellow' : 'border: 1px solid white';
-            this.fillCoordinateColors(style);
+            let mouseover = (e.type === 'mouseover');
+            let legionrow = [...document.getElementsByClassName('LegionRow')]; 
+            if(mouseover){
+                legionrow[rowIndex].children[cellIndex].setAttribute('highlighted', true);
+            }
+            else {
+                legionrow[rowIndex].children[cellIndex].removeAttribute('highlighted');
+            }
+            coordinates.forEach(coord => {
+                let {x, y} = coord;
+                x += cellIndex;
+                y += rowIndex;
+                if( y >= 0 && y < 20 &&
+                    x >= 0 && x < 22){
+                        if(mouseover){
+                            legionrow[y].children[x].setAttribute('highlighted', true);
+                        }
+                        else {
+                            legionrow[y].children[x].removeAttribute('highlighted');
+                        }
+                }
+            }) 
+
         },
         scrollToCard(e){
             e.stopPropagation();
@@ -76,7 +93,6 @@ export default {
         }
     },
     mounted(){
-        // let {className, coordinates, archetype} = this.charInfo;
         let {rowIndex, cellIndex} = this.position;
         let position = (rowIndex * 22) + cellIndex;
         let {className, coordinates, archetype} = this.currentPreset[position];

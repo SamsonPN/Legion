@@ -14,10 +14,6 @@
                 @click="insertPiece(rowIndex, cellIndex)"
                 @mouseover="highlightCells"
                 @mouseout="highlightCells">
-                    <!-- <GridPiece 
-                        v-if="((currentPreset || {})['characters'] || {})[rowIndex * 22 + cellIndex]" 
-                        :charInfo="currentPreset['characters'][rowIndex * 22 + cellIndex]"
-                        :position="{rowIndex, cellIndex}"/> -->
                     <GridPiece 
                         v-if="(currentPreset || {})[rowIndex * 22 + cellIndex]" 
                         :charInfo="currentPreset[rowIndex * 22 + cellIndex]"
@@ -44,21 +40,31 @@ export default {
     methods:{
         ...mapActions(['updatePreset']),
         highlightCells(e){
-            let mouseover = e.type === 'mouseover' ? true : false;
+            let mouseover = (e.type === 'mouseover')
             if(this.currentCharacter && e.target.nodeName !== "IMG"){
                 let {coordinates} = this.currentCharacter;
                 let {row, cell} = e.target.attributes;
                 let legionrow = [...document.getElementsByClassName('LegionRow')];
                 row = parseInt(row.value);
                 cell = parseInt(cell.value);
-                legionrow[row].children[cell].style.cssText = mouseover ? 'border: 3px solid yellow' : 'border: 1px solid #FF22FF';
+                if(mouseover){
+                    legionrow[row].children[cell].setAttribute('highlighted', true);
+                }
+                else {
+                    legionrow[row].children[cell].removeAttribute('highlighted');
+                }
                 coordinates.forEach(coord => {
                     let {x, y} = coord;
                     x += cell;
                     y += row;
                     if( y >= 0 && y < 20 &&
                         x >= 0 && x < 22){
-                            legionrow[y].children[x].style.cssText = mouseover ? 'border: 3px solid yellow' : 'border: 1px solid #FF22FF';
+                            if(mouseover){
+                                legionrow[y].children[x].setAttribute('highlighted', true);
+                            }
+                            else {
+                                legionrow[y].children[x].removeAttribute('highlighted');
+                            }
                     }
                 })
             }
@@ -127,7 +133,11 @@ export default {
                 color: white;
             }
         }
+        &[highlighted="true"]{
+            border: 3px dashed yellow;
+        }
     }
+
 
 
 </style>
