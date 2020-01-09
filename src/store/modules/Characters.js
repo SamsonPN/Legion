@@ -45,28 +45,39 @@ const actions = {
             })
             .catch(err => console.error(err))
     },
-    fetchPresets({ commit }){
+    fetchPresets({ commit, dispatch }){
         fetch('http://localhost:3000/characters/presets')
             .then(res => res.json())
             .then(data => {
                 commit('setPresets', data);
                 if(data.length > 0){
                     commit('setCurrentPreset', data[0]);
+                    dispatch('updateCharInfo', 1);
                 }
             })
     },
     removeSidePieces({ commit }, coordinates){
-        let {rowIndex, cellIndex} = state.currentCharacter.position;
-        let legionrow = [...document.getElementsByClassName('LegionRow')];
-        coordinates.forEach(coord => {
-            let {x, y} = coord;
-            x += cellIndex;
-            y += rowIndex;
-            if( y >= 0 && y < 20 &&
-                x >= 0 && x < 22){
-                    legionrow[y].children[x].removeAttribute('archetype');
-            }
-
+        if(state.currentCharacter.position){
+            let {rowIndex, cellIndex} = state.currentCharacter.position;
+            let legionrow = [...document.getElementsByClassName('LegionRow')];
+            coordinates.forEach(coord => {
+                let {x, y} = coord;
+                x += cellIndex;
+                y += rowIndex;
+                if( y >= 0 && y < 20 &&
+                    x >= 0 && x < 22){
+                        legionrow[y].children[x].removeAttribute('archetype');
+                }
+    
+            })
+        }
+    },
+    removeSideClass({ commit }, charInfo){
+        let {className, coordinates} = charInfo;
+        let piece = document.getElementById(className + 'Piece');
+        coordinates.forEach(coordinate => {
+          let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
+          cell.classList.remove('side');
         })
     },
     saveCharData({ dispatch }){
@@ -95,16 +106,27 @@ const actions = {
         }
         commit('updateCoordinates', charInfo);
     },
+    updateCharInfo({ commit, dispatch }, preset){
+        let charInfo = {...state.charInfo};
+        let {characters} = state.presets[preset - 1];
+        for(let position in characters){
+            let {className, coordinates} = characters[position];
+            dispatch('removeSideClass', {...charInfo[className], className});
+            charInfo[className].coordinates = coordinates;
+            document.getElementById(className + 'Piece').setAttribute('draggable', false);
+        }
+        commit('updateCharInfo', charInfo)
+    },
     updatePreset({ commit }, position){
         let {currentCharacter, currentPreset} = state;
         if(currentCharacter){
-            let duplicate = duplicatePresetChecker(state);
+            // let duplicate = duplicatePresetChecker(state);
             if(currentPreset[position]){
                 alert('This position is already occupied!')
             }
-            else if (duplicate){
-                alert('This piece is already on the board')
-            }
+            // else if (duplicate){
+            //     alert('This piece is already on the board')
+            // }
             else {
                 commit('addToPreset', position);
                 commit('removeCurrentCharacter');
@@ -146,7 +168,6 @@ const mutations = {
     setCurrentCharacter: (state, currentChar) => {
         let {className, position} = currentChar;
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};
-        console.log(state.currentCharacter);
     },
     setCurrentPreset: (state, preset) => { 
         // state.currentPreset = preset
@@ -156,6 +177,9 @@ const mutations = {
     updateCharData: (state, charInfo) => {
         let {field, value, className, archetype} = charInfo;
         state.characters[archetype][className][field] = value;
+    },
+    updateCharInfo: (state, charInfo) => {
+        state.charInfo = charInfo;
     },
     updateCoordinates: (state, charInfo) => {
         let { className, field, value } = charInfo;
@@ -175,7 +199,7 @@ const mutations = {
         // currentPresetCopy[(rowIndex * 22) + cellIndex].coordinates = coordinates;
         // currentPresetCopy[(rowIndex * 22) + cellIndex] = {...currentPresetCopy[(rowIndex * 22) + cellIndex], coordinates};
         // state.currentPreset = currentPresetCopy;
-    }
+    },
 }
 
 export default {

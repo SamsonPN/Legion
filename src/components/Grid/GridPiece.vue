@@ -1,12 +1,14 @@
 <template>
-    <div>
+    <div
+        draggable="true"
+        @dragstart="dragStart"
+        @click="scrollToCard">
         <img
             :id="charInfo.className + 'Image'"
-            @click="scrollToCard"
-            @mouseover="highlightPiece"
-            @mouseleave="highlightPiece"
             ref="GridPieceImg" 
             src=""
+            @mouseover="highlightPiece"
+            @mouseleave="highlightPiece"
             alt="GP">
         <!-- <ul ref="GridMenu">
             <li>Move</li>
@@ -21,12 +23,13 @@ export default {
     name: "GridPiece",
     props: ['charInfo', 'position'],
     methods: {
-        // dragStart(e){
-        //     console.log(this.charInfo.className);
-        //     let piece = document.getElementById(this.charInfo.className + 'Piece');
-        //     e.dataTransfer.setDragImage(piece, 80, 80);
-        // },
         ...mapMutations(['setCurrentCharacter']),
+        dragStart(e){
+            let {className} = this.charInfo;
+            let piece = document.getElementById(className + 'Piece');
+            e.dataTransfer.setDragImage(piece, 80, 80);
+            this.scrollToCard(e)
+        },
         fillCoordinateColors(style){
             let {rowIndex, cellIndex} = this.position;
             let position = (rowIndex * 22) + cellIndex;
@@ -82,8 +85,14 @@ export default {
         scrollToCard(e){
             e.stopPropagation();
             let {className} = this.charInfo;
+            let piece = document.getElementById(className + 'Piece');
             document.getElementById(className + 'Card').scrollIntoView();
-            document.getElementById(className + 'Piece').click();
+            let doubleClick = new MouseEvent('dblclick', {
+                'view': window,
+                'bubbles': true,
+                'cancelable': true,
+            });
+            document.getElementById(className + 'Piece').dispatchEvent(doubleClick);
             let currentChar = {
                 className,
                 position: this.position

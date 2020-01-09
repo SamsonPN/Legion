@@ -2,7 +2,10 @@
     <div 
     :id="charName + 'Piece'"
     class="piece"
-    @click="highlightCard">
+    draggable="true"
+    @dblclick="highlightCard"
+    @dragstart="highlightCard"
+    @dragend="highlightCard">
         <div
             class="pieceRow"       
             v-for="(row, index) in rows"
@@ -48,7 +51,6 @@ export default {
         this.removeCurrentCharacter();
         card.style.cssText = "border: 1px solid white;";
         card.removeAttribute('toggled');
-        // cardList.style.cssText = "overflow: auto;";
       }
       else {
         let currentChar = {
@@ -59,10 +61,10 @@ export default {
         this.setCurrentCharacter(currentChar)
         card.style.cssText = "border: 5px solid yellow;";
         card.setAttribute('toggled', true);
-        // cardList.style.cssText = "overflow: hidden";
       }
     },
     mapCoordinates(coordinates){
+      // console.log({[this.charName]: coordinates});
       let piece = document.getElementById(this.charName + 'Piece');
       coordinates.forEach(coordinate => {
         let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
@@ -75,7 +77,7 @@ export default {
           card.style.cssText = "border: 1px solid white";
           card.removeAttribute('toggled');
       })
-    },
+    }
   },
   mounted(){
     let {charInfo, charName} = this;
@@ -96,7 +98,12 @@ export default {
   updated(){
     let character = this.charInfo[this.charName];
     let piece = document.getElementById(this.charName + 'Piece');
-    this.mapCoordinates(character.coordinates)
+    let CardSelected = document.getElementById(this.charName + 'Selected');
+    let draggable = piece.getAttribute('draggable');
+    this.mapCoordinates(character.coordinates);
+    if(draggable === 'false'){
+      CardSelected.style.display = 'block';
+    }
   }
 }
 </script>
@@ -110,9 +117,6 @@ export default {
     display: flex;
     flex-direction: column;
     border-collapse: collapse;
-    // transform: translate( 0%, 0%);
-    // top: 50;
-    // left: 50;
     background: none;
     > .pieceRow {
       display: flex;

@@ -9,11 +9,16 @@
             Effect: Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p> 
+        <img 
+            :id="charName + 'Selected'" 
+            src="../../assets/maple-leaf.svg" 
+            alt="Maple Leaf"
+            title="This piece is already on the board"/> 
       </div>
       <div>
         <LegionPiece :charName="charName" />
         <CharacterRotation :charName="charName" />
-      </div> 
+      </div>
   </div>
 </template>
 
@@ -61,5 +66,14 @@ export default {
         > div:last-child {
             align-items: center;
         }
+    }
+    
+    img{
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
     }
 </style>

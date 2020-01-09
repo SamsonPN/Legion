@@ -11,14 +11,17 @@
                 :key="cellIndex"
                 :row="rowIndex"
                 :cell="cellIndex"
-                @click="insertPiece(rowIndex, cellIndex)"
-                @mouseover="highlightCells"
-                @mouseout="highlightCells">
+                @dragover.prevent="highlightCells"
+                @dragleave="highlightCells"
+                @drop="insertPiece(rowIndex, cellIndex, $event)">
                     <GridPiece 
                         v-if="(currentPreset || {})[rowIndex * 22 + cellIndex]" 
                         :charInfo="currentPreset[rowIndex * 22 + cellIndex]"
                         :position="{rowIndex, cellIndex}"/>
             </div>
+                <!-- @click="insertPiece(rowIndex, cellIndex)"
+                @mouseover="highlightCells"
+                @mouseout="highlightCells" -->
         </div>
     </div>
 </template>
@@ -40,14 +43,14 @@ export default {
     methods:{
         ...mapActions(['updatePreset']),
         highlightCells(e){
-            let mouseover = (e.type === 'mouseover')
+            let dragover = (e.type === 'dragover');
             if(this.currentCharacter && e.target.nodeName !== "IMG"){
                 let {coordinates} = this.currentCharacter;
                 let {row, cell} = e.target.attributes;
                 let legionrow = [...document.getElementsByClassName('LegionRow')];
                 row = parseInt(row.value);
                 cell = parseInt(cell.value);
-                if(mouseover){
+                if(dragover){
                     legionrow[row].children[cell].setAttribute('highlighted', true);
                 }
                 else {
@@ -59,7 +62,7 @@ export default {
                     y += row;
                     if( y >= 0 && y < 20 &&
                         x >= 0 && x < 22){
-                            if(mouseover){
+                            if(dragover){
                                 legionrow[y].children[x].setAttribute('highlighted', true);
                             }
                             else {
@@ -69,9 +72,10 @@ export default {
                 })
             }
         },
-        insertPiece(row, cell){
+        insertPiece(row, cell, e){
             let position = (row * 22) + cell;
             this.updatePreset(position);
+            this.highlightCells(e);
         }
     },
     computed: mapGetters(['currentCharacter', 'currentPreset'])
