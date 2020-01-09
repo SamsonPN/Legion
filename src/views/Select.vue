@@ -25,6 +25,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../variables.scss';
+
     #Select{
         min-height: 100vh;
         width: 100%;
@@ -34,9 +36,9 @@ export default {
         justify-content: space-around;
     }
     
-    #WarriorSelect{ color: red; }
-    #MagicianSelect{ color: #1414FF; }
-    #BowmanSelect{ color: #90EE90; } 
-    #ThiefSelect{ color: #4E4EE4; }
-    #PirateSelect{ color: orange; }
+    #WarriorSelect{ color: $warrior }
+    #MagicianSelect{ color: $magician; }
+    #BowmanSelect{ color: $bowman; } 
+    #ThiefSelect{ color: $thief; }
+    #PirateSelect{ color: $pirate; }
 </style>

@@ -13,10 +13,11 @@ export default {
     name: "CharacterRotation",
     props: ['charName'],
     methods: {
-        ...mapActions(['updateAllCoordinates']),
+        ...mapActions(['removeSidePieces', 'updateAllCoordinates']),
         rotateClockwise(){
             let piece = document.getElementById(this.charName + 'Piece');
             let {coordinates} = this.charInfo[this.charName];
+            this.removeSidePieces(coordinates);
             let rotatedCoords = coordinates.map(coord => {
                 let cell = piece.children[coord.y + 2].children[coord.x + 2];
                 cell.classList.remove('side');
@@ -34,6 +35,7 @@ export default {
         rotateCounterClockwise(){
             let piece = document.getElementById(this.charName + 'Piece');
             let {coordinates} = this.charInfo[this.charName];
+            this.removeSidePieces(coordinates);
             let rotatedCoords = coordinates.map(coord => {
                 let cell = piece.children[coord.y + 2].children[coord.x + 2];
                 cell.classList.remove('side');
@@ -51,6 +53,7 @@ export default {
         mirrorX(){
             let piece = document.getElementById(this.charName + 'Piece');
             let {coordinates} = this.charInfo[this.charName];
+            this.removeSidePieces(coordinates);
             let rotatedCoords = coordinates.map(coord => {
                 let cell = piece.children[coord.y + 2].children[coord.x + 2];
                 cell.classList.remove('side');
@@ -67,6 +70,7 @@ export default {
         mirrorY(){
             let piece = document.getElementById(this.charName + 'Piece');
             let {coordinates} = this.charInfo[this.charName];
+            this.removeSidePieces(coordinates);
             let rotatedCoords = coordinates.map(coord => {
                 let cell = piece.children[coord.y + 2].children[coord.x + 2];
                 cell.classList.remove('side');

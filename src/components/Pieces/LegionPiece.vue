@@ -51,8 +51,12 @@ export default {
         // cardList.style.cssText = "overflow: auto;";
       }
       else {
+        let currentChar = {
+          className: charName,
+          position: false
+        };
         this.removeAllHighlights();
-        this.setCurrentCharacter(charName)
+        this.setCurrentCharacter(currentChar)
         card.style.cssText = "border: 5px solid yellow;";
         card.setAttribute('toggled', true);
         // cardList.style.cssText = "overflow: hidden";
@@ -98,18 +102,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  $size: 30px;
+  @import '../../variables.scss';
 
   .piece {
-    // position: absolute;
     width: auto;
     height: auto;
     display: flex;
     flex-direction: column;
     border-collapse: collapse;
-    transform: translate( 0%, 0%);
-    top: 50;
-    left: 50;
+    // transform: translate( 0%, 0%);
+    // top: 50;
+    // left: 50;
     background: none;
     > .pieceRow {
       display: flex;
@@ -123,11 +126,11 @@ export default {
     width: $size;
     z-index: 0;
     border-radius: 3.5px;
-      &[archetype="Warrior"]{ background-color: red; }
-      &[archetype="Magician"]{ background-color: #1414FF; }
-      &[archetype="Bowman"]{ background-color: #90EE90; }
-      &[archetype="Thief"]{ background-color: #4E4EE4; }
-      &[archetype="Pirate"]{ background-color: orange; }
+    &[archetype="Warrior"]{ background-color: $warrior; }
+    &[archetype="Magician"]{ background-color: $magician; }
+    &[archetype="Bowman"]{ background-color: $bowman; }
+    &[archetype="Thief"]{ background-color: $thief; }
+    &[archetype="Pirate"]{ background-color: $pirate; }
   }
 
   .main, .side{
@@ -136,7 +139,6 @@ export default {
     border: 0.5px solid white;
     cursor: pointer;
   }
-
 
   .main{
     background: none;

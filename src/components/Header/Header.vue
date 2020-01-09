@@ -20,7 +20,6 @@ export default {
 <style scoped lang="scss">
     header {
         width: 100%;
-        // height: 10vh;
         height: auto;
         display: flex;
         justify-content: space-between;

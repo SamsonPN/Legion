@@ -10,11 +10,9 @@ const state = {
 
 function duplicatePresetChecker(state){
     let {currentCharacter, currentPreset} = state;
-    console.log(currentCharacter.name)
-    let {characters} = currentPreset;
     let duplicate = false;
-    for(let position in characters){
-        if(characters[position].className === currentCharacter.className){
+    for(let position in currentPreset){
+        if(currentPreset[position].className === currentCharacter.className){
             duplicate = true;
             break;
         }
@@ -26,7 +24,9 @@ const getters = {
     allCharacters: (state) => state.characters,
     charInfo: (state) => state.charInfo,
     currentCharacter: (state) => state.currentCharacter,
-    currentPreset: (state) => state.currentPreset
+    currentPreset: (state) => {
+        return state.currentPreset
+    }
 };
 
 const actions = {
@@ -55,6 +55,20 @@ const actions = {
                 }
             })
     },
+    removeSidePieces({ commit }, coordinates){
+        let {rowIndex, cellIndex} = state.currentCharacter.position;
+        let legionrow = [...document.getElementsByClassName('LegionRow')];
+        coordinates.forEach(coord => {
+            let {x, y} = coord;
+            x += cellIndex;
+            y += rowIndex;
+            if( y >= 0 && y < 20 &&
+                x >= 0 && x < 22){
+                    legionrow[y].children[x].removeAttribute('archetype');
+            }
+
+        })
+    },
     saveCharData({ dispatch }){
         let {characters} = state;
         fetch('http://localhost:3000/characters/save', {
@@ -72,17 +86,20 @@ const actions = {
         //call a fetch request to save a preset here
     },
     updateAllCoordinates({ commit, dispatch }, charInfo){
-        commit('updateCoordinates', charInfo);
         let {currentCharacter} = state;
         if(currentCharacter && currentCharacter.className === charInfo.className){
             commit('updateCurrentCharCoords', charInfo.value);
+            if(currentCharacter.position){
+                commit('updatePresetCoords', charInfo.value);
+            }
         }
+        commit('updateCoordinates', charInfo);
     },
     updatePreset({ commit }, position){
         let {currentCharacter, currentPreset} = state;
         if(currentCharacter){
             let duplicate = duplicatePresetChecker(state);
-            if(currentPreset.characters[position]){
+            if(currentPreset[position]){
                 alert('This position is already occupied!')
             }
             else if (duplicate){
@@ -99,7 +116,7 @@ const actions = {
 const mutations = {
     addToPreset: (state, position) => {
         let currentPresetCopy = {...state.currentPreset};
-        currentPresetCopy.characters[position] = state.currentCharacter;
+        currentPresetCopy[position] = state.currentCharacter;
         state.currentPreset = currentPresetCopy;
     },
     fillLevels: (state, level) => {
@@ -126,11 +143,15 @@ const mutations = {
         state.characters = characters
         state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
     },
-    setCurrentCharacter: (state, charName) => {
-        state.currentCharacter = {...state.charInfo[charName], ...{className: charName}};
-        console.log(state.currentCharacter)
+    setCurrentCharacter: (state, currentChar) => {
+        let {className, position} = currentChar;
+        state.currentCharacter = {...state.charInfo[className], ...{className, position}};
+        console.log(state.currentCharacter);
     },
-    setCurrentPreset: (state, preset) => { state.currentPreset = preset },
+    setCurrentPreset: (state, preset) => { 
+        // state.currentPreset = preset
+        state.currentPreset = preset.characters;
+     },
     setPresets: (state, presets) => { state.presets = presets },
     updateCharData: (state, charInfo) => {
         let {field, value, className, archetype} = charInfo;
@@ -145,6 +166,15 @@ const mutations = {
     updateCurrentCharCoords: (state, coordinates) => {
         let currentCharCopy = {...state.currentCharacter, coordinates};
         state.currentCharacter = currentCharCopy;
+    },
+    updatePresetCoords: (state, coordinates) => {
+        let {rowIndex, cellIndex} = state.currentCharacter.position;
+        let currentChar = {...state.currentCharacter, coordinates};
+        state.currentPreset = {...state.currentPreset, [(rowIndex * 22) + cellIndex]: currentChar};
+        // let currentPresetCopy = {...state.currentPreset};
+        // currentPresetCopy[(rowIndex * 22) + cellIndex].coordinates = coordinates;
+        // currentPresetCopy[(rowIndex * 22) + cellIndex] = {...currentPresetCopy[(rowIndex * 22) + cellIndex], coordinates};
+        // state.currentPreset = currentPresetCopy;
     }
 }
 
