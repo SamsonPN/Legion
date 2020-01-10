@@ -2,27 +2,23 @@
     <div
         draggable="true"
         @dragstart="dragStart"
-        @click="scrollToCard">
+        @click="scrollToCard"
+        @mousedown="removePiece">
         <img
             :id="charInfo.className + 'Image'"
             ref="GridPieceImg" 
             src=""
-            @mouseover="highlightPiece"
-            @mouseleave="highlightPiece"
             alt="GP">
-        <!-- <ul ref="GridMenu">
-            <li>Move</li>
-            <li>Delete</li>
-        </ul> -->
     </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations} from 'vuex';
+import { mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
     name: "GridPiece",
     props: ['charInfo', 'position'],
     methods: {
+        ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
         dragStart(e){
             let {className} = this.charInfo;
@@ -81,6 +77,23 @@ export default {
                 }
             }) 
 
+        },
+        activateDraggablePiece(className){
+            document.getElementById(className + 'Piece').setAttribute('draggable', true);
+            document.getElementById(className + 'Selected').style.display = "none";
+        },
+        removePiece(e){
+            let mouseEvent = e.which;
+            let rightClick = 3;
+            if(mouseEvent === rightClick){
+                let {className} = this.charInfo;
+                let charInfo = {
+                    position: this.position,
+                    className
+                }
+                this.removeGridPiece(charInfo);
+                this.activateDraggablePiece(className)
+            }
         },
         scrollToCard(e){
             e.stopPropagation();
@@ -146,22 +159,5 @@ export default {
     img{
         max-width: 100%;
         cursor: pointer;
-    }
-
-    ul{
-        height: 75px;
-        width: 75px;
-        display: none;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        position: absolute;
-        background-color: red;
-        border-radius: 5px;
-        > li {
-            color: white;
-            list-style: none;
-            cursor: pointer;
-        }
     }
 </style>

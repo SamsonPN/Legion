@@ -20,8 +20,7 @@
                         :position="{rowIndex, cellIndex}"/>
             </div>
                 <!-- @click="insertPiece(rowIndex, cellIndex)"
-                @mouseover="highlightCells"
-                @mouseout="highlightCells" -->
+                -->
         </div>
     </div>
 </template>
@@ -75,7 +74,10 @@ export default {
         insertPiece(row, cell, e){
             let position = (row * 22) + cell;
             this.updatePreset(position);
-            this.highlightCells(e);
+            let legioncell = [...document.getElementsByClassName('LegionCell')];
+            legioncell.forEach(cell => {
+                cell.removeAttribute('highlighted')
+            })
         }
     },
     computed: mapGetters(['currentCharacter', 'currentPreset'])

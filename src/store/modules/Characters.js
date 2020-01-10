@@ -52,9 +52,17 @@ const actions = {
                 commit('setPresets', data);
                 if(data.length > 0){
                     commit('setCurrentPreset', data[0]);
-                    dispatch('updateCharInfo', 1);
+                    dispatch('updateCharInfo', state.currentPreset);
                 }
             })
+    },
+    removeGridPiece({ commit, dispatch }, charInfo){
+        let {rowIndex, cellIndex}= charInfo.position;
+        let position = (rowIndex * 22) + cellIndex;
+        commit('setCurrentCharacter', charInfo);
+        dispatch('removeSidePieces', state.currentPreset[position].coordinates);
+        commit('removeOldPosition', position);
+        commit('removeCurrentCharacter');
     },
     removeSidePieces({ commit }, coordinates){
         if(state.currentCharacter.position){
@@ -68,7 +76,6 @@ const actions = {
                     x >= 0 && x < 22){
                         legionrow[y].children[x].removeAttribute('archetype');
                 }
-    
             })
         }
     },
@@ -108,9 +115,8 @@ const actions = {
     },
     updateCharInfo({ commit, dispatch }, preset){
         let charInfo = {...state.charInfo};
-        let {characters} = state.presets[preset - 1];
-        for(let position in characters){
-            let {className, coordinates} = characters[position];
+        for(let position in preset){
+            let {className, coordinates} = preset[position];
             dispatch('removeSideClass', {...charInfo[className], className});
             charInfo[className].coordinates = coordinates;
             document.getElementById(className + 'Piece').setAttribute('draggable', false);
@@ -159,8 +165,7 @@ const mutations = {
         }
     },
     removeCurrentCharacter: (state) => { state.currentCharacter = false; },
-    removeOldPosition: (state, oldPosition) => { 
-        console.log(state.currentPreset[oldPosition]) 
+    removeOldPosition: (state, oldPosition) => {  
         let currentPresetCopy = {...state.currentPreset};
         delete currentPresetCopy[oldPosition];
         state.currentPreset = currentPresetCopy;
