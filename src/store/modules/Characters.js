@@ -117,17 +117,16 @@ const actions = {
         }
         commit('updateCharInfo', charInfo)
     },
-    updatePreset({ commit }, position){
+    updatePreset({ commit, dispatch }, position){
         let {currentCharacter, currentPreset} = state;
+        let {rowIndex, cellIndex} = currentCharacter.position;
+        let oldPosition = (rowIndex * 22) + cellIndex;
         if(currentCharacter){
-            // let duplicate = duplicatePresetChecker(state);
-            if(currentPreset[position]){
-                alert('This position is already occupied!')
-            }
-            // else if (duplicate){
-            //     alert('This piece is already on the board')
-            // }
-            else {
+            if(!currentPreset[position]) {
+                if(oldPosition){
+                    commit('removeOldPosition', oldPosition);
+                    dispatch('removeSidePieces', currentCharacter.coordinates);
+                }
                 commit('addToPreset', position);
                 commit('removeCurrentCharacter');
             }
@@ -160,6 +159,12 @@ const mutations = {
         }
     },
     removeCurrentCharacter: (state) => { state.currentCharacter = false; },
+    removeOldPosition: (state, oldPosition) => { 
+        console.log(state.currentPreset[oldPosition]) 
+        let currentPresetCopy = {...state.currentPreset};
+        delete currentPresetCopy[oldPosition];
+        state.currentPreset = currentPresetCopy;
+    },
     setCharacters: (state, characters) => {
         let {Warrior, Magician, Bowman, Thief, Pirate} = characters;
         state.characters = characters
