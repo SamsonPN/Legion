@@ -20,6 +20,10 @@ export default {
     methods: {
         ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
+        activateDraggablePiece(className){
+            document.getElementById(className + 'Piece').setAttribute('draggable', true);
+            document.getElementById(className + 'Selected').style.display = "none";
+        },
         dragStart(e){
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
@@ -78,10 +82,6 @@ export default {
             }) 
 
         },
-        activateDraggablePiece(className){
-            document.getElementById(className + 'Piece').setAttribute('draggable', true);
-            document.getElementById(className + 'Selected').style.display = "none";
-        },
         removePiece(e){
             let mouseEvent = e.which;
             let rightClick = 3;
@@ -99,7 +99,10 @@ export default {
             e.stopPropagation();
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
-            document.getElementById(className + 'Card').scrollIntoView();
+            document.getElementById(className + 'Card').scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
             let doubleClick = new MouseEvent('dblclick', {
                 'view': window,
                 'bubbles': true,
@@ -112,45 +115,48 @@ export default {
             };
             this.setCurrentCharacter(currentChar);
 
+        },
+        setArchetypes(){
+            let {rowIndex, cellIndex} = this.position;
+            let position = (rowIndex * 22) + cellIndex;
+            let {className, coordinates, archetype} = this.currentPreset[position];
+            let legionrow = [...document.getElementsByClassName('LegionRow')]; 
+            coordinates.forEach(coord => {
+                let {x, y} = coord;
+                x += cellIndex;
+                y += rowIndex;
+                if( y >= 0 && y < 20 &&
+                    x >= 0 && x < 22){
+                        let cell = legionrow[y].children[x];
+                        let archetypeList = cell.getAttribute('archetypeList');
+                        archetypeList += `,${archetype}`;
+                        cell.setAttribute('archetypeList', archetypeList);
+                        archetypeList = archetypeList.split(",").filter(el => el.length !== 0);
+                        let archetypeListLength = archetypeList.length;
+                        let newArchetype;
+                        if(archetypeListLength === 0){
+                            newArchetype = "";
+                        }
+                        else if(archetypeListLength === 1){
+                            newArchetype = archetypeList[0];
+                        }
+                        else if(archetypeListLength > 1){
+                            newArchetype = "Overlap";
+                        }
+                        cell.setAttribute('archetype', newArchetype);
+                }
+            })
         }
     },
     mounted(){
-        let {rowIndex, cellIndex} = this.position;
-        let position = (rowIndex * 22) + cellIndex;
-        let {className, coordinates, archetype} = this.currentPreset[position];
         let {GridPieceImg} = this.$refs; 
-        let icon = this.getImage(className);
+        let icon = this.getImage(this.charInfo.className);
         GridPieceImg.src = icon;
-        let legionrow = [...document.getElementsByClassName('LegionRow')]; 
-        coordinates.forEach(coord => {
-            let {x, y} = coord;
-            x += cellIndex;
-            y += rowIndex;
-            if( y >= 0 && y < 20 &&
-                x >= 0 && x < 22){
-                    let attribute = legionrow[y].children[x].getAttribute('archetype');
-                    let newArchetype = attribute ? 'Overlap' : archetype;
-                    legionrow[y].children[x].setAttribute('archetype', newArchetype);
-            }
-        })
+        this.setArchetypes();
     },
     computed: mapGetters(['currentPreset']),
     updated(){
-        let {rowIndex, cellIndex} = this.position;
-        let position = (rowIndex * 22) + cellIndex;
-        let {className, coordinates, archetype} = this.currentPreset[position];
-        let legionrow = [...document.getElementsByClassName('LegionRow')]; 
-        coordinates.forEach(coord => {
-            let {x, y} = coord;
-            x += cellIndex;
-            y += rowIndex;
-            if( y >= 0 && y < 20 &&
-                x >= 0 && x < 22){
-                    let attribute = legionrow[y].children[x].getAttribute('archetype');
-                    let newArchetype = attribute ? 'Overlap' : archetype;
-                    legionrow[y].children[x].setAttribute('archetype', newArchetype);
-            }
-        }) 
+        this.setArchetypes();
     }
 }
 </script>

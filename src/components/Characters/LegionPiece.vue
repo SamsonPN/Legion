@@ -64,7 +64,6 @@ export default {
       }
     },
     mapCoordinates(coordinates){
-      // console.log({[this.charName]: coordinates});
       let piece = document.getElementById(this.charName + 'Piece');
       coordinates.forEach(coordinate => {
         let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];

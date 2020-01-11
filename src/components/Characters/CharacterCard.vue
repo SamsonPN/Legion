@@ -25,7 +25,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import CharacterRotation from './CharacterRotation';
-import LegionPiece from '../Pieces/LegionPiece';
+import LegionPiece from './LegionPiece';
 
 export default {
     name: "CharacterCard",

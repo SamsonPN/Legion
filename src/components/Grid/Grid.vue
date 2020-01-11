@@ -11,6 +11,7 @@
                 :key="cellIndex"
                 :row="rowIndex"
                 :cell="cellIndex"
+                :archetypeList="''"
                 @dragover.prevent="highlightCells"
                 @dragleave="highlightCells"
                 @drop="insertPiece(rowIndex, cellIndex, $event)">
@@ -19,8 +20,6 @@
                         :charInfo="currentPreset[rowIndex * 22 + cellIndex]"
                         :position="{rowIndex, cellIndex}"/>
             </div>
-                <!-- @click="insertPiece(rowIndex, cellIndex)"
-                -->
         </div>
     </div>
 </template>
@@ -40,7 +39,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['updatePreset']),
+        ...mapActions(['insertIntoPreset']),
         highlightCells(e){
             let dragover = (e.type === 'dragover');
             if(this.currentCharacter && e.target.nodeName !== "IMG"){
@@ -73,7 +72,7 @@ export default {
         },
         insertPiece(row, cell, e){
             let position = (row * 22) + cell;
-            this.updatePreset(position);
+            this.insertIntoPreset(position);
             let legioncell = [...document.getElementsByClassName('LegionCell')];
             legioncell.forEach(cell => {
                 cell.removeAttribute('highlighted')

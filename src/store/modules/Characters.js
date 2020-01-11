@@ -66,7 +66,8 @@ const actions = {
     },
     removeSidePieces({ commit }, coordinates){
         if(state.currentCharacter.position){
-            let {rowIndex, cellIndex} = state.currentCharacter.position;
+            let {position, archetype} = state.currentCharacter;
+            let {rowIndex, cellIndex} = position;
             let legionrow = [...document.getElementsByClassName('LegionRow')];
             coordinates.forEach(coord => {
                 let {x, y} = coord;
@@ -74,7 +75,26 @@ const actions = {
                 y += rowIndex;
                 if( y >= 0 && y < 20 &&
                     x >= 0 && x < 22){
-                        legionrow[y].children[x].removeAttribute('archetype');
+                        let cell = legionrow[y].children[x];
+                        let archetypeList = cell.getAttribute('archetypeList');
+                        archetypeList = archetypeList.split(",").filter(el => el.length !== 0);
+                        let index = archetypeList.indexOf(archetype);
+                        if(index !== -1){
+                            archetypeList.splice(index, 1);
+                        }
+                        cell.setAttribute('archetypeList', archetypeList);
+                        let archetypeListLength = archetypeList.length;
+                        let newArchetype;
+                        if(archetypeListLength === 0){
+                            newArchetype = "";
+                        }
+                        else if(archetypeListLength === 1){
+                            newArchetype = archetypeList[0];
+                        }
+                        else {
+                            newArchetype = "Overlap";
+                        }
+                        cell.setAttribute('archetype', newArchetype);
                 }
             })
         }
@@ -123,18 +143,19 @@ const actions = {
         }
         commit('updateCharInfo', charInfo)
     },
-    updatePreset({ commit, dispatch }, position){
+    insertIntoPreset({ commit, dispatch }, position){
         let {currentCharacter, currentPreset} = state;
         let {rowIndex, cellIndex} = currentCharacter.position;
         let oldPosition = (rowIndex * 22) + cellIndex;
         if(currentCharacter){
             if(!currentPreset[position]) {
-                if(oldPosition){
+                if(oldPosition || oldPosition === 0){
                     commit('removeOldPosition', oldPosition);
                     dispatch('removeSidePieces', currentCharacter.coordinates);
                 }
                 commit('addToPreset', position);
                 commit('removeCurrentCharacter');
+                dispatch('updateCharInfo', state.currentPreset);
             }
         }
     }
@@ -180,7 +201,6 @@ const mutations = {
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};
     },
     setCurrentPreset: (state, preset) => { 
-        // state.currentPreset = preset
         state.currentPreset = preset.characters;
      },
     setPresets: (state, presets) => { state.presets = presets },
@@ -205,10 +225,6 @@ const mutations = {
         let {rowIndex, cellIndex} = state.currentCharacter.position;
         let currentChar = {...state.currentCharacter, coordinates};
         state.currentPreset = {...state.currentPreset, [(rowIndex * 22) + cellIndex]: currentChar};
-        // let currentPresetCopy = {...state.currentPreset};
-        // currentPresetCopy[(rowIndex * 22) + cellIndex].coordinates = coordinates;
-        // currentPresetCopy[(rowIndex * 22) + cellIndex] = {...currentPresetCopy[(rowIndex * 22) + cellIndex], coordinates};
-        // state.currentPreset = currentPresetCopy;
     },
 }
 
