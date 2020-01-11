@@ -137,9 +137,14 @@ const actions = {
         let charInfo = {...state.charInfo};
         for(let position in preset){
             let {className, coordinates} = preset[position];
+            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
             dispatch('removeSideClass', {...charInfo[className], className});
             charInfo[className].coordinates = coordinates;
             document.getElementById(className + 'Piece').setAttribute('draggable', false);
+            rotationImgs.forEach(img => {
+                console.log(img.getAttribute('clickable'));
+                img.setAttribute('clickable', false);
+            })
         }
         commit('updateCharInfo', charInfo)
     },

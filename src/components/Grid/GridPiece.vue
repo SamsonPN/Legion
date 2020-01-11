@@ -20,9 +20,13 @@ export default {
     methods: {
         ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
-        activateDraggablePiece(className){
+        reactivatecharacterCard(className){
             document.getElementById(className + 'Piece').setAttribute('draggable', true);
             document.getElementById(className + 'Selected').style.display = "none";
+            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
+            rotationImgs.forEach(img => {
+                img.setAttribute('clickable', true);
+            })
         },
         dragStart(e){
             let {className} = this.charInfo;
@@ -92,7 +96,8 @@ export default {
                     className
                 }
                 this.removeGridPiece(charInfo);
-                this.activateDraggablePiece(className)
+                // this.activateDraggablePiece(className);
+                this.reactivatecharacterCard(className);
             }
         },
         scrollToCard(e){
