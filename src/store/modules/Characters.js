@@ -8,25 +8,11 @@ const state = {
     presetNumber: 1
 };
 
-function duplicatePresetChecker(state){
-    let {currentCharacter, currentPreset} = state;
-    let duplicate = false;
-    for(let position in currentPreset){
-        if(currentPreset[position].className === currentCharacter.className){
-            duplicate = true;
-            break;
-        }
-    }
-    return duplicate;
-}
-
 const getters = {
     allCharacters: (state) => state.characters,
     charInfo: (state) => state.charInfo,
     currentCharacter: (state) => state.currentCharacter,
-    currentPreset: (state) => {
-        return state.currentPreset
-    }
+    currentPreset: (state) => state.currentPreset
 };
 
 const actions = {
@@ -56,17 +42,39 @@ const actions = {
                 }
             })
     },
-    removeGridPiece({ commit, dispatch }, charInfo){
-        let {rowIndex, cellIndex}= charInfo.position;
+    fillLevels({ commit, getters }, level){
+        let characters = {...getters.allCharacters};
+        let rankList = {
+            "60": "B",
+            "100": "A",
+            "140": "S",
+            "200": "SS",
+            "250": "SSS"
+        }
+        for(let archetypes in characters){
+            for(let _class in characters[archetypes]){
+                let rank = rankList[level];
+                let coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetypes];
+                characters[archetypes][_class].level = level;
+                characters[archetypes][_class].coordinates = coordinates;
+            }
+        }
+        commit('setCharacters', characters);
+    },
+    removeGridPiece({ commit, dispatch, getters }, charInfo){
+        let {currentPreset} = getters;
+        let {rowIndex, cellIndex} = charInfo.position;
         let position = (rowIndex * 22) + cellIndex;
         commit('setCurrentCharacter', charInfo);
-        dispatch('removeSidePieces', state.currentPreset[position].coordinates);
+        dispatch('removeSidePieces', currentPreset[position]);
         commit('removeOldPosition', position);
         commit('removeCurrentCharacter');
     },
-    removeSidePieces({ commit }, coordinates){
-        if(state.currentCharacter.position){
-            let {position, archetype} = state.currentCharacter;
+    removeSidePieces({ getters }, charInfo){
+        let {coordinates, className} = charInfo;
+        let {currentCharacter} = getters;
+        if(currentCharacter.position && currentCharacter.className === className){
+            let {position, archetype} = currentCharacter;
             let {rowIndex, cellIndex} = position;
             let legionrow = [...document.getElementsByClassName('LegionRow')];
             coordinates.forEach(coord => {
@@ -142,7 +150,6 @@ const actions = {
             charInfo[className].coordinates = coordinates;
             document.getElementById(className + 'Piece').setAttribute('draggable', false);
             rotationImgs.forEach(img => {
-                console.log(img.getAttribute('clickable'));
                 img.setAttribute('clickable', false);
             })
         }
@@ -156,7 +163,7 @@ const actions = {
             if(!currentPreset[position]) {
                 if(oldPosition || oldPosition === 0){
                     commit('removeOldPosition', oldPosition);
-                    dispatch('removeSidePieces', currentCharacter.coordinates);
+                    dispatch('removeSidePieces', currentCharacter);
                 }
                 commit('addToPreset', position);
                 commit('removeCurrentCharacter');
@@ -171,24 +178,6 @@ const mutations = {
         let currentPresetCopy = {...state.currentPreset};
         currentPresetCopy[position] = state.currentCharacter;
         state.currentPreset = currentPresetCopy;
-    },
-    fillLevels: (state, level) => {
-        let {characters} = state;
-        let rankList = {
-            "60": "B",
-            "100": "A",
-            "140": "S",
-            "200": "SS",
-            "250": "SSS"
-        }
-        for(let archetypes in characters){
-            for(let _class in characters[archetypes]){
-                let rank = rankList[level];
-                let coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetypes];
-                characters[archetypes][_class].level = level;
-                characters[archetypes][_class].coordinates = coordinates;
-            }
-        }
     },
     removeCurrentCharacter: (state) => { state.currentCharacter = false; },
     removeOldPosition: (state, oldPosition) => {  

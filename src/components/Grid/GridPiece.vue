@@ -1,7 +1,7 @@
 <template>
     <div
         draggable="true"
-        @dragstart="dragStart"
+        @dragstart="setDragImage"
         @click="scrollToCard"
         @mousedown="removePiece">
         <img
@@ -14,9 +14,12 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations} from 'vuex';
+import characterCardMixin from '../../mixins/characterCardMixin';
+
 export default {
     name: "GridPiece",
     props: ['charInfo', 'position'],
+    mixins: [characterCardMixin],
     methods: {
         ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
@@ -28,7 +31,7 @@ export default {
                 img.setAttribute('clickable', true);
             })
         },
-        dragStart(e){
+        setDragImage(e){
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
             e.dataTransfer.setDragImage(piece, 80, 80);
@@ -49,43 +52,6 @@ export default {
                 }
             }) 
         },
-        getImage(charName){
-            if(charName === 'Archmage Fire/Poison'){
-                charName = 'FP';
-            }
-            else if (charName === 'Archmage Ice/Lightning'){
-                charName = 'IL';
-            }
-            return require(`../../assets/ClassIcons/${charName}.png`);
-        },
-        highlightPiece(e){
-            let {rowIndex, cellIndex} = this.position;
-            let position = (rowIndex * 22) + cellIndex;
-            let {className, coordinates, archetype} = this.currentPreset[position];
-            let mouseover = (e.type === 'mouseover');
-            let legionrow = [...document.getElementsByClassName('LegionRow')]; 
-            if(mouseover){
-                legionrow[rowIndex].children[cellIndex].setAttribute('highlighted', true);
-            }
-            else {
-                legionrow[rowIndex].children[cellIndex].removeAttribute('highlighted');
-            }
-            coordinates.forEach(coord => {
-                let {x, y} = coord;
-                x += cellIndex;
-                y += rowIndex;
-                if( y >= 0 && y < 20 &&
-                    x >= 0 && x < 22){
-                        if(mouseover){
-                            legionrow[y].children[x].setAttribute('highlighted', true);
-                        }
-                        else {
-                            legionrow[y].children[x].removeAttribute('highlighted');
-                        }
-                }
-            }) 
-
-        },
         removePiece(e){
             let mouseEvent = e.which;
             let rightClick = 3;
@@ -96,7 +62,6 @@ export default {
                     className
                 }
                 this.removeGridPiece(charInfo);
-                // this.activateDraggablePiece(className);
                 this.reactivatecharacterCard(className);
             }
         },

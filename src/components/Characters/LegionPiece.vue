@@ -22,6 +22,8 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import characterCardMixin from '../../mixins/characterCardMixin';
+
 export default {
   name: 'LegionPiece',
   props: ['charName'],
@@ -30,21 +32,11 @@ export default {
       rows: [...new Array(5)].map((x, i) => i)
     } 
   },
+  mixins: [characterCardMixin],
   methods: {
     ...mapMutations(['setCurrentCharacter', 'removeCurrentCharacter']),
-    getImage(){
-      let {charName} = this;
-      if(charName === 'Archmage Fire/Poison'){
-        charName = 'FP';
-      }
-      else if (charName === 'Archmage Ice/Lightning'){
-        charName = 'IL';
-      }
-      return require(`../../assets/ClassIcons/${charName}.png`);
-    },
     highlightCard(e){
       let {charName} = this;
-      let cardList = document.getElementById('CardContainer');
       let card = document.getElementById(this.charName + 'Card');
       let toggled = card.getAttribute('toggled');
       if(toggled){
@@ -84,7 +76,7 @@ export default {
     let piece = document.getElementById(charName + 'Piece');
     let cell = piece.children[2].children[2];
     let image = document.createElement('img');
-    let icon = this.getImage();
+    let icon = this.getImage(charName);
     cell.classList.add('main');
     image.src = icon;
     image.style.cssText = "position: absolute; top: 0; max-width: 100%;";

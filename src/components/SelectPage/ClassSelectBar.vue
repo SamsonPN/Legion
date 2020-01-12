@@ -13,12 +13,11 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
     name: "ClassSelectBar",
     methods: {
-        ...mapActions(['saveCharData']),
-        ...mapMutations(['fillLevels']),
+        ...mapActions(['saveCharData', 'fillLevels']),
         saveChars(){
             let SaveChars = window.confirm('Save character data?')
             if(SaveChars){
