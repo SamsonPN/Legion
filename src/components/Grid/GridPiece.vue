@@ -23,14 +23,6 @@ export default {
     methods: {
         ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
-        reactivatecharacterCard(className){
-            document.getElementById(className + 'Piece').setAttribute('draggable', true);
-            document.getElementById(className + 'Selected').style.display = "none";
-            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
-            rotationImgs.forEach(img => {
-                img.setAttribute('clickable', true);
-            })
-        },
         setDragImage(e){
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
@@ -62,7 +54,8 @@ export default {
                     className
                 }
                 this.removeGridPiece(charInfo);
-                this.reactivatecharacterCard(className);
+                this.reactivateCharacterCard(className, false);
+                this.removeAllHighlights();
             }
         },
         scrollToCard(e){
@@ -73,18 +66,12 @@ export default {
                 behavior: "smooth",
                 block: "nearest"
             });
-            let doubleClick = new MouseEvent('dblclick', {
-                'view': window,
-                'bubbles': true,
-                'cancelable': true,
-            });
-            document.getElementById(className + 'Piece').dispatchEvent(doubleClick);
             let currentChar = {
                 className,
                 position: this.position
             };
+            this.highlightCard(this, className);
             this.setCurrentCharacter(currentChar);
-
         },
         setArchetypes(){
             let {rowIndex, cellIndex} = this.position;

@@ -139,13 +139,14 @@ const actions = {
                 commit('updatePresetCoords', charInfo.value);
             }
         }
-        commit('updateCoordinates', charInfo);
+        commit('updateCharInfoCoords', charInfo);
     },
     updateCharInfo({ commit, dispatch }, preset){
         let charInfo = {...state.charInfo};
         for(let position in preset){
             let {className, coordinates} = preset[position];
             let rotationImgs = [...document.getElementById(className + 'Rotation').children];
+            let highlighted = document.getElementById(className + 'Card').getAttribute('highlighted');
             dispatch('removeSideClass', {...charInfo[className], className});
             charInfo[className].coordinates = coordinates;
             document.getElementById(className + 'Piece').setAttribute('draggable', false);
@@ -166,7 +167,7 @@ const actions = {
                     dispatch('removeSidePieces', currentCharacter);
                 }
                 commit('addToPreset', position);
-                commit('removeCurrentCharacter');
+                commit('setCurrentCharacter', currentCharacter);
                 dispatch('updateCharInfo', state.currentPreset);
             }
         }
@@ -191,8 +192,10 @@ const mutations = {
         state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
     },
     setCurrentCharacter: (state, currentChar) => {
+        // console.log({currentChar})
         let {className, position} = currentChar;
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};
+        console.log(state.currentCharacter);
     },
     setCurrentPreset: (state, preset) => { 
         state.currentPreset = preset.characters;
@@ -205,7 +208,7 @@ const mutations = {
     updateCharInfo: (state, charInfo) => {
         state.charInfo = charInfo;
     },
-    updateCoordinates: (state, charInfo) => {
+    updateCharInfoCoords: (state, charInfo) => {
         let { className, field, value } = charInfo;
         let newCharInfo = {...state.charInfo};
         newCharInfo[className][field] = value;
@@ -220,6 +223,9 @@ const mutations = {
         let currentChar = {...state.currentCharacter, coordinates};
         state.currentPreset = {...state.currentPreset, [(rowIndex * 22) + cellIndex]: currentChar};
     },
+    test2(){
+        alert('Successful!')
+    }
 }
 
 export default {

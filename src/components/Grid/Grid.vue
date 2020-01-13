@@ -27,6 +27,8 @@
 <script>
 import GridPiece from './GridPiece';
 import { mapActions, mapGetters } from 'vuex';
+import characterCardMixin from '../../mixins/characterCardMixin';
+
 export default {
     name: "Grid",
     components: {
@@ -38,6 +40,7 @@ export default {
             cells: [...new Array(22)].map((x, i) => i)
         }
     },
+    mixins: [characterCardMixin],
     methods:{
         ...mapActions(['insertIntoPreset']),
         highlightCells(e){
@@ -77,6 +80,7 @@ export default {
             legioncell.forEach(cell => {
                 cell.removeAttribute('highlighted')
             })
+            this.unhighlightCard(this, this.currentCharacter.className);
         }
     },
     computed: mapGetters(['currentCharacter', 'currentPreset'])

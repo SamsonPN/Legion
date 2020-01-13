@@ -1,7 +1,8 @@
 <template>
   <div 
       :id="charName + 'Card'"
-      class="CharacterCard">
+      class="CharacterCard"
+      highlighted="false">
       <div>
         <p>Class: {{charName}}</p>
         <p>Level: {{charInfo[charName].level}}</p>
@@ -49,6 +50,9 @@ export default {
         border: 1px solid white;
         border-radius: 20px;
         z-index: 0;
+        &[highlighted="true"]{
+            border: 5px solid yellow;
+        }
         > div {
             position: relative;
             display: flex;
@@ -69,11 +73,12 @@ export default {
     }
     
     img{
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         position: absolute;
         top: 0;
         right: 0;
         display: none;
+        border-radius: 17.5px;
     }
 </style>

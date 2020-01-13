@@ -3,9 +3,8 @@
     :id="charName + 'Piece'"
     class="piece"
     draggable="true"
-    @dblclick="highlightCard"
-    @dragstart="highlightCard"
-    @dragend="highlightCard">
+    @dragstart="highlight"
+    @dragend="unhighlight">
         <div
             class="pieceRow"       
             v-for="(row, index) in rows"
@@ -35,38 +34,19 @@ export default {
   mixins: [characterCardMixin],
   methods: {
     ...mapMutations(['setCurrentCharacter', 'removeCurrentCharacter']),
-    highlightCard(e){
+    highlight(){
       let {charName} = this;
-      let card = document.getElementById(this.charName + 'Card');
-      let toggled = card.getAttribute('toggled');
-      if(toggled){
-        this.removeCurrentCharacter();
-        card.style.cssText = "border: 1px solid white;";
-        card.removeAttribute('toggled');
-      }
-      else {
-        let currentChar = {
-          className: charName,
-          position: false
-        };
-        this.removeAllHighlights();
-        this.setCurrentCharacter(currentChar)
-        card.style.cssText = "border: 5px solid yellow;";
-        card.setAttribute('toggled', true);
-      }
+      this.highlightCard(this, charName);
+    },
+    unhighlight(){
+      let {charName} = this;
+      this.unhighlightCard(this, charName);
     },
     mapCoordinates(coordinates){
       let piece = document.getElementById(this.charName + 'Piece');
       coordinates.forEach(coordinate => {
         let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
         cell.classList.add('side');
-      })
-    },
-    removeAllHighlights(){
-      let cards = [...document.getElementsByClassName('CharacterCard')];
-      cards.forEach(card => {
-          card.style.cssText = "border: 1px solid white";
-          card.removeAttribute('toggled');
       })
     }
   },
@@ -87,9 +67,10 @@ export default {
   },
   computed: mapGetters(['charInfo']),
   updated(){
-    let character = this.charInfo[this.charName];
-    let piece = document.getElementById(this.charName + 'Piece');
-    let CardSelected = document.getElementById(this.charName + 'Selected');
+    let {charName, charInfo} = this;
+    let character = charInfo[charName];
+    let piece = document.getElementById(charName + 'Piece');
+    let CardSelected = document.getElementById(charName + 'Selected');
     let draggable = piece.getAttribute('draggable');
     this.mapCoordinates(character.coordinates);
     if(draggable === 'false'){
@@ -139,6 +120,5 @@ export default {
     background: none;
     border: none;
   }
-
 
 </style>

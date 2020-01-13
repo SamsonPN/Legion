@@ -61,7 +61,7 @@ export default {
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
                 let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces(coordinates);
+                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
@@ -82,7 +82,7 @@ export default {
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
                 let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces(coordinates);
+                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
@@ -102,7 +102,7 @@ export default {
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
                 let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces(coordinates);
+                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
