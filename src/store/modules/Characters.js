@@ -138,8 +138,6 @@ const actions = {
         })
     },
     savePreset({ getters, dispatch }){
-        //call a fetch request to save a preset here
-        alert()
         let {currentPreset, presetNumber} = getters;
         fetch('http://localhost:3000/presets/save', {
             method: 'POST',

@@ -1,11 +1,11 @@
 <template>
   <div id="GridMenu">
       <p>Presets: </p>
-      <p @click="choosePreset(1)">1</p>
-      <p @click="choosePreset(2)">2</p>
-      <p @click="choosePreset(3)">3</p>
-      <p @click="choosePreset(4)">4</p>
-      <p @click="choosePreset(5)">5</p>
+      <p @click="choosePreset(1, $event)" clicked="true">1</p>
+      <p @click="choosePreset(2, $event)" clicked="false">2</p>
+      <p @click="choosePreset(3, $event)" clicked="false">3</p>
+      <p @click="choosePreset(4, $event)" clicked="false">4</p>
+      <p @click="choosePreset(5, $event)" clicked="false">5</p>
   </div>
 </template>
 
@@ -18,13 +18,22 @@ export default {
     mixins: [characterCardMixin],
     methods: {
         ...mapActions(['changePreset']),
-        choosePreset(newPresetNumber){
-          if(this.presetNumber !== newPresetNumber){
-            this.clearGrid();
-            this.resetPieceDraggability();
-            this.activateRotationImgs();
-            this.changePreset(newPresetNumber);
-          }
+        choosePreset(newPresetNumber, e){
+            let {target} = e;
+            if(this.presetNumber !== newPresetNumber){
+                this.clearGrid();
+                this.resetPieceDraggability();
+                this.activateRotationImgs();
+                this.changePreset(newPresetNumber);
+                this.removePresetHighlight();
+                e.target.setAttribute('clicked', true);
+            }
+        },
+        removePresetHighlight(){
+            let presets = [...document.getElementById('GridMenu').children].slice(1);
+            presets.forEach(preset => {
+                preset.setAttribute('clicked', false);
+            })
         }
     },
     computed: mapGetters(['presetNumber'])
@@ -47,6 +56,16 @@ export default {
             &:first-of-type ~ p{
                 cursor: pointer;
             }
+            &[clicked="true"]{
+                animation: glow 1s infinite alternate;
+            }
+        }
+    }
+
+    @keyframes glow {
+        to {
+            text-shadow: 0 0 10px yellow;
+            color: yellow;
         }
     }
 </style>

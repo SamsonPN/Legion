@@ -29,10 +29,12 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 import Ranks from './ClassSelectRanks';
+import characterCardMixin from '../../mixins/characterCardMixin';
 
 export default {
     name: "Select",
     props: ['archetype', 'classList'],
+    mixins: [characterCardMixin],
     methods: {
         ...mapMutations(['updateCharData']),
         checkNumbersOnly(e){
@@ -76,10 +78,7 @@ export default {
                 return
             }
             let rank = this.rankCheck(value);
-            console.log(rank)
             let coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetype];
-            console.log(Ranks[rank])
-            console.log(coordinates)
             let data = {
                 field: 'level',
                 value,
@@ -88,26 +87,6 @@ export default {
                 coordinates
             };
             this.updateCharData(data);
-        },
-        rankCheck(level){
-            let rank;
-            console.log(level)
-            if(60 <= level && level < 100){
-                rank = 'B';
-            }
-            else if (100 <= level && level < 140){
-               rank = 'A' 
-            }
-            else if (140 <= level && level < 200){
-                rank = 'S'
-            }
-            else if (200 <= level && level < 250){
-                rank = 'SS'
-            }
-            else {
-                rank = 'SSS'
-            }
-            return rank;
         }
     },
 }

@@ -6,10 +6,7 @@
       <div>
         <p>Class: {{charName}}</p>
         <p>Level: {{charInfo[charName].level}}</p>
-        <p>
-            Effect: Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p> 
+        <p>Effect: {{charEffect}}</p> 
         <img 
             :id="charName + 'Selected'" 
             class="cardSelectedImg"
@@ -28,6 +25,8 @@
 import { mapGetters } from 'vuex';
 import CharacterRotation from './CharacterRotation';
 import LegionPiece from './LegionPiece';
+import CharacterEffect from './CharacterEffect';
+import characterCardMixin from '../../mixins/characterCardMixin';
 
 export default {
     name: "CharacterCard",
@@ -36,7 +35,19 @@ export default {
         LegionPiece
     },
     props: ['charName'],
-    computed: mapGetters(['charInfo'])
+    mixins: [characterCardMixin],
+    computed: { 
+        ...mapGetters(['charInfo']),
+        charEffect(){
+            let {charInfo, charName} = this;
+            let {classes, effects, values} = CharacterEffect;
+            let effectIndex= classes[charName];
+            let {effect, type} = effects[effectIndex];
+            let rank = this.rankCheck(parseInt(charInfo[charName].level));
+            let returnedEffect = effect.replace('value', values[type][rank]);
+            return returnedEffect;
+        }
+    }
 }
 </script>
 

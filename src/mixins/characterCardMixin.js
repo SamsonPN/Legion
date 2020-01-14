@@ -34,17 +34,34 @@ export default {
             commit('setCurrentCharacter', currentChar);
             this.reactivateCharacterCard(charName, true);
         },
+        rankCheck(level){
+            let rank;
+            if(60 <= level && level < 100){
+                rank = 'B';
+            }
+            else if (100 <= level && level < 140){
+               rank = 'A' 
+            }
+            else if (140 <= level && level < 200){
+                rank = 'S'
+            }
+            else if (200 <= level && level < 250){
+                rank = 'SS'
+            }
+            else {
+                rank = 'SSS'
+            }
+            return rank;
+        },
         reactivateCharacterCard(className, isOnGrid){
            if(!isOnGrid){
             document.getElementById(className + 'Piece').setAttribute('draggable', true);
             document.getElementById(className + 'Selected').style.display = "none";
             }
-            else{
-                let rotationImgs = [...document.getElementById(className + 'Rotation').children];
-                rotationImgs.forEach(img => {
-                    img.setAttribute('clickable', true);
-                })
-            }
+            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
+            rotationImgs.forEach(img => {
+                img.setAttribute('clickable', true);
+            })
         },
         removeAllHighlights(){
             let cards = [...document.getElementsByClassName('CharacterCard')];

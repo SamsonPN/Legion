@@ -106,6 +106,7 @@ export default {
     }
 
     .LegionCell{
+        position: relative;
         display: flex;
         width: $size;
         height: $size;

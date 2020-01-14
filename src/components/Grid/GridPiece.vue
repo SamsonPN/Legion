@@ -3,7 +3,7 @@
         draggable="true"
         @dragstart="setDragImage"
         @click="scrollToCard"
-        @mousedown="removePiece">
+        @mousedown.right="removePiece">
         <img
             :id="charInfo.className + 'Image'"
             ref="GridPieceImg" 
@@ -45,26 +45,21 @@ export default {
             }) 
         },
         removePiece(e){
-            let mouseEvent = e.which;
-            let rightClick = 3;
-            if(mouseEvent === rightClick){
-                let {className} = this.charInfo;
-                let charInfo = {
-                    position: this.position,
-                    className
-                }
-                this.removeGridPiece(charInfo);
-                this.reactivateCharacterCard(className, false);
-                this.removeAllHighlights();
+            let {className} = this.charInfo;
+            let charInfo = {
+                position: this.position,
+                className
             }
+            this.removeGridPiece(charInfo);
+            this.reactivateCharacterCard(className, false);
+            this.removeAllHighlights();
         },
         scrollToCard(e){
             e.stopPropagation();
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
             document.getElementById(className + 'Card').scrollIntoView({
-                behavior: "smooth",
-                block: "nearest"
+                behavior: "auto"
             });
             let currentChar = {
                 className,
@@ -122,5 +117,8 @@ export default {
     img{
         max-width: 100%;
         cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 </style>
