@@ -12,15 +12,23 @@ const getters = {
     allCharacters: (state) => state.characters,
     charInfo: (state) => state.charInfo,
     currentCharacter: (state) => state.currentCharacter,
-    currentPreset: (state) => state.currentPreset
+    currentPreset: (state) => state.currentPreset,
+    presetNumber: (state) => state.presetNumber,
+    presets: (state) => state.presets
 };
 
 const actions = {
     addPreset({ dispatch }){
         // add a new preset here, and then fetch all the presets!
     },
-    changePreset({ commit }){
-        // change preset here!
+    changePreset({ commit, dispatch, getters }, presetNumber){
+        let oldPresetNumber = getters.presetNumber;
+        if(oldPresetNumber !== presetNumber){
+            let {presets} = getters;
+            commit('updatePresetNumber', presetNumber);
+            commit('setCurrentPreset', presets[presetNumber - 1]);
+            dispatch('updateCharInfo', presets[presetNumber - 1].characters);
+        }
     },
     fetchCharacters({ commit }){
         fetch('http://localhost:3000/characters/')
@@ -31,13 +39,14 @@ const actions = {
             })
             .catch(err => console.error(err))
     },
-    fetchPresets({ commit, dispatch }){
-        fetch('http://localhost:3000/characters/presets')
+    fetchPresets({ commit, dispatch, getters }){
+        let {presetNumber} = getters;
+        fetch('http://localhost:3000/presets/')
             .then(res => res.json())
             .then(data => {
                 commit('setPresets', data);
                 if(data.length > 0){
-                    commit('setCurrentPreset', data[0]);
+                    commit('setCurrentPreset', data[presetNumber - 1]);
                     dispatch('updateCharInfo', state.currentPreset);
                 }
             })
@@ -128,8 +137,21 @@ const actions = {
             dispatch('fetchCharacters');
         })
     },
-    savePreset(){
+    savePreset({ getters, dispatch }){
         //call a fetch request to save a preset here
+        alert()
+        let {currentPreset, presetNumber} = getters;
+        fetch('http://localhost:3000/presets/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ currentPreset, presetNumber})
+        })
+            .then(() => {
+                dispatch('fetchPresets')
+            })
+            .catch(err => console.error(err));
     },
     updateAllCoordinates({ commit, dispatch }, charInfo){
         let {currentCharacter} = state;
@@ -146,7 +168,6 @@ const actions = {
         for(let position in preset){
             let {className, coordinates} = preset[position];
             let rotationImgs = [...document.getElementById(className + 'Rotation').children];
-            let highlighted = document.getElementById(className + 'Card').getAttribute('highlighted');
             dispatch('removeSideClass', {...charInfo[className], className});
             charInfo[className].coordinates = coordinates;
             document.getElementById(className + 'Piece').setAttribute('draggable', false);
@@ -154,7 +175,7 @@ const actions = {
                 img.setAttribute('clickable', false);
             })
         }
-        commit('updateCharInfo', charInfo)
+        commit('setCharInfo', charInfo)
     },
     insertIntoPreset({ commit, dispatch }, position){
         let {currentCharacter, currentPreset} = state;
@@ -191,22 +212,21 @@ const mutations = {
         state.characters = characters
         state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
     },
+    setCharInfo: (state, charInfo) => {
+        state.charInfo = charInfo;
+    },
     setCurrentCharacter: (state, currentChar) => {
-        // console.log({currentChar})
         let {className, position} = currentChar;
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};
-        console.log(state.currentCharacter);
     },
     setCurrentPreset: (state, preset) => { 
         state.currentPreset = preset.characters;
+        console.log({setcurrentpreset: state.currentPreset});
      },
     setPresets: (state, presets) => { state.presets = presets },
     updateCharData: (state, charInfo) => {
         let {field, value, className, archetype} = charInfo;
         state.characters[archetype][className][field] = value;
-    },
-    updateCharInfo: (state, charInfo) => {
-        state.charInfo = charInfo;
     },
     updateCharInfoCoords: (state, charInfo) => {
         let { className, field, value } = charInfo;
@@ -223,8 +243,8 @@ const mutations = {
         let currentChar = {...state.currentCharacter, coordinates};
         state.currentPreset = {...state.currentPreset, [(rowIndex * 22) + cellIndex]: currentChar};
     },
-    test2(){
-        alert('Successful!')
+    updatePresetNumber: (state, presetNumber) => {
+        state.presetNumber = presetNumber;
     }
 }
 

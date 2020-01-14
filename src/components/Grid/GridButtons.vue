@@ -1,13 +1,24 @@
 <template>
   <div id="GridBtnsWrapper">
-        <button id="GridApplyBtn">&#x2714;Apply</button>
-        <button id="GridAssignBtn">Assign Units</button>
+        <button 
+            id="GridApplyBtn"
+            @click="savePreset">
+            &#x2714;Apply
+        </button>
+        <button 
+            id="GridAssignBtn">
+            Assign Units
+        </button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
-    name: "GridButtons"
+    name: "GridButtons",
+    methods: {
+        ...mapActions(['savePreset'])
+    }
 }
 </script>
 

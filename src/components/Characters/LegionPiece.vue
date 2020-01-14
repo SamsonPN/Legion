@@ -68,6 +68,9 @@ export default {
   computed: mapGetters(['charInfo']),
   updated(){
     let {charName, charInfo} = this;
+    if(charName === 'Aran'){
+      console.log('updated');
+    }
     let character = charInfo[charName];
     let piece = document.getElementById(charName + 'Piece');
     let CardSelected = document.getElementById(charName + 'Selected');

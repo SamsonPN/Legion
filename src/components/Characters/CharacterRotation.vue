@@ -2,24 +2,28 @@
     <div 
         :id="charName + 'Rotation'">
         <img 
+            class="rotationImg"
             @click="rotateCounterClockwise" 
             src="../../assets/Rotations/CounterClockwise.svg" 
             ref="counterClockwise"
             clickable="true"
             alt="None">
         <img 
+            class="rotationImg"
             @click="mirrorX" 
             src="../../assets/Rotations/MirrorX.svg" 
             ref="mirrorX"
             clickable="true"
             alt="None">
         <img 
+            class="rotationImg"
             @click="mirrorY" 
             src="../../assets/Rotations/MirrorY.svg" 
             ref="mirrorY"
             clickable="true"
             alt="None">
         <img 
+            class="rotationImg"
             @click="rotateClockwise" 
             src="../../assets/Rotations/Clockwise.svg" 
             ref="clockwise"
@@ -139,6 +143,9 @@ export default {
         cursor: pointer;
         &:hover {
             opacity: 0.5;
+        }
+        &[clickable="false"]{
+            opacity: 0.25;
         }
     }
 </style>

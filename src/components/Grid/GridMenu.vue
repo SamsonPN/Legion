@@ -1,17 +1,33 @@
 <template>
   <div id="GridMenu">
       <p>Presets: </p>
-      <p>1</p>
-      <p>2</p>
-      <p>3</p>
-      <p>4</p>
-      <p>5</p>
+      <p @click="choosePreset(1)">1</p>
+      <p @click="choosePreset(2)">2</p>
+      <p @click="choosePreset(3)">3</p>
+      <p @click="choosePreset(4)">4</p>
+      <p @click="choosePreset(5)">5</p>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import characterCardMixin from '../../mixins/characterCardMixin';
+
 export default {
-    name: "GridMenu"
+    name: "GridMenu",
+    mixins: [characterCardMixin],
+    methods: {
+        ...mapActions(['changePreset']),
+        choosePreset(newPresetNumber){
+          if(this.presetNumber !== newPresetNumber){
+            this.clearGrid();
+            this.resetPieceDraggability();
+            this.activateRotationImgs();
+            this.changePreset(newPresetNumber);
+          }
+        }
+    },
+    computed: mapGetters(['presetNumber'])
 }
 </script>
 
@@ -28,6 +44,9 @@ export default {
         > p {
             color: white;
             font-size: 2em;
+            &:first-of-type ~ p{
+                cursor: pointer;
+            }
         }
     }
 </style>

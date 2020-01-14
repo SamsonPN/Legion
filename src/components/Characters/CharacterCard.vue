@@ -12,6 +12,7 @@
         </p> 
         <img 
             :id="charName + 'Selected'" 
+            class="cardSelectedImg"
             src="../../assets/maple-leaf.svg" 
             alt="Maple Leaf"
             title="This piece is already on the board"/> 
