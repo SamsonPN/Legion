@@ -11,12 +11,17 @@
                 :key="cellIndex"
                 :row="rowIndex"
                 :cell="cellIndex">
+                <p
+                    v-if="statPositions[(rowIndex * 22) + cellIndex]">
+                    {{statPositions[(rowIndex * 22) + cellIndex]}}
+                </p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 export default {
     name: "Grid",
     components: {
@@ -26,7 +31,8 @@ export default {
             rows: [...new Array(20)].map((x, i) => i),
             cells: [...new Array(22)].map((x, i) => i)
         }
-    }
+    },
+    computed: mapGetters(['statPositions'])
 }
 </script>
 
@@ -40,8 +46,8 @@ export default {
         display: flex;
         flex-direction: column;
         margin-top: 3px;   
-        background-color: rgba(21, 21, 21, 1);     
-        z-index: -1;
+        background-color: rgba(21, 21, 21, 1);
+        z-index: -1; 
     }
 
     .LegionRowOverlay {
@@ -54,11 +60,24 @@ export default {
         display: flex;
         width: $size;
         height: $size;
-        border: 1px solid $grid;
+        border: 0.5px solid $grid;
         border-radius: 3.5px;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    p{
+        width: auto;
+        position: absolute;
+        z-index: 10;
+        text-align: center;
+        font: {
+            size: 1em;
+            weight: 900;
+        }
+        color: #22FF22;
+        background-color: rgba(0, 0, 0, 0.75);
     }
 
     // outlines the top and bottom sides of the inner quadrant
