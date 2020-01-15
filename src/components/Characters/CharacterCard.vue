@@ -44,8 +44,8 @@ export default {
             let effectIndex= classes[charName];
             let {effect, type} = effects[effectIndex];
             let rank = this.rankCheck(parseInt(charInfo[charName].level));
-            let returnedEffect = effect.replace('value', values[type][rank]);
-            return returnedEffect;
+            let computedEffect = effect.replace('value', values[type][rank]);
+            return computedEffect;
         }
     }
 }

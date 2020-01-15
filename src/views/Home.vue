@@ -2,6 +2,7 @@
   <div id="Home">
     <div class="column1">
       <Grid />
+      <GridOverlay />
     </div>
     <div class="column2">
       <div id="GridButtonContainer">
@@ -16,6 +17,7 @@
 
 <script>
 import Grid from '../components/Grid/Grid';
+import GridOverlay from '../components/Grid/GridOverlay';
 import GridMenu from '../components/Grid/GridMenu';
 import GridButtons from '../components/Grid/GridButtons';
 import CharacterList from '../components/Characters/CharacterList';
@@ -26,6 +28,7 @@ export default {
     Grid,
     GridMenu,
     GridButtons,
+    GridOverlay,
     CharacterList
   }
 }
@@ -46,6 +49,7 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-top: 1vh;
+    z-index: 0;
   }
 
   .column2{

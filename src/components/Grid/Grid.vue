@@ -91,6 +91,7 @@ export default {
     @import '../../variables.scss';
 
     #LegionGrid {
+        // position: absolute;
         max-height: $size * 20;
         max-width: $size * 22;
         display: flex;
@@ -98,6 +99,7 @@ export default {
         margin-top: 3px;   
         background-color: rgba(21, 21, 21, 1);     
         z-index: 0;
+        background: none;
     }
 
     .LegionRow {
@@ -110,7 +112,6 @@ export default {
         display: flex;
         width: $size;
         height: $size;
-        border: 1px solid #FF22FF;
         border-radius: 3.5px;
         &[archetype="Warrior"]{ 
             background-color: $warrior;
