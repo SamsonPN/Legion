@@ -198,7 +198,7 @@ const mutations = {
         currentPresetCopy[position] = state.currentCharacter;
         state.currentPreset = currentPresetCopy;
     },
-    removeCurrentCharacter: (state) => { state.currentCharacter = false; },
+    removeCurrentCharacter: (state) => state.currentCharacter = false,
     removeOldPosition: (state, oldPosition) => {  
         let currentPresetCopy = {...state.currentPreset};
         delete currentPresetCopy[oldPosition];
@@ -209,17 +209,12 @@ const mutations = {
         state.characters = characters
         state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
     },
-    setCharInfo: (state, charInfo) => {
-        state.charInfo = charInfo;
-    },
+    setCharInfo: (state, charInfo) => state.charInfo = charInfo,
     setCurrentCharacter: (state, currentChar) => {
         let {className, position} = currentChar;
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};
     },
-    setCurrentPreset: (state, preset) => { 
-        state.currentPreset = preset.characters;
-        console.log({setcurrentpreset: state.currentPreset});
-     },
+    setCurrentPreset: (state, preset) => state.currentPreset = preset.characters,
     setPresets: (state, presets) => { state.presets = presets },
     updateCharData: (state, charInfo) => {
         let {field, value, className, archetype} = charInfo;
@@ -240,9 +235,7 @@ const mutations = {
         let currentChar = {...state.currentCharacter, coordinates};
         state.currentPreset = {...state.currentPreset, [(rowIndex * 22) + cellIndex]: currentChar};
     },
-    updatePresetNumber: (state, presetNumber) => {
-        state.presetNumber = presetNumber;
-    }
+    updatePresetNumber: (state, presetNumber) => state.presetNumber = presetNumber
 }
 
 export default {

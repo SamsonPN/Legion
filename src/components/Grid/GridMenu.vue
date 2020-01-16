@@ -57,15 +57,9 @@ export default {
                 cursor: pointer;
             }
             &[clicked="true"]{
-                animation: glow 1s infinite alternate;
+                color: yellow;
+                text-shadow: 0 0 10px yellow;
             }
-        }
-    }
-
-    @keyframes glow {
-        to {
-            text-shadow: 0 0 10px yellow;
-            color: yellow;
         }
     }
 </style>

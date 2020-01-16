@@ -1,5 +1,6 @@
 <template>
-    <div id="LegionGrid">
+    <div id="LegionGrid"
+        assigning="true">
         <div 
             class="LegionRow"
             v-for="(row, rowIndex) in rows"
@@ -91,7 +92,6 @@ export default {
     @import '../../variables.scss';
 
     #LegionGrid {
-        // position: absolute;
         max-height: $size * 20;
         max-width: $size * 22;
         display: flex;
@@ -99,7 +99,9 @@ export default {
         margin-top: 3px;   
         background-color: rgba(21, 21, 21, 1);     
         z-index: 0;
-        background: none;
+        &[assigning="true"]{
+            background: none;
+        }
     }
 
     .LegionRow {

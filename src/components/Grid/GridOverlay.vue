@@ -1,5 +1,6 @@
 <template>
-    <div id="LegionGridOverlay">
+    <div id="LegionGridOverlay"
+        assigning="true">
         <div 
             class="LegionRowOverlay"
             v-for="(row, rowIndex) in rows"
@@ -58,10 +59,10 @@ export default {
     computed: {
         ...mapGetters(['statPositions']),
         outerGrid(){
-            return this.statPositions.outerGrid;
+            return this.statPositions.outerGrid || {};
         },
         innerGrid(){
-            return this.statPositions.innerGrid
+            return this.statPositions.innerGrid || {};
         }
     }
 }
@@ -79,7 +80,10 @@ export default {
         margin-top: 3px;   
         background-color: rgba(21, 21, 21, 1);
         z-index: -1;
-        z-index: 10; 
+        &[assigning="false"]{
+            z-index: 1;
+            background: none;
+        }
     }
 
     .LegionRowOverlay {

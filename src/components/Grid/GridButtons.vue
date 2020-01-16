@@ -6,7 +6,8 @@
             &#x2714;Apply
         </button>
         <button 
-            id="GridAssignBtn">
+            id="GridAssignBtn"
+            @click="assignUnits">
             Assign Units
         </button>
   </div>
@@ -17,12 +18,27 @@ import { mapActions } from 'vuex';
 export default {
     name: "GridButtons",
     methods: {
-        ...mapActions(['savePreset'])
+        ...mapActions(['savePreset']),
+        assignUnits(){
+            let grid = document.getElementById('LegionGrid');
+            let overlay = document.getElementById('LegionGridOverlay');
+            let assigned = grid.getAttribute('assigning') === 'true' & overlay.getAttribute('assigning') === 'true';
+            if(assigned){
+                grid.setAttribute('assigning', false);
+                overlay.setAttribute('assigning', false);
+            }
+            else {
+                grid.setAttribute('assigning', true);
+                overlay.setAttribute('assigning', true);
+            }
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+    @import '../../variables.scss';
+
     #GridBtnsWrapper {
         height: 100%;
         display: flex;
@@ -47,7 +63,7 @@ export default {
             background-color: rgb(34, 136, 170);
         }
         &:hover{
-            color: black;
+            text-decoration: underline;
         }
     }
 </style>
