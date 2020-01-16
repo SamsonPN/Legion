@@ -33,12 +33,11 @@ const actions = {
     switchStats({ commit, getters }, newStat){
         let {currentStat, statPositions} = getters;
         if(currentStat && currentStat !== newStat){
-            let statPositionsCopy = {...statPositions};
-            let {innerGrid} = statPositionsCopy;
+            let innerGrid = {...statPositions.innerGrid};
             let temp = innerGrid[currentStat];
             innerGrid[currentStat] = innerGrid[newStat];
             innerGrid[newStat] = temp;
-            commit('setStatPositions', statPositionsCopy);
+            commit('setStatPositions', {...statPositions, innerGrid});
         }
     }
 }

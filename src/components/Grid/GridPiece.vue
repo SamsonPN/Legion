@@ -52,7 +52,7 @@ export default {
             }
             this.removeGridPiece(charInfo);
             this.reactivateCharacterCard(className, false);
-            this.removeAllHighlights();
+            this.removeAllHighlights('CharacterCard');
         },
         scrollToCard(e){
             e.stopPropagation();

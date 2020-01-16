@@ -29,7 +29,7 @@ export default {
                 position: false
               };
             let card = document.getElementById(charName + 'Card');
-            this.removeAllHighlights();
+            this.removeAllHighlights('CharacterCard');
             card.setAttribute('highlighted', true);
             commit('setCurrentCharacter', currentChar);
             this.reactivateCharacterCard(charName, true);
@@ -63,8 +63,9 @@ export default {
                 img.setAttribute('clickable', true);
             })
         },
-        removeAllHighlights(){
-            let cards = [...document.getElementsByClassName('CharacterCard')];
+        removeAllHighlights(element){
+            //element = 'CharacterCard'
+            let cards = [...document.getElementsByClassName(element)];
             cards.forEach(card => {
                 card.setAttribute('highlighted', false);
             })
@@ -82,7 +83,7 @@ export default {
         unhighlightCard(vm, charName){
             let {commit} = vm.$store;
             commit('removeCurrentCharacter');
-            this.removeAllHighlights();
+            this.removeAllHighlights('CharacterCard');
         }
     }
 }

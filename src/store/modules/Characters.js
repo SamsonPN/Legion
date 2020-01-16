@@ -47,6 +47,7 @@ const actions = {
                 commit('setPresets', data);
                 if(data.length > 0){
                     commit('setCurrentPreset', data[presetNumber - 1]);
+                    commit('setStatPositions', data[presetNumber - 1].stats);
                     dispatch('updateCharInfo', state.currentPreset);
                 }
             })
@@ -138,16 +139,16 @@ const actions = {
         })
     },
     savePreset({ getters, dispatch }){
-        let {currentPreset, presetNumber} = getters;
+        let {currentPreset, presetNumber, statPositions} = getters;
         fetch('http://localhost:3000/presets/save', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ currentPreset, presetNumber})
+            body: JSON.stringify({ currentPreset, presetNumber, statPositions})
         })
             .then(() => {
-                dispatch('fetchPresets')
+                dispatch('fetchPresets');
             })
             .catch(err => console.error(err));
     },

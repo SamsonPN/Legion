@@ -17,10 +17,10 @@
                 </p>
                 <p
                     v-else-if="innerGrid[(rowIndex * 22) + cellIndex]"
-                    class="InnerGrid"
+                    class="innerGrid"
                     draggable="true"
                     @dragstart="setCurrentStat((rowIndex * 22) + cellIndex)"
-                    @dragend="removeCurrentStat"
+                    @dragend="resetCurrentStats()"
                     @dragover.prevent="changeColor"
                     @dragleave="changeColor"
                     @drop="switchStats((rowIndex * 22) + cellIndex)">
@@ -33,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations} from 'vuex';
+import characterCardMixin from '../../mixins/characterCardMixin';
 export default {
     name: "Grid",
     data(){
@@ -41,15 +42,18 @@ export default {
             cells: [...new Array(22)].map((x, i) => i)
         }
     },
+    mixins: [characterCardMixin],
     methods: {
         ...mapActions(['switchStats']),
         ...mapMutations(['removeCurrentStat', 'setCurrentStat']),
         changeColor(e){
             let dragover = e.type === 'dragover';
-            e.currentTarget.style.color = dragover ? "white" : "#22FF22";
+            e.target.setAttribute('highlighted', dragover);
         },
-        // switchStats(){
-        // },
+        resetCurrentStats(e) {
+            this.removeCurrentStat();
+            this.removeAllHighlights('innerGrid');
+        }
     },
     computed: {
         ...mapGetters(['statPositions']),
@@ -107,8 +111,11 @@ export default {
         background-color: rgba(0, 0, 0, 0.75);
     }
 
-    .InnerGrid {
+    .innerGrid {
         cursor: pointer;
+        &[highlighted = "true"]{
+            color: white;
+        }
     }
 
 
