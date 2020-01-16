@@ -6,16 +6,6 @@ const state = {
     currentPreset: {},
     presets: [],
     presetNumber: 1,
-    statPositions: {
-        "51": "Abnormal Status Resistance",
-        "58": "Bonus EXP",
-        "134": "Critical Damage",
-        "151": "Critical Rate",
-        "288": "Ignore DEF",
-        "305": "Boss Damage",
-        "381": "Buff Duration",
-        "388": "Knockback Resistance"
-    }
 };
 
 const getters = {
@@ -24,8 +14,7 @@ const getters = {
     currentCharacter: (state) => state.currentCharacter,
     currentPreset: (state) => state.currentPreset,
     presetNumber: (state) => state.presetNumber,
-    presets: (state) => state.presets,
-    statPositions: (state) => state.statPositions
+    presets: (state) => state.presets
 };
 
 const actions = {

@@ -12,8 +12,19 @@
                 :row="rowIndex"
                 :cell="cellIndex">
                 <p
-                    v-if="statPositions[(rowIndex * 22) + cellIndex]">
-                    {{statPositions[(rowIndex * 22) + cellIndex]}}
+                    v-if="outerGrid[(rowIndex * 22) + cellIndex]">
+                    {{outerGrid[(rowIndex * 22) + cellIndex]}}
+                </p>
+                <p
+                    v-else-if="innerGrid[(rowIndex * 22) + cellIndex]"
+                    class="InnerGrid"
+                    draggable="true"
+                    @dragstart="setCurrentStat((rowIndex * 22) + cellIndex)"
+                    @dragend="removeCurrentStat"
+                    @dragover.prevent="changeColor"
+                    @dragleave="changeColor"
+                    @drop="switchStats((rowIndex * 22) + cellIndex)">
+                    {{innerGrid[(rowIndex * 22) + cellIndex]}}&#x25B8;
                 </p>
             </div>
         </div>
@@ -21,18 +32,34 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapActions, mapGetters, mapMutations} from 'vuex';
 export default {
     name: "Grid",
-    components: {
-    },
     data(){
         return {
             rows: [...new Array(20)].map((x, i) => i),
             cells: [...new Array(22)].map((x, i) => i)
         }
     },
-    computed: mapGetters(['statPositions'])
+    methods: {
+        ...mapActions(['switchStats']),
+        ...mapMutations(['removeCurrentStat', 'setCurrentStat']),
+        changeColor(e){
+            let dragover = e.type === 'dragover';
+            e.currentTarget.style.color = dragover ? "white" : "#22FF22";
+        },
+        // switchStats(){
+        // },
+    },
+    computed: {
+        ...mapGetters(['statPositions']),
+        outerGrid(){
+            return this.statPositions.outerGrid;
+        },
+        innerGrid(){
+            return this.statPositions.innerGrid
+        }
+    }
 }
 </script>
 
@@ -80,89 +107,92 @@ export default {
         background-color: rgba(0, 0, 0, 0.75);
     }
 
-    // outlines the top and bottom sides of the inner quadrant
-    @for $column from 6 through 17{
-        .LegionRowOverlay:nth-of-type(6){
-            > div:nth-of-type(#{$column}){
-                border-top: $innerQuadrant;
-            }
-        }
-        .LegionRowOverlay:nth-of-type(15) {
-            > div:nth-of-type(#{$column}){
-                border-bottom: $innerQuadrant;
-            }
-        }
+    .InnerGrid {
+        cursor: pointer;
     }
 
-    // outlines the left and right sides of the inner quadrant
-    @for $row from 6 through 15 {
-        .LegionRowOverlay:nth-of-type(#{$row}){
-            > div:nth-of-type(6){
-                border-left: $innerQuadrant;
-            }
-        }
-        .LegionRowOverlay:nth-of-type(#{$row}) {
-            > div:nth-of-type(17){
-                border-right: $innerQuadrant;
-            }
-        }
-    }
 
-    // divides grid in half vertically
-    @for $row from 1 through 20 {
-        .LegionRowOverlay:nth-of-type(#{$row}) > div {
-            &:nth-of-type(11){
-                border-right: $outerQuadrant;
+    @for $i from 1 through 22 {
+        //colors in diagonal lines across the grid
+        @if($i >= 1 and $i <= 10){
+            //top-left diagonal
+            .LegionRowOverlay:nth-of-type(#{$i}) > div {
+                &:nth-of-type(#{$i}){
+                        border-top: $innerQuadrant;
+                        border-right: $innerQuadrant;
+                }
             }
-            &:nth-of-type(12){
-                border-left: $outerQuadrant;
+            //top-right diagonal
+            .LegionRowOverlay:nth-of-type(#{11 - $i}) > div {
+                &:nth-of-type(#{12 + $i}) {
+                        border-top: $innerQuadrant;
+                        border-left: $innerQuadrant;
+                }
+            }
+            //bottom-left diagonal
+            .LegionRowOverlay:nth-of-type(#{21 - $i}) > div {
+                &:nth-of-type(#{$i}){
+                        border-bottom: $innerQuadrant;
+                        border-right: $innerQuadrant;
+                }
+            }
+            //bottom-right diagonal
+            .LegionRowOverlay:nth-of-type(#{21 - $i}) > div {
+                &:nth-of-type(#{23 - $i}){
+                        border-bottom: $innerQuadrant;
+                        border-left: $innerQuadrant;
+                }
             }
         }
-    }
 
-    // divides grid in half horizontally
-    @for $column from 1 through 22 {
+        // divides grid in half vertically 
+        @if($i < 21){
+            .LegionRowOverlay:nth-of-type(#{$i}) > div {
+                &:nth-of-type(11){
+                    border-right: $outerQuadrant;
+                }
+                &:nth-of-type(12){
+                    border-left: $outerQuadrant;
+                }
+            }
+        }
+        // divides grid in half horizontally
         .LegionRowOverlay:nth-of-type(10) > div {
-            &:nth-of-type(#{$column}){
+            &:nth-of-type(#{$i}){
                 border-bottom: $outerQuadrant;
             }
         }
         .LegionRowOverlay:nth-of-type(11) > div {
-            &:nth-of-type(#{$column}){
+            &:nth-of-type(#{$i}){
                 border-top: $outerQuadrant;
             }
         }
-    }
-
-    // colors in diagonal lines across the grid
-    @for $i from 1 through 10 {
-        .LegionRowOverlay:nth-of-type(#{$i}) > div {
-            &:nth-of-type(#{$i}){
+        //outlines inner quadrant of grid
+        @if($i >= 6 and $i <= 17){
+            // outlines the top and bottom sides of the inner quadrant
+            .LegionRowOverlay:nth-of-type(6){
+                > div:nth-of-type(#{$i}){
                     border-top: $innerQuadrant;
-                    border-right: $innerQuadrant;
+                }
             }
-        }
-
-        .LegionRowOverlay:nth-of-type(#{11 - $i}) > div {
-            &:nth-of-type(#{12 + $i}) {
-                    border-top: $innerQuadrant;
-                    border-left: $innerQuadrant;
-            }
-        }
-
-        .LegionRowOverlay:nth-of-type(#{21 - $i}) > div {
-            &:nth-of-type(#{$i}){
+            .LegionRowOverlay:nth-of-type(15) {
+                > div:nth-of-type(#{$i}){
                     border-bottom: $innerQuadrant;
-                    border-right: $innerQuadrant;
+                }
+            }
+            // outlines the left and right sides of the inner quadrant
+            @if($i <= 15){
+                .LegionRowOverlay:nth-of-type(#{$i}){
+                    > div:nth-of-type(6){
+                        border-left: $innerQuadrant;
+                    }
+                }
+                .LegionRowOverlay:nth-of-type(#{$i}) {
+                    > div:nth-of-type(17){
+                        border-right: $innerQuadrant;
+                    }
+                }
             }
         }
-
-        .LegionRowOverlay:nth-of-type(#{21 - $i}) > div {
-            &:nth-of-type(#{23 - $i}){
-                    border-bottom: $innerQuadrant;
-                    border-left: $innerQuadrant;
-            }
-        }
-
     }
 </style>
