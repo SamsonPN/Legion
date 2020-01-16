@@ -78,7 +78,8 @@ export default {
         flex-direction: column;
         margin-top: 3px;   
         background-color: rgba(21, 21, 21, 1);
-        z-index: -1; 
+        z-index: -1;
+        z-index: 10; 
     }
 
     .LegionRowOverlay {

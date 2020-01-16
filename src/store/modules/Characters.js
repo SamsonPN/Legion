@@ -18,9 +18,6 @@ const getters = {
 };
 
 const actions = {
-    addPreset({ dispatch }){
-        // add a new preset here, and then fetch all the presets!
-    },
     changePreset({ commit, dispatch, getters }, presetNumber){
         let oldPresetNumber = getters.presetNumber;
         if(oldPresetNumber !== presetNumber){
@@ -28,6 +25,7 @@ const actions = {
             commit('updatePresetNumber', presetNumber);
             commit('setCurrentPreset', presets[presetNumber - 1]);
             dispatch('updateCharInfo', presets[presetNumber - 1].characters);
+            commit('setStatPositions', presets[presetNumber - 1].stats);
         }
     },
     fetchCharacters({ commit }){
