@@ -135,6 +135,10 @@ export default {
             background-color: $pirate; 
             border: 1px solid white;
         }
+        &[archetype="Lab"]{
+            background-color: $lab;
+            border: 1px solid white;
+        }
         &[archetype="Overlap"]{ 
             display: flex;
             justify-content: center;

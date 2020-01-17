@@ -62,7 +62,16 @@ const actions = {
         for(let archetypes in characters){
             for(let _class in characters[archetypes]){
                 let rank = rankList[level];
-                let coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetypes];
+                let coordinates;
+                if(rank === 'SSS' && (_class === "Xenon" || _class === "Enhanced Lab Piece")){
+                    coordinates = Ranks[rank][_class];
+                }
+                else if (rank === 'SS' && _class === "Enhanced Lab Piece"){
+                    coordinates = Ranks[rank][_class];
+                }
+                else {
+                    coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetypes];
+                }
                 characters[archetypes][_class].level = level;
                 characters[archetypes][_class].coordinates = coordinates;
             }
@@ -205,9 +214,9 @@ const mutations = {
         state.currentPreset = currentPresetCopy;
     },
     setCharacters: (state, characters) => {
-        let {Warrior, Magician, Bowman, Thief, Pirate} = characters;
-        state.characters = characters
-        state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate};
+        let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = characters;
+        state.characters = characters;
+        state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate, ...Lab};
     },
     setCharInfo: (state, charInfo) => state.charInfo = charInfo,
     setCurrentCharacter: (state, currentChar) => {

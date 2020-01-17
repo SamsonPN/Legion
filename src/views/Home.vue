@@ -3,12 +3,12 @@
     <div class="column1">
       <Grid />
       <GridOverlay />
-    </div>
-    <div class="column2">
       <div id="GridButtonContainer">
         <GridMenu />
         <GridButtons />
       </div>
+    </div>
+    <div class="column2">
       <CharacterList />
     </div>
   </div>

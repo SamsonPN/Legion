@@ -45,7 +45,9 @@ module.exports = {
         "Jett": 12,
         "Mechanic": 16,
         "Shade": 12,
-        "Thunder Breaker": 0
+        "Thunder Breaker": 0,
+        "Lab Piece": 21,
+        "Enhanced Lab Piece": 22
     },
     effects: [
         {
@@ -131,6 +133,14 @@ module.exports = {
         {
             effect: "Experience Rate +value%",
             type: "Summon/EXP"
+        },
+        {
+            effect: "ATT/M.ATT +value",
+            type: "ATT/M.ATT"
+        },
+        {
+            effect: "ATT/M.ATT +value",
+            type: "Enhanced ATT/M.ATT"
         }
     ],
     values: {
@@ -203,6 +213,20 @@ module.exports = {
             S: 20,
             SS: 40,
             SSS: 50
-        }
+        },
+        "ATT/M.ATT": {
+            B: 5,
+            A: 10,
+            S: 15,
+            SS: 20,
+            SSS: 25
+        },
+        "Enhanced ATT/M.ATT": {
+            B: 7,
+            A: 14,
+            S: 21,
+            SS: 28,
+            SSS: 35
+        },
     }
 }

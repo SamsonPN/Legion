@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div 
+    id="app"
+    @contextmenu.prevent="">
     <Header />
     <router-view/>
   </div>

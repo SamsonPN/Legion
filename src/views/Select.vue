@@ -41,4 +41,5 @@ export default {
     #BowmanSelect{ color: $bowman; } 
     #ThiefSelect{ color: $thief; }
     #PirateSelect{ color: $pirate; }
+    #LabSelect{ color: $lab; }
 </style>

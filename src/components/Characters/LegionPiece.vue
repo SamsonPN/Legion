@@ -107,6 +107,7 @@ export default {
     &[archetype="Bowman"]{ background-color: $bowman; }
     &[archetype="Thief"]{ background-color: $thief; }
     &[archetype="Pirate"]{ background-color: $pirate; }
+    &[archetype="Lab"]{ background-color: $lab; }
   }
 
   .main, .side{

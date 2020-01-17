@@ -78,7 +78,16 @@ export default {
                 return
             }
             let rank = this.rankCheck(value);
-            let coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetype];
+            let coordinates;
+            if(rank === 'SSS' && (id === "Xenon" || id === "Enhanced Lab Piece")){
+                coordinates = Ranks[rank][id];
+            }
+            else if(rank === 'SS' && id === "Enhanced Lab Piece"){
+                coordinates = Ranks[rank][id];
+            }
+            else {
+                coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetype];
+            }
             let data = {
                 field: 'level',
                 value,
