@@ -58,7 +58,7 @@ export default {
             grid-gap: 1rem;
             border-radius: 20px;
              &:empty{
-                 background-color: rgba(0, 0, 0, 0.9);
+                 background-color: rgba(0, 0, 0, 0.5);
                  border: 1px solid white;
                  border-radius: 20px;
              }

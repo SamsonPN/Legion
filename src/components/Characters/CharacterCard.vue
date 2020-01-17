@@ -15,7 +15,7 @@
             title="This piece is already on the board"/> 
       </div>
       <div>
-        <LegionPiece :charName="charName" />
+        <CharacterPiece :charName="charName" />
         <CharacterRotation :charName="charName" />
       </div>
   </div>
@@ -24,7 +24,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import CharacterRotation from './CharacterRotation';
-import LegionPiece from './LegionPiece';
+import CharacterPiece from './CharacterPiece';
 import CharacterEffect from './CharacterEffect';
 import characterCardMixin from '../../mixins/characterCardMixin';
 
@@ -32,7 +32,7 @@ export default {
     name: "CharacterCard",
     components: {
         CharacterRotation,
-        LegionPiece
+        CharacterPiece
     },
     props: ['charName'],
     mixins: [characterCardMixin],

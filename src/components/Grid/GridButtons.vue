@@ -2,7 +2,7 @@
   <div id="GridBtnsWrapper">
         <button 
             id="GridApplyBtn"
-            @click="savePreset">
+            @click="initiateSave">
             &#x2714;Apply
         </button>
         <button 
@@ -15,8 +15,11 @@
 
 <script>
 import { mapActions } from 'vuex';
+import characterCardMixin from '../../mixins/characterCardMixin';
+
 export default {
     name: "GridButtons",
+    mixins: [characterCardMixin],
     methods: {
         ...mapActions(['savePreset']),
         assignUnits(){
@@ -31,6 +34,10 @@ export default {
                 grid.setAttribute('assigning', true);
                 overlay.setAttribute('assigning', true);
             }
+        },
+        initiateSave(){
+            this.resetGridArchetypes();
+            this.savePreset();
         }
     }
 }

@@ -4,11 +4,12 @@
       <Grid />
       <GridOverlay />
       <div id="GridButtonContainer">
-        <GridMenu />
+        <GridPresets />
         <GridButtons />
       </div>
     </div>
     <div class="column2">
+      <GridCounter />
       <CharacterList />
     </div>
   </div>
@@ -17,24 +18,28 @@
 
 <script>
 import Grid from '../components/Grid/Grid';
-import GridOverlay from '../components/Grid/GridOverlay';
-import GridMenu from '../components/Grid/GridMenu';
+import GridCounter from '../components/Grid/GridCounter';
 import GridButtons from '../components/Grid/GridButtons';
+import GridOverlay from '../components/Grid/GridOverlay';
+import GridPresets from '../components/Grid/GridPresets';
 import CharacterList from '../components/Characters/CharacterList';
 
 export default {
   name: 'Home',
   components: {
     Grid,
-    GridMenu,
+    GridCounter,
     GridButtons,
     GridOverlay,
+    GridPresets,
     CharacterList
   }
 }
 </script>
 
 <style scoped lang="scss">
+  @import '../variables.scss';
+
   #Home{
     min-height: 80vh;
     width: 100%;
@@ -58,8 +63,8 @@ export default {
   }
 
   #GridButtonContainer {
-    width: 100%;
-    height: 7.5vh;
+    width: $size * 22;
+    height: 5vh;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -81,7 +81,6 @@ export default {
             })
         },
         removeAllHighlights(element){
-            //element = 'CharacterCard'
             let cards = [...document.getElementsByClassName(element)];
             cards.forEach(card => {
                 card.setAttribute('highlighted', false);
@@ -95,6 +94,13 @@ export default {
             })
             cardSelectedImg.forEach(img => {
                 img.style.display = 'none';
+            })
+        },
+        resetGridArchetypes(){
+            let legioncell = [...document.getElementsByClassName('LegionCell')];
+            legioncell.forEach(cell => {
+                cell.setAttribute('archetypeList', "");
+                cell.removeAttribute('archetype');
             })
         },
         unhighlightCard(vm, charName){

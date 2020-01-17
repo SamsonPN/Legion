@@ -1,5 +1,5 @@
 <template>
-  <div id="GridMenu">
+  <div id="GridPresets">
       <p>Presets: </p>
       <p @click="choosePreset(1, $event)" clicked="true">1</p>
       <p @click="choosePreset(2, $event)" clicked="false">2</p>
@@ -14,7 +14,7 @@ import { mapActions, mapGetters } from 'vuex';
 import characterCardMixin from '../../mixins/characterCardMixin';
 
 export default {
-    name: "GridMenu",
+    name: "GridPresets",
     mixins: [characterCardMixin],
     methods: {
         ...mapActions(['changePreset']),
@@ -26,11 +26,12 @@ export default {
                 this.activateRotationImgs();
                 this.changePreset(newPresetNumber);
                 this.removePresetHighlight();
+                this.resetGridArchetypes();
                 e.target.setAttribute('clicked', true);
             }
         },
         removePresetHighlight(){
-            let presets = [...document.getElementById('GridMenu').children].slice(1);
+            let presets = [...document.getElementById('GridPresets').children].slice(1);
             presets.forEach(preset => {
                 preset.setAttribute('clicked', false);
             })
@@ -41,7 +42,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    #GridMenu{
+    #GridPresets{
         height: 100%;
         flex: 1;
         display: flex;
@@ -56,7 +57,7 @@ export default {
             &:first-of-type ~ p{
                 cursor: pointer;
             }
-            &[clicked="true"]{
+            &[clicked="true"], &:hover{
                 color: yellow;
                 text-shadow: 0 0 10px yellow;
             }

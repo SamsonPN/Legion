@@ -3,7 +3,7 @@
         draggable="true"
         @dragstart="setDragImage"
         @click="scrollToCard"
-        @mousedown.right="removePiece">
+        @contextmenu.prevent="removePiece">
         <img
             :id="charInfo.className + 'Image'"
             ref="GridPieceImg" 
