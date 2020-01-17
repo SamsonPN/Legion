@@ -2,7 +2,7 @@
     <div id="CharacterList">
         <div id="CardContainer">
             <CharacterCard 
-                v-for="(character, name) in charInfo" 
+                v-for="(character, name) in activeCharInfo" 
                 :key="name"
                 :charInfo="{character, name}"
                 :charName="name"
@@ -20,7 +20,19 @@ export default {
     components: {
         CharacterCard
     },
-    computed: mapGetters(['charInfo'])
+    computed: {
+        ...mapGetters(['charInfo']),
+        activeCharInfo(){
+            let {charInfo} = this;
+            let activeCharInfo = {};
+            for(let classes in charInfo){
+                if(charInfo[classes].level !== ""){
+                    activeCharInfo[classes] = charInfo[classes];
+                }
+            }
+            return activeCharInfo;
+        }
+    }
 }
 </script>
 
@@ -45,8 +57,13 @@ export default {
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 1rem;
             border-radius: 20px;
+             &:empty{
+                 background-color: rgba(0, 0, 0, 0.9);
+                 border: 1px solid white;
+                 border-radius: 20px;
+             }
          }
-         &::-webkit-scrollbar {
+         &:-webkit-scrollbar {
              width: 0;
              height: 0;
          }

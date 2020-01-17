@@ -15,7 +15,7 @@
             rows="1">
           </textarea>
 
-          <p>{{ effect(className) }}</p>
+          <p>{{ computeEffect(className, _class.level) }}</p>
       </div>
   </div>
 </template>
@@ -32,27 +32,16 @@ export default {
     mixins: [characterCardMixin],
     methods: {
         ...mapMutations(['updateCharData']),
-        checkNumbersOnly(e){
-            let numericalInput = parseInt(e.key);
-            if(e.key === 'Enter'){
-                e.preventDefault()
-            }
-            if(isNaN(numericalInput)){
-                alert('Enter numbers only!')
+        checkNumbersOnly(e, level){
+            let {key} = e;
+            let numericalInput = parseInt(key);
+            if(key === 'Enter' || isNaN(numericalInput)){
                 e.preventDefault();
             }
         },
-        levelChange(e){
-            let {id, value} = e.target;
+        computeCoordinates(level, id){
             let {archetype} = this;
-            value = parseInt(value);
-            // just call checkNumbersOnly
-            if(isNaN(value)){
-                alert('Please enter numbers only!');
-                e.target.value = '0';
-                return
-            }
-            let rank = this.rankCheck(value);
+            let rank = this.rankCheck(level);
             let coordinates;
             if(rank === 'SSS' && (id === "Xenon" || id === "Enhanced Lab Piece")){
                 coordinates = Ranks[rank][id];
@@ -63,19 +52,31 @@ export default {
             else {
                 coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetype];
             }
+            return coordinates;
+        },
+        levelChange(e){
+            let {id, value} = e.target;
+            let level = parseInt(value);
+            let {archetype} = this;
+            if(isNaN(level)){
+                alert('Please enter numbers only!');
+                e.target.value = '';
+                return;
+            }
+            else if (level < 60 || level > 275){
+                alert('Character is either ineligible for legion or above level cap!');
+                e.target.value = '';
+                return;
+            }
+            let coordinates = this.computeCoordinates(level, id);
             let data = {
                 field: 'level',
-                value,
+                value: level,
                 archetype,
                 className: id,
                 coordinates
             };
             this.updateCharData(data);
-        },
-        effect(charName){
-            let {classes, effects} = CharacterEffect;
-            let effectNum = classes[charName];
-            return effects[effectNum].effect;
         }
     }
 }

@@ -1,3 +1,5 @@
+import CharacterEffect from '../components/Characters/CharacterEffect';
+
 export default {
     methods: {
         activateRotationImgs(){
@@ -12,6 +14,21 @@ export default {
                 cell.setAttribute('archetypeList', "");
                 cell.setAttribute('archetype', "");
             })
+        },
+        computeEffect(charName, level){
+            let {classes, effects, values} = CharacterEffect;
+            let effectIndex= classes[charName];
+            let {effect, type} = effects[effectIndex];
+            level = parseInt(level);
+            let computedEffect;
+            if(isNaN(level)){
+                computedEffect = effect;
+            }
+            else {
+                let rank = this.rankCheck(parseInt(level));
+                computedEffect = effect.replace('value', values[type][rank]);
+            }
+            return computedEffect;
         },
         getImage: (charName) => {
             if(charName === 'Archmage Fire/Poison'){

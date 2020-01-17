@@ -5,8 +5,8 @@
       highlighted="false">
       <div>
         <p>Class: {{charName}}</p>
-        <p>Level: {{charInfo[charName].level}}</p>
-        <p>Effect: {{charEffect}}</p> 
+        <p>Level: {{level}}</p>
+        <p>Effect: {{computeEffect(charName, level)}}</p> 
         <img 
             :id="charName + 'Selected'" 
             class="cardSelectedImg"
@@ -38,14 +38,8 @@ export default {
     mixins: [characterCardMixin],
     computed: { 
         ...mapGetters(['charInfo']),
-        charEffect(){
-            let {charInfo, charName} = this;
-            let {classes, effects, values} = CharacterEffect;
-            let effectIndex= classes[charName];
-            let {effect, type} = effects[effectIndex];
-            let rank = this.rankCheck(parseInt(charInfo[charName].level));
-            let computedEffect = effect.replace('value', values[type][rank]);
-            return computedEffect;
+        level(){
+            return this.charInfo[this.charName].level;
         }
     }
 }
