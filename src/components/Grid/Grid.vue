@@ -115,17 +115,35 @@ export default {
         width: $size;
         height: $size;
         border-radius: 3.5px;
-        &[archetype]{ border: 1px white solid; }
-        &[archetype="Warrior"]{ background-color: $warrior; }
-        &[archetype="Magician"]{ background-color: $magician; }
-        &[archetype="Bowman"]{ background-color: $bowman; }
-        &[archetype="Thief"]{ background-color: $thief; }
-        &[archetype="Pirate"]{ background-color: $pirate; }
-        &[archetype="Lab"]{ background-color: $lab; }
+        &[archetype="Warrior"]{ 
+            background-color: $warrior; 
+            border: 1px white solid;
+        }
+        &[archetype="Magician"]{ 
+            background-color: $magician; 
+            border: 1px white solid;
+        }
+        &[archetype="Bowman"]{ 
+            background-color: $bowman;
+            border: 1px white solid; 
+        }
+        &[archetype="Thief"]{ 
+            background-color: $thief; 
+            border: 1px white solid;
+        }
+        &[archetype="Pirate"]{ 
+            background-color: $pirate; 
+            border: 1px white solid;
+        }
+        &[archetype="Lab"]{ 
+            background-color: $lab; 
+            border: 1px white solid;
+        }
         &[archetype="Overlap"]{ 
             display: flex;
             justify-content: center;
             align-items: center;
+            border: 1px white solid;
             background: {
                 image: url('../../assets/Overlap.svg');
                 size: cover;

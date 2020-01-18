@@ -2,6 +2,7 @@
     <div 
         :id="charName + 'Rotation'">
         <img 
+            draggable="false"
             class="rotationImg"
             @click="rotateCounterClockwise" 
             src="../../assets/Rotations/CounterClockwise.svg" 
@@ -9,6 +10,7 @@
             clickable="true"
             alt="None">
         <img 
+            draggable="false"
             class="rotationImg"
             @click="mirrorX" 
             src="../../assets/Rotations/MirrorX.svg" 
@@ -16,6 +18,7 @@
             clickable="true"
             alt="None">
         <img 
+            draggable="false"
             class="rotationImg"
             @click="mirrorY" 
             src="../../assets/Rotations/MirrorY.svg" 
@@ -23,6 +26,7 @@
             clickable="true"
             alt="None">
         <img 
+            draggable="false"
             class="rotationImg"
             @click="rotateClockwise" 
             src="../../assets/Rotations/Clockwise.svg" 

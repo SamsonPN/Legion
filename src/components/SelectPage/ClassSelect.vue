@@ -58,7 +58,11 @@ export default {
             let {id, value} = e.target;
             let level = parseInt(value);
             let {archetype} = this;
-            if(isNaN(level)){
+            if(value === ""){
+                e.target.value = "";
+                return;
+            }
+            else if(isNaN(level)){
                 alert('Please enter numbers only!');
                 e.target.value = '';
                 return;

@@ -103,7 +103,7 @@ export default {
         align-items: center;
     }
 
-    p{
+    p {
         width: auto;
         position: absolute;
         z-index: 10;

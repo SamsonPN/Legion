@@ -60,6 +60,7 @@ export default {
   .column2{
     display: flex;
     flex-direction: column;
+    margin-top: 1vh;
   }
 
   #GridButtonContainer {

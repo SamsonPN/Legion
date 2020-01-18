@@ -47,7 +47,7 @@ export default {
 
 <style scoped lang="scss">
     .CharacterCard {
-        height: auto;
+        max-height: 50vh;
         width: 100%;
         position: relative;
         display: flex;

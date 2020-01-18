@@ -127,10 +127,12 @@ const actions = {
     removeSideClass({ commit }, charInfo){
         let {className, coordinates} = charInfo;
         let piece = document.getElementById(className + 'Piece');
-        coordinates.forEach(coordinate => {
-          let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
-          cell.classList.remove('side');
-        })
+        if(piece){
+            coordinates.forEach(coordinate => {
+              let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
+              cell.classList.remove('side');
+            })
+        }
     },
     saveCharData({ dispatch }){
         let {characters} = state;
@@ -173,13 +175,19 @@ const actions = {
         let charInfo = {...state.charInfo};
         for(let position in preset){
             let {className, coordinates} = preset[position];
-            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
+            let rotation = document.getElementById(className + 'Rotation');
+            let piece = document.getElementById(className + 'Piece');
             dispatch('removeSideClass', {...charInfo[className], className});
             charInfo[className].coordinates = coordinates;
-            document.getElementById(className + 'Piece').setAttribute('draggable', false);
-            rotationImgs.forEach(img => {
-                img.setAttribute('clickable', false);
-            })
+            if(piece){
+                piece.setAttribute('draggable', false);
+            }
+            if(rotation){
+                let rotationImgs = [...rotation.children];
+                rotationImgs.forEach(img => {
+                    img.setAttribute('clickable', false);
+                })
+            }
         }
         commit('setCharInfo', charInfo)
     },

@@ -1,13 +1,15 @@
 <template>
     <div
         id="GridCounter">
+        <p>Legion Rank: {{legionRank}}</p>
         <p>Total Level: {{totalLevels}}</p>
-        <p>Members Assigned: {{currentMembers}} / 36</p>
+        <p>Members Assigned: {{currentMembers}} / {{totalMembers}}</p>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import LegionRanks from './LegionRanks';
 
 export default {
     name: "GridCounter",
@@ -41,7 +43,12 @@ export default {
             return isNaN(totalLevels) ? 0 : totalLevels;
         },
         totalMembers(){
-            return 'poop';
+            let roundedLevel = Math.floor(this.totalLevels / 500) * 500;
+            return (LegionRanks[roundedLevel] || {}).members;
+        },
+        legionRank(){
+            let roundedLevel = Math.floor(this.totalLevels / 500) * 500;
+            return (LegionRanks[roundedLevel] || {}).rankName;
         }
     }
 }
@@ -54,10 +61,10 @@ export default {
         width: 49vw;
         border-radius: 20px;
         color: white;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.85);
         padding: 5px;
         > p {
-            font-size: 1.5em;
+            font-size: 1.25em;
         }
     }
 </style>
