@@ -58,11 +58,12 @@ export default {
     @import '../../variables.scss';
 
     #GridCounter {
-        width: 49vw;
+        width: 100%;
+        border: 1px solid white;
         border-radius: 20px;
-        color: white;
+        padding: 7.5px;
         background-color: rgba(0, 0, 0, 0.85);
-        padding: 5px;
+        color: white;
         > p {
             font-size: 1.25em;
         }

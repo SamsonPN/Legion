@@ -45,22 +45,26 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .column1 {
-    min-height: 88vh;
-    width: 49vw;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1.5;
     margin-top: 1vh;
     z-index: 0;
   }
 
-  .column2{
+  .column2 {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 1vh;
+    padding: 0 10px;
+    flex: 1.25;
   }
 
   #GridButtonContainer {
@@ -70,6 +74,12 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-top: 1vh;
+  }
+
+  @media only screen and (max-width: $tablet) {
+    #Home {
+      flex-direction: column;
+    }    
   }
 
 </style>

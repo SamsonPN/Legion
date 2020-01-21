@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+@mixin grid-layout {
+    max-height: $size * 20;
+    max-width: $size * 22;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3px;
+    background-color: rgba(21, 21, 21, 1);     
+    z-index: 0;
+}
+
+@mixin cell-layout {
+    position: relative;
+    display: flex;
+    width: $size;
+    height: $size;
+    border-radius: 3.5px;
+}

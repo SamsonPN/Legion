@@ -90,15 +90,10 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     #LegionGrid {
-        max-height: $size * 20;
-        max-width: $size * 22;
-        display: flex;
-        flex-direction: column;
-        margin-top: 3px;   
-        background-color: rgba(21, 21, 21, 1);     
-        z-index: 0;
+        @include grid-layout;
         &[assigning="true"]{
             background: none;
         }
@@ -110,11 +105,7 @@ export default {
     }
 
     .LegionCell{
-        position: relative;
-        display: flex;
-        width: $size;
-        height: $size;
-        border-radius: 3.5px;
+        @include cell-layout;
         &[archetype="Warrior"]{ 
             background-color: $warrior; 
             border: 1px white solid;

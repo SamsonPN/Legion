@@ -37,13 +37,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../variables.scss';
+
     #CharacterList {
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 90vh;
-        width: 49vw;
+        max-height: 80vh;
+        width: 100%;
         margin-top: 1vh;
         color: white;
         scrollbar-width: none;
@@ -55,17 +57,25 @@ export default {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-gap: 1rem;
+            grid-gap: 0.5rem;
             border-radius: 20px;
-             &:empty{
-                 background-color: rgba(0, 0, 0, 0.5);
-                 border: 1px solid white;
-                 border-radius: 20px;
-             }
+            //  &:empty{
+            //      background-color: rgba(0, 0, 0, 0.5);
+            //      border: 1px solid white;
+            //      border-radius: 20px;
+            //  }
          }
          &:-webkit-scrollbar {
              width: 0;
              height: 0;
          }
+    }
+
+    @media only screen and (max-width: $desktop) {
+        #CharacterList {
+            > div {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
     }
 </style>

@@ -4,15 +4,15 @@
       <div>
         <router-link to="/">
             <img src="../../assets/Header/grid.svg" alt="Grid"/>
-            <span>  Board</span>
+            <span>  Board  </span>
         </router-link> |
         <router-link to="/select">
             <img src="../../assets/Header/classes.svg" alt="Classes"/>
-            <span>  Select</span>
+            <span>  Classes  </span>
         </router-link> |
         <router-link to="/options">
             <img src="../../assets/Header/options.svg" alt="Options"/>
-            <span>  Options</span>
+            <span>  Options  </span>
         </router-link>
       </div>
   </header>
@@ -68,7 +68,7 @@ export default {
         padding-top: 5px;
     }
 
-    @media only screen and (max-width: 768px){
+    @media only screen and (max-width: 1024px){
         span{
             display: none;
         }

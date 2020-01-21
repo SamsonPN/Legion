@@ -70,15 +70,11 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     #LegionGridOverlay {
+        @include grid-layout;
         position: absolute;
-        max-height: $size * 20;
-        max-width: $size * 22;
-        display: flex;
-        flex-direction: column;
-        margin-top: 3px;   
-        background-color: rgba(21, 21, 21, 1);
         z-index: -1;
         &[assigning="false"]{
             z-index: 1;
@@ -92,13 +88,7 @@ export default {
     }
 
     .LegionCellOverlay {
-        position: relative;
-        display: flex;
-        width: $size;
-        height: $size;
-        border: 0.5px solid $grid;
-        border-radius: 3.5px;
-        display: flex;
+        @include cell-layout;
         justify-content: center;
         align-items: center;
     }
@@ -122,8 +112,7 @@ export default {
             color: white;
         }
     }
-
-
+    
     @for $i from 1 through 22 {
         //colors in diagonal lines across the grid
         @if($i >= 1 and $i <= 10){

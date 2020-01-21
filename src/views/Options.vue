@@ -1,7 +1,7 @@
 <template>
   <div>
       <!-- <Grid /> -->
-      <GridOverlay />
+      <!-- <GridOverlay /> -->
       <!-- <div id="pieceWrapper">
           <LegionPiece charName="Aran" />
       </div> -->
@@ -10,12 +10,12 @@
 
 <script>
 // import Grid from '../components/Grid/Grid';
-import GridOverlay from '../components/Grid/GridOverlay';
+// import GridOverlay from '../components/Grid/GridOverlay';
 // import LegionPiece from '../components/Characters/LegionPiece';
 export default {
     components: {
         // Grid,
-        GridOverlay,
+        // GridOverlay,
         // LegionPiece
     }
 }

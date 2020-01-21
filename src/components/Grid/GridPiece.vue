@@ -114,7 +114,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    img{
+    img {
         max-width: 100%;
         cursor: pointer;
         position: absolute;

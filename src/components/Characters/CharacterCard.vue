@@ -7,13 +7,13 @@
         <p>Class: {{charName}}</p>
         <p>Level: {{level}}</p>
         <p>Effect: {{computeEffect(charName, level)}}</p> 
+      </div>
         <img 
             :id="charName + 'Selected'" 
             class="cardSelectedImg"
             src="../../assets/maple-leaf.svg" 
             alt="Maple Leaf"
             title="This piece is already on the board"/> 
-      </div>
       <div>
         <CharacterPiece :charName="charName" />
         <CharacterRotation :charName="charName" />
@@ -46,6 +46,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../variables.scss';
+
     .CharacterCard {
         max-height: 50vh;
         width: 100%;
@@ -87,4 +89,10 @@ export default {
         display: none;
         border-radius: 17.5px;
     }
+
+//     @media only screen and (max-width: $tablet) {
+//         .CharacterCard {
+//             flex-direction: row;
+//         }
+//   }
 </style>
