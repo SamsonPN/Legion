@@ -72,7 +72,6 @@ export default {
     width: $size * 22;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-top: 1vh;
   }
 
@@ -82,6 +81,18 @@ export default {
     }
     #GridButtonContainer {
       width: 4.4vw * 22;
+    }
+  }
+
+  @media only screen and (max-width: 578px) {
+    #GridButtonContainer {
+      flex-direction: column;
+      > #GridPresets {
+        margin-bottom: 5px;
+      }
+      > #GridBtnsWrapper {
+        justify-content: space-between;
+      }
     }
   }
 

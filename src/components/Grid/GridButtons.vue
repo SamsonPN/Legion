@@ -2,14 +2,14 @@
   <div id="GridBtnsWrapper">
         <button 
             id="GridAssignBtn"
-            @click="assignUnits">
-             &#x21A1;
+            @click="assignUnits"
+            title="Assign Units">
              <span>Assign</span>
         </button>
         <button 
             id="GridApplyBtn"
-            @click="initiateSave">
-            &#x2714;
+            @click="initiateSave"
+            title="Save Preset">
             <span>Save</span>
         </button>
   </div>
@@ -60,25 +60,25 @@ export default {
         outline: none;
         height: 100%;
         width: 48%;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
         border: 1px solid white;
         border-radius: 20px;
         color: white;
-        font-size: 2em;
         cursor: pointer;
+        font: {
+            size: 2em;
+            weight: 400;
+        }
         &:first-of-type {
             background-color: rgb(34, 136, 170);
-            }
+        }
         &:last-of-type {
             background-color: rgb(68,68,102);
         }
         &:hover{
-            text-decoration: underline;
-        }
-    }
-
-    @media only screen and (max-width: 578px) {
-        button > span{
-            display: none;
+            color: yellow;
         }
     }
 </style>

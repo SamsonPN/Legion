@@ -49,7 +49,7 @@ export default {
     @import '../../variables.scss';
 
     .CharacterCard {
-        max-height: 55vh;
+        height: auto;
         width: 100%;
         position: relative;
         display: flex;
@@ -81,8 +81,8 @@ export default {
     }
     
     img {
-        width: 65px;
-        height: 65px;
+        max-width: 17.5%;
+        max-height: 25%;
         position: absolute;
         top: 0;
         right: 0;

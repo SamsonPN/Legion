@@ -131,6 +131,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../variables.scss';
+
     div {
         height: auto;
         width: 80%;
@@ -142,14 +144,21 @@ export default {
         color: black;
     }
     img {
-        width: 50px;
-        height: 50px;
+        max-width: 17.5%;
+        max-height: 20%;
         cursor: pointer;
         &:hover {
             opacity: 0.5;
         }
         &[clickable="false"]{
             opacity: 0.25;
+        }
+    }
+
+    @media only screen and (max-width: $tablet) {
+        img {
+            max-width: 12.5%;
+            max-height: 17.5%;
         }
     }
 </style>
