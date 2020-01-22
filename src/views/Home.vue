@@ -39,9 +39,10 @@ export default {
 
 <style scoped lang="scss">
   @import '../variables.scss';
+  @import '../mixins.scss';
 
   #Home{
-    min-height: 80vh;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -69,7 +70,6 @@ export default {
 
   #GridButtonContainer {
     width: $size * 22;
-    height: 5vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,7 +79,13 @@ export default {
   @media only screen and (max-width: $tablet) {
     #Home {
       flex-direction: column;
-    }    
+    }
+    #GridButtonContainer {
+      width: 4.4vw * 22;
+    }
   }
+
+
+
 
 </style>

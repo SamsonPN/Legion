@@ -196,4 +196,10 @@ export default {
             }
         }
     }
+
+    @include tablet-grid-size (
+        '#LegionGridOverlay',
+        '.LegionCellOverlay'
+    )
+
 </style>

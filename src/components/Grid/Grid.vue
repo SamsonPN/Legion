@@ -106,30 +106,7 @@ export default {
 
     .LegionCell{
         @include cell-layout;
-        &[archetype="Warrior"]{ 
-            background-color: $warrior; 
-            border: 1px white solid;
-        }
-        &[archetype="Magician"]{ 
-            background-color: $magician; 
-            border: 1px white solid;
-        }
-        &[archetype="Bowman"]{ 
-            background-color: $bowman;
-            border: 1px white solid; 
-        }
-        &[archetype="Thief"]{ 
-            background-color: $thief; 
-            border: 1px white solid;
-        }
-        &[archetype="Pirate"]{ 
-            background-color: $pirate; 
-            border: 1px white solid;
-        }
-        &[archetype="Lab"]{ 
-            background-color: $lab; 
-            border: 1px white solid;
-        }
+        @include archetype-colors;
         &[archetype="Overlap"]{ 
             display: flex;
             justify-content: center;
@@ -142,5 +119,13 @@ export default {
         }
         &[highlighted="true"]{ border: 3px dashed yellow; }
     }
+
+    @include tablet-grid-size (
+        '#LegionGrid',
+        '.LegionCell'
+    )
+
+
+
 
 </style>

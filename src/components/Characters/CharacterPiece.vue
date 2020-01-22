@@ -66,19 +66,16 @@ export default {
   },
   updated(){
     let {charName, character} = this;
-    let piece = document.getElementById(charName + 'Piece');
-    let CardSelected = document.getElementById(charName + 'Selected');
-    let draggable = piece.getAttribute('draggable');
+    let draggable = document.getElementById(charName + 'Piece').getAttribute('draggable');
     this.mapCoordinates(character.coordinates);
-    if(draggable === 'false'){
-      CardSelected.style.display = 'block';
-    }
+    document.getElementById(charName + 'Selected').style.display = draggable === 'false' ? 'block' : 'none';
   }
 }
 </script>
 
 <style scoped lang="scss">
   @import '../../variables.scss';
+  @import '../../mixins.scss';
 
   .piece {
     width: auto;
@@ -99,18 +96,12 @@ export default {
     width: $size;
     z-index: 0;
     border-radius: 3.5px;
-    &[archetype="Warrior"]{ background-color: $warrior; }
-    &[archetype="Magician"]{ background-color: $magician; }
-    &[archetype="Bowman"]{ background-color: $bowman; }
-    &[archetype="Thief"]{ background-color: $thief; }
-    &[archetype="Pirate"]{ background-color: $pirate; }
-    &[archetype="Lab"]{ background-color: $lab; }
+    @include archetype-colors;
   }
 
   .main, .side{
     visibility: visible;
     position: relative;
-    border: 0.5px solid white;
     cursor: pointer;
   }
 
@@ -123,6 +114,14 @@ export default {
     position: absolute;
     top: 0;
     max-width: 100%;
+  }
+
+  @media only screen and (max-width: $tablet) {
+    $size: 4.4vw;
+    .pieceCell {
+      width: $size;
+      height: $size;
+    }
   }
 
 

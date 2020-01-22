@@ -68,9 +68,19 @@ export default {
         padding-top: 5px;
     }
 
-    @media only screen and (max-width: 1024px){
+    @media only screen and (max-width: 1024px) {
         span{
             display: none;
+        }
+    }
+
+    @media only screen and (max-width: 606px) {
+        p {
+            display: none;
+        }
+        a {
+            justify-content: center;
+            flex: 1;
         }
     }
 </style>

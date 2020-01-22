@@ -49,7 +49,7 @@ export default {
     @import '../../variables.scss';
 
     .CharacterCard {
-        max-height: 50vh;
+        max-height: 55vh;
         width: 100%;
         position: relative;
         display: flex;
@@ -80,7 +80,7 @@ export default {
         }
     }
     
-    img{
+    img {
         width: 65px;
         height: 65px;
         position: absolute;
@@ -90,9 +90,4 @@ export default {
         border-radius: 17.5px;
     }
 
-//     @media only screen and (max-width: $tablet) {
-//         .CharacterCard {
-//             flex-direction: row;
-//         }
-//   }
 </style>

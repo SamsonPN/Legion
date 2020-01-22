@@ -59,11 +59,6 @@ export default {
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 0.5rem;
             border-radius: 20px;
-            //  &:empty{
-            //      background-color: rgba(0, 0, 0, 0.5);
-            //      border: 1px solid white;
-            //      border-radius: 20px;
-            //  }
          }
          &:-webkit-scrollbar {
              width: 0;

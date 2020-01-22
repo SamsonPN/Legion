@@ -54,13 +54,17 @@ export default {
         > p {
             color: white;
             font-size: 2em;
-            &:first-of-type ~ p{
+            &[clicked="true"], &:first-of-type ~ p:hover{
                 cursor: pointer;
-            }
-            &[clicked="true"], &:hover{
                 color: yellow;
                 text-shadow: 0 0 10px yellow;
             }
+        }
+    }
+
+    @media only screen and (max-width: 500px) {
+        p:first-of-type {
+            display: none;
         }
     }
 </style>

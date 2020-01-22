@@ -6,6 +6,8 @@
     display: flex;
     flex-direction: column;
     margin-top: 3px;
+    border: 0.5px solid rgba(34, 255, 34, 1);
+    border-radius: 3.5px;
     background-color: rgba(21, 21, 21, 1);     
     z-index: 0;
 }
@@ -17,3 +19,46 @@
     height: $size;
     border-radius: 3.5px;
 }
+
+@mixin archetype-colors { 
+    &[archetype="Warrior"]{ 
+        background-color: $warrior; 
+        border: 1px white solid;
+    }
+    &[archetype="Magician"]{ 
+        background-color: $magician; 
+        border: 1px white solid;
+    }
+    &[archetype="Bowman"]{ 
+        background-color: $bowman;
+        border: 1px white solid; 
+    }
+    &[archetype="Thief"]{ 
+        background-color: $thief; 
+        border: 1px white solid;
+    }
+    &[archetype="Pirate"]{ 
+        background-color: $pirate; 
+        border: 1px white solid;
+    }
+    &[archetype="Lab"]{ 
+        background-color: $lab; 
+        border: 1px white solid;
+    }
+}
+
+@mixin tablet-grid-size($gridElem, $cellElem) {
+    @media only screen and (max-width: $tablet) {
+        $size: 4.4vw;
+        #{$gridElem} {
+            max-height: $size * 20;
+            max-width: $size  * 22;
+        }
+
+        #{$cellElem} {
+            width: $size;
+            height: $size;
+        }
+    }
+}
+

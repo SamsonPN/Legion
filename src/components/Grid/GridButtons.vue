@@ -1,14 +1,16 @@
 <template>
   <div id="GridBtnsWrapper">
         <button 
-            id="GridApplyBtn"
-            @click="initiateSave">
-            &#x2714;Apply
-        </button>
-        <button 
             id="GridAssignBtn"
             @click="assignUnits">
-            Assign Units
+             &#x21A1;
+             <span>Assign</span>
+        </button>
+        <button 
+            id="GridApplyBtn"
+            @click="initiateSave">
+            &#x2714;
+            <span>Save</span>
         </button>
   </div>
 </template>
@@ -61,16 +63,22 @@ export default {
         border: 1px solid white;
         border-radius: 20px;
         color: white;
-        font-size: 1.25em;
+        font-size: 2em;
         cursor: pointer;
         &:first-of-type {
-            background-color: rgb(68,68,102);
-        }
-        &:last-of-type {
             background-color: rgb(34, 136, 170);
+            }
+        &:last-of-type {
+            background-color: rgb(68,68,102);
         }
         &:hover{
             text-decoration: underline;
+        }
+    }
+
+    @media only screen and (max-width: 578px) {
+        button > span{
+            display: none;
         }
     }
 </style>
