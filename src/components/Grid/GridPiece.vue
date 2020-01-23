@@ -23,12 +23,6 @@ export default {
     methods: {
         ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
-        setDragImage(e){
-            let {className} = this.charInfo;
-            let piece = document.getElementById(className + 'Piece');
-            e.dataTransfer.setDragImage(piece, 80, 80);
-            this.scrollToCard(e)
-        },
         fillCoordinateColors(style){
             let {rowIndex, cellIndex} = this.position;
             let position = (rowIndex * 22) + cellIndex;
@@ -54,19 +48,29 @@ export default {
             this.reactivateCharacterCard(className, false);
             this.removeAllHighlights('CharacterCard');
         },
+        setDragImage(e){
+            let {className} = this.charInfo;
+            let piece = document.getElementById(className + 'Piece');
+            e.dataTransfer.setDragImage(piece, 80, 80);
+            this.setCurrentChar();
+        },
+        setCurrentChar(){
+            let currentChar = {
+                className: this.charInfo.className,
+                position: this.position
+            };
+            this.setCurrentCharacter(currentChar);
+        },
         scrollToCard(e){
-            e.stopPropagation();
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
             document.getElementById(className + 'Card').scrollIntoView({
-                behavior: "auto"
+                behavior: "smooth",
+                block: "nearest",
+                inline: "start"
             });
-            let currentChar = {
-                className,
-                position: this.position
-            };
             this.highlightCard(this, className);
-            this.setCurrentCharacter(currentChar);
+            this.setCurrentChar();
         },
         setArchetypes(){
             let {rowIndex, cellIndex} = this.position;
@@ -101,9 +105,8 @@ export default {
         }
     },
     mounted(){
-        let {GridPieceImg} = this.$refs; 
         let icon = this.getImage(this.charInfo.className);
-        GridPieceImg.src = icon;
+        this.$refs.GridPieceImg.src = icon;
         this.setArchetypes();
     },
     computed: mapGetters(['currentPreset']),
