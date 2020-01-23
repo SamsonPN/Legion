@@ -47,6 +47,7 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     .CharacterCard {
         height: auto;
@@ -88,6 +89,13 @@ export default {
         right: 0;
         display: none;
         border-radius: 17.5px;
+    }
+
+    @include for-tablet-only {
+        .CharacterCard > div > p {
+            color: red;
+            font-size: 1.5em;
+        }
     }
 
 </style>

@@ -132,6 +132,7 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     div {
         height: auto;
@@ -155,10 +156,10 @@ export default {
         }
     }
 
-    @media only screen and (max-width: $tablet) {
+    @include for-tablet-only {
         img {
             max-width: 12.5%;
-            max-height: 17.5%;
+            max-height: 15%;
         }
     }
 </style>

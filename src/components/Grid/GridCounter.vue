@@ -56,6 +56,7 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     #GridCounter {
         width: 100%;
@@ -66,6 +67,12 @@ export default {
         color: white;
         > p {
             font-size: 1.25em;
+        }
+    }
+
+    @include for-tablet-only {
+        #GridCounter > p {
+            font-size: 1.5em;
         }
     }
 </style>

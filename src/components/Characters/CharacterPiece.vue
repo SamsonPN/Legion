@@ -113,12 +113,11 @@ export default {
   img {
     position: absolute;
     top: 0;
-    // max-width: 100%;
     width: 100%;
     border-radius: 3.5px;
   }
 
-  @media only screen and (max-width: $tablet) {
+  @include for-tablet-only {
     $size: 4.4vw;
     .pieceCell {
       width: $size;

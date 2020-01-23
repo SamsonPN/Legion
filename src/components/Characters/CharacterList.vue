@@ -38,13 +38,14 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     #CharacterList {
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-height: 80vh;
+        max-height: 100vh;
         width: 100%;
         margin-top: 1vh;
         color: white;
@@ -66,7 +67,7 @@ export default {
          }
     }
 
-    @media only screen and (max-width: $desktop) {
+    @include for-desktop-only {
         #CharacterList {
             > div {
                 grid-template-columns: repeat(1, 1fr);

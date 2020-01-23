@@ -75,7 +75,8 @@ export default {
     margin-top: 1vh;
   }
 
-  @media only screen and (max-width: $tablet) {
+  // stacks grid on top of character list
+  @include for-tablet-only {
     #Home {
       flex-direction: column;
     }
@@ -84,7 +85,8 @@ export default {
     }
   }
 
-  @media only screen and (max-width: 578px) {
+  // stacks preset list on top of grid buttons (assign, save)
+  @include for-tablet-small-only {
     #GridButtonContainer {
       flex-direction: column;
       > #GridPresets {
@@ -95,8 +97,5 @@ export default {
       }
     }
   }
-
-
-
 
 </style>

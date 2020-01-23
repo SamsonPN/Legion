@@ -47,9 +47,40 @@
     }
 }
 
-// also take a 
+//media queries
+
+@mixin for-desktop-only {
+    @media only screen and (max-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin for-desktop-small-only {
+    @media only screen and (max-width: $desktop-small) {
+        @content;
+    }
+}
+
+@mixin for-tablet-only {
+    @media only screen and (max-width: $tablet) { 
+        @content;
+    }
+}
+
+@mixin for-tablet-small-2-only {
+    @media only screen and (max-width: $tablet-small-2) {
+        @content;
+    }
+}
+
+@mixin for-tablet-small-only {
+    @media only screen and (max-width: $tablet-small) {
+        @content;
+    }
+}
+
 @mixin tablet-grid-size($gridElem, $cellElem) {
-    @media only screen and (max-width: $tablet) {
+    @include for-tablet-only {
         $size: 4.4vw;
         #{$gridElem} {
             max-height: $size * 20;

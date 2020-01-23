@@ -124,20 +124,5 @@ export default {
         '#LegionGrid',
         '.LegionCell'
     )
-
-    // @media only screen and (min-width: 1824px) {
-    //     $size: 2vw;
-    //     #LegionGrid {
-    //         max-height: $size * 20;
-    //         max-width: $size * 22;
-    //     }
-    //     .LegionCell {
-    //         width: $size;
-    //         height: $size;
-    //     }
-    // }
-
-
-
-
+    
 </style>

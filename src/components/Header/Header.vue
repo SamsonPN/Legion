@@ -25,6 +25,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../mixins.scss';
+
     header {
         width: 100%;
         height: auto;
@@ -68,13 +70,13 @@ export default {
         padding-top: 5px;
     }
 
-    @media only screen and (max-width: 1024px) {
+    @include for-desktop-small-only {
         span{
             display: none;
         }
     }
 
-    @media only screen and (max-width: 606px) {
+    @include for-tablet-small-2-only {
         p {
             display: none;
         }
