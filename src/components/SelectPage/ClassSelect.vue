@@ -87,6 +87,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../mixins.scss';
+
     .ClassSelect {
         width: 100%;
         display: flex;
@@ -125,6 +127,24 @@ export default {
         background-color: rgba(0, 0, 0, 0.75);
         &::placeholder {
             color: inherit;
+        }
+    }
+
+    @include for-tablet-small-only {
+        .ClassSelect {
+            > div {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 5px;
+                > p {
+                    width: 100%;
+                    order: 1;
+                }
+                > textarea {
+                    width: 75%;
+                    order: 2;
+                }
+            }
         }
     }
 </style>

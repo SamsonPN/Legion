@@ -26,8 +26,9 @@ export default {
 
 <style scoped lang="scss">
     @import '../variables.scss';
+    @import '../mixins.scss';
 
-    #Select{
+    #Select {
         min-height: 100vh;
         width: 100%;
         background-color: rgba(0, 0, 0, 0.9);
@@ -36,10 +37,10 @@ export default {
         justify-content: space-around;
     }
     
-    #WarriorSelect{ color: $warrior }
-    #MagicianSelect{ color: $magician; }
-    #BowmanSelect{ color: $bowman; } 
-    #ThiefSelect{ color: $thief; }
-    #PirateSelect{ color: $pirate; }
-    #LabSelect{ color: $lab; }
+    #WarriorSelect { color: $warrior }
+    #MagicianSelect { color: $magician; }
+    #BowmanSelect { color: $bowman; } 
+    #ThiefSelect { color: $thief; }
+    #PirateSelect { color: $pirate; }
+    #LabSelect { color: $lab; }
 </style>

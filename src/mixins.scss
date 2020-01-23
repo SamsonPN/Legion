@@ -79,6 +79,12 @@
     }
 }
 
+@mixin for-mobile-only {
+    @media only screen and (max-width: $mobile) {
+        @content;
+    }
+}
+
 @mixin tablet-grid-size($gridElem, $cellElem) {
     @include for-tablet-only {
         $size: 4.4vw;
