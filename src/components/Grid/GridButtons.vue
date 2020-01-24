@@ -18,10 +18,11 @@
 <script>
 import { mapActions } from 'vuex';
 import characterCardMixin from '../../mixins/characterCardMixin';
+import gridMixin from '../../mixins/gridMixin';
 
 export default {
     name: "GridButtons",
-    mixins: [characterCardMixin],
+    mixins: [characterCardMixin, gridMixin],
     methods: {
         ...mapActions(['savePreset']),
         assignUnits(){

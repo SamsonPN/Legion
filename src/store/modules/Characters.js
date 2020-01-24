@@ -191,19 +191,19 @@ const actions = {
         }
         commit('setCharInfo', charInfo)
     },
-    insertIntoPreset({ commit, dispatch }, position){
+    insertIntoPreset({ commit, dispatch }, newPosition){
         let {currentCharacter, currentPreset} = state;
         let {rowIndex, cellIndex} = currentCharacter.position;
         let oldPosition = (rowIndex * 22) + cellIndex;
         if(currentCharacter){
-            if(!currentPreset[position]) {
+            if(!currentPreset[newPosition]) {
                 if(oldPosition || oldPosition === 0){
                     commit('removeOldPosition', oldPosition);
-                    dispatch('removeSidePieces', currentCharacter);
                 }
-                commit('addToPreset', position);
+                commit('addToPreset', newPosition);
                 commit('setCurrentCharacter', currentCharacter);
                 dispatch('updateCharInfo', state.currentPreset);
+                return true;
             }
         }
     }

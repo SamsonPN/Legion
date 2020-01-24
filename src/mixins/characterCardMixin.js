@@ -30,7 +30,7 @@ export default {
             }
             return computedEffect;
         },
-        getImage: (charName) => {
+        getImage(charName){
             if(charName === 'Archmage Fire/Poison'){
                 charName = 'FP';
             }
@@ -44,7 +44,7 @@ export default {
             let currentChar = {
                 className: charName,
                 position: false
-              };
+            };
             let card = document.getElementById(charName + 'Card');
             this.removeAllHighlights('CharacterCard');
             card.setAttribute('highlighted', true);
@@ -72,8 +72,8 @@ export default {
         },
         reactivateCharacterCard(className, isOnGrid){
            if(!isOnGrid){
-            document.getElementById(className + 'Piece').setAttribute('draggable', true);
-            document.getElementById(className + 'Selected').style.display = "none";
+                document.getElementById(className + 'Piece').setAttribute('draggable', true);
+                document.getElementById(className + 'Selected').style.display = "none";
             }
             let rotationImgs = [...document.getElementById(className + 'Rotation').children];
             rotationImgs.forEach(img => {
@@ -81,9 +81,9 @@ export default {
             })
         },
         removeAllHighlights(element){
-            let cards = [...document.getElementsByClassName(element)];
-            cards.forEach(card => {
-                card.setAttribute('highlighted', false);
+            let highlightedItem = [...document.getElementsByClassName(element)];
+            highlightedItem.forEach(item => {
+                item.setAttribute('highlighted', false);
             })
         },
         resetPieceDraggability(){
@@ -96,14 +96,7 @@ export default {
                 img.style.display = 'none';
             })
         },
-        resetGridArchetypes(){
-            let legioncell = [...document.getElementsByClassName('LegionCell')];
-            legioncell.forEach(cell => {
-                cell.setAttribute('archetypeList', "");
-                cell.removeAttribute('archetype');
-            })
-        },
-        unhighlightCard(vm, charName){
+        unhighlightCard(vm){
             let {commit} = vm.$store;
             commit('removeCurrentCharacter');
             this.removeAllHighlights('CharacterCard');

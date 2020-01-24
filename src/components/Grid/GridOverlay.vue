@@ -202,4 +202,10 @@ export default {
         '.LegionCellOverlay'
     )
 
+    @include for-tablet-small-only {
+        .LegionCellOverlay > p {
+            font-size: 0.75em;
+        }
+    }
+
 </style>

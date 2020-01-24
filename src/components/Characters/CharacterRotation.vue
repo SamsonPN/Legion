@@ -38,17 +38,28 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import gridMixin from '../../mixins/gridMixin';
+
 export default {
     name: "CharacterRotation",
     props: ['charName'],
+    mixins: [gridMixin],
     methods: {
         ...mapActions(['removeSidePieces', 'updateAllCoordinates']),
+        updateCoords(rotatedCoords){
+            let charInfo = {
+                className: this.charName,
+                field: 'coordinates',
+                value: rotatedCoords
+            }
+            this.updateAllCoordinates(charInfo);
+        },
         rotateClockwise(){
             let clickable = this.$refs.clockwise.getAttribute('clickable') === 'true';
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
+                let {coordinates} = this.currentCharacter;
+                this.setArchetypes({ ...this.currentCharacter, append: false});
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
@@ -56,20 +67,15 @@ export default {
                     let y = coord.x;
                     return {x, y};
                 });
-                let charInfo = {
-                    className: this.charName,
-                    field: 'coordinates',
-                    value: rotatedCoords
-                }
-                this.updateAllCoordinates(charInfo);
+                this.updateCoords(rotatedCoords);
             }
         },
         rotateCounterClockwise(){
             let clickable = this.$refs.counterClockwise.getAttribute('clickable') === 'true';
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
+                let {coordinates} = this.currentCharacter;
+                this.setArchetypes({ ...this.currentCharacter, append: false});
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
@@ -77,56 +83,39 @@ export default {
                     let y = coord.x * -1;
                     return {x, y};
                 });
-                let charInfo = {
-                    className: this.charName,
-                    field: 'coordinates',
-                    value: rotatedCoords
-                }
-                this.updateAllCoordinates(charInfo);
+                this.updateCoords(rotatedCoords);
             }
         },
         mirrorX(){
             let clickable = this.$refs.mirrorX.getAttribute('clickable') === 'true';
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
-                let rotatedCoords = coordinates.map(coord => {
+                let {coordinates} = this.currentCharacter;
+                this.setArchetypes({ ...this.currentCharacter, append: false});                let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
                     coord.y *= -1;
                     return coord;
                 });
-                let charInfo = {
-                    className: this.charName,
-                    field: 'coordinates',
-                    value: rotatedCoords
-                }
-                this.updateAllCoordinates(charInfo);
+                this.updateCoords(rotatedCoords);
             }
         },
         mirrorY(){
             let clickable = this.$refs.mirrorY.getAttribute('clickable') === 'true';
             if(clickable){
                 let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.charInfo[this.charName];
-                this.removeSidePieces({...this.charInfo[this.charName], className: this.charName});
-                let rotatedCoords = coordinates.map(coord => {
+                let {coordinates} = this.currentCharacter;
+                this.setArchetypes({ ...this.currentCharacter, append: false});                let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
                     coord.x *= -1;
                     return coord;
                 });
-                let charInfo = {
-                    className: this.charName,
-                    field: 'coordinates',
-                    value: rotatedCoords
-                }
-                this.updateAllCoordinates(charInfo);
+                this.updateCoords(rotatedCoords);
             }
-            }
+        }
     },
-    computed: mapGetters(['charInfo'])
+    computed: mapGetters(['charInfo', 'currentCharacter'])
 }
 </script>
 

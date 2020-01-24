@@ -29,6 +29,7 @@
 import GridPiece from './GridPiece';
 import { mapActions, mapGetters } from 'vuex';
 import characterCardMixin from '../../mixins/characterCardMixin';
+import gridMixin from '../../mixins/gridMixin';
 
 export default {
     name: "Grid",
@@ -41,47 +42,57 @@ export default {
             cells: [...new Array(22)].map((x, i) => i)
         }
     },
-    mixins: [characterCardMixin],
+    mixins: [characterCardMixin, gridMixin],
     methods:{
         ...mapActions(['insertIntoPreset']),
+        updateHighlightAttribute(eventInfo){
+            let {dragover, row, cell} = eventInfo;
+            let legioncell = document.getElementsByClassName('LegionRow')[row].children[cell];
+            if(dragover){
+                legioncell.setAttribute('highlighted', true);
+            }
+            else {
+                legioncell.removeAttribute('highlighted');
+            }
+        },
+        isNotOverlappingPieces(e){
+            return this.currentCharacter && e.target.nodeName !== "IMG";
+        },
         highlightCells(e){
             let dragover = (e.type === 'dragover');
-            if(this.currentCharacter && e.target.nodeName !== "IMG"){
+            if(this.isNotOverlappingPieces(e)){
                 let {coordinates} = this.currentCharacter;
                 let {row, cell} = e.target.attributes;
-                let legionrow = [...document.getElementsByClassName('LegionRow')];
                 row = parseInt(row.value);
                 cell = parseInt(cell.value);
-                if(dragover){
-                    legionrow[row].children[cell].setAttribute('highlighted', true);
-                }
-                else {
-                    legionrow[row].children[cell].removeAttribute('highlighted');
-                }
-                coordinates.forEach(coord => {
+                this.updateHighlightAttribute({dragover, row, cell});
+                let coordsInGrid = this.coordinatesInGrid({row, cell, coordinates});
+                coordsInGrid.forEach(coord => {
                     let {x, y} = coord;
                     x += cell;
                     y += row;
-                    if( y >= 0 && y < 20 &&
-                        x >= 0 && x < 22){
-                            if(dragover){
-                                legionrow[y].children[x].setAttribute('highlighted', true);
-                            }
-                            else {
-                                legionrow[y].children[x].removeAttribute('highlighted');
-                            }
-                    }
+                    this.updateHighlightAttribute({
+                        dragover, 
+                        row: y, 
+                        cell: x
+                    })
                 })
             }
         },
+        isPositionEmpty(position){
+            return this.currentPreset[position] ? false : true;
+        },
         insertPiece(row, cell, e){
             let position = (row * 22) + cell;
-            this.insertIntoPreset(position);
-            let legioncell = [...document.getElementsByClassName('LegionCell')];
-            legioncell.forEach(cell => {
-                cell.removeAttribute('highlighted')
-            })
-            this.unhighlightCard(this, this.currentCharacter.className);
+            if(this.isPositionEmpty(position)) {
+                this.setArchetypes({
+                    ...this.currentCharacter,
+                    append: false
+                });
+                this.insertIntoPreset(position);
+                this.removeAllHighlights('LegionCell');
+                this.unhighlightCard(this);
+            }
         }
     },
     computed: mapGetters(['currentCharacter', 'currentPreset'])

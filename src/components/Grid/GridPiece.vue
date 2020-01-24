@@ -15,11 +15,12 @@
 <script>
 import { mapActions, mapGetters, mapMutations} from 'vuex';
 import characterCardMixin from '../../mixins/characterCardMixin';
+import gridMixin from '../../mixins/gridMixin';
 
 export default {
     name: "GridPiece",
     props: ['charInfo', 'position'],
-    mixins: [characterCardMixin],
+    mixins: [characterCardMixin, gridMixin],
     methods: {
         ...mapActions(['removeGridPiece']),
         ...mapMutations(['setCurrentCharacter']),
@@ -32,17 +33,16 @@ export default {
                 let {x, y} = coord;
                 x += cellIndex;
                 y += rowIndex;
-                if( y >= 0 && y < 20 &&
-                    x >= 0 && x < 22){
-                        legionrow[y].children[x].style.cssText = style;
+                if(this.isWithinGrid(x, y)){
+                    legionrow[y].children[x].style.cssText = style;
                 }
             }) 
         },
         removePiece(e){
             let {className} = this.charInfo;
             let charInfo = {
-                position: this.position,
-                className
+                className,
+                position: this.position
             }
             this.removeGridPiece(charInfo);
             this.reactivateCharacterCard(className, false);
@@ -64,54 +64,27 @@ export default {
         scrollToCard(e){
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
-            document.getElementById(className + 'Card').scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "start"
-            });
+            document.getElementById(className + 'Card').scrollIntoView();
             this.highlightCard(this, className);
             this.setCurrentChar();
-        },
-        setArchetypes(){
-            let {rowIndex, cellIndex} = this.position;
-            let position = (rowIndex * 22) + cellIndex;
-            let {className, coordinates, archetype} = this.currentPreset[position];
-            let legionrow = [...document.getElementsByClassName('LegionRow')]; 
-            coordinates.forEach(coord => {
-                let {x, y} = coord;
-                x += cellIndex;
-                y += rowIndex;
-                if( y >= 0 && y < 20 &&
-                    x >= 0 && x < 22){
-                        let cell = legionrow[y].children[x];
-                        let archetypeList = cell.getAttribute('archetypeList');
-                        archetypeList += `,${archetype}`;
-                        cell.setAttribute('archetypeList', archetypeList);
-                        archetypeList = archetypeList.split(",").filter(el => el.length !== 0);
-                        let archetypeListLength = archetypeList.length;
-                        let newArchetype;
-                        if(archetypeListLength === 0){
-                            newArchetype = "";
-                        }
-                        else if(archetypeListLength === 1){
-                            newArchetype = archetypeList[0];
-                        }
-                        else if(archetypeListLength > 1){
-                            newArchetype = "Overlap";
-                        }
-                        cell.setAttribute('archetype', newArchetype);
-                }
-            })
         }
     },
     mounted(){
         let icon = this.getImage(this.charInfo.className);
         this.$refs.GridPieceImg.src = icon;
-        this.setArchetypes();
+        this.setArchetypes({
+            ...this.charInfo,
+            position: this.position,
+            append: true
+        })
     },
     computed: mapGetters(['currentPreset']),
     updated(){
-        this.setArchetypes();
+        this.setArchetypes({
+            ...this.charInfo,
+            position: this.position,
+            append: true
+        });
     }
 }
 </script>
