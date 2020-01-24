@@ -12,10 +12,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import characterCardMixin from '../../mixins/characterCardMixin';
+import gridMixin from '../../mixins/gridMixin';
 
 export default {
     name: "GridPresets",
-    mixins: [characterCardMixin],
+    mixins: [characterCardMixin, gridMixin],
     methods: {
         ...mapActions(['changePreset']),
         choosePreset(newPresetNumber, e){

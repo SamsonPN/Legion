@@ -4,7 +4,7 @@
         <img 
             draggable="false"
             class="rotationImg"
-            @click="rotateCounterClockwise" 
+            @click="rotate($event, 'counterClockwise')"
             src="../../assets/Rotations/CounterClockwise.svg" 
             ref="counterClockwise"
             clickable="true"
@@ -12,7 +12,7 @@
         <img 
             draggable="false"
             class="rotationImg"
-            @click="mirrorX" 
+            @click="rotate($event, 'mirrorX')"
             src="../../assets/Rotations/MirrorX.svg" 
             ref="mirrorX"
             clickable="true"
@@ -20,7 +20,7 @@
         <img 
             draggable="false"
             class="rotationImg"
-            @click="mirrorY" 
+            @click="rotate($event, 'mirrorY')"
             src="../../assets/Rotations/MirrorY.svg" 
             ref="mirrorY"
             clickable="true"
@@ -28,7 +28,7 @@
         <img 
             draggable="false"
             class="rotationImg"
-            @click="rotateClockwise" 
+            @click="rotate($event, 'clockwise')"
             src="../../assets/Rotations/Clockwise.svg" 
             ref="clockwise"
             clickable="true"
@@ -46,6 +46,9 @@ export default {
     mixins: [gridMixin],
     methods: {
         ...mapActions(['removeSidePieces', 'updateAllCoordinates']),
+        isCurrentClass(){
+            return this.currentCharacter.className === this.charName;
+        },
         updateCoords(rotatedCoords){
             let charInfo = {
                 className: this.charName,
@@ -54,66 +57,59 @@ export default {
             }
             this.updateAllCoordinates(charInfo);
         },
-        rotateClockwise(){
-            let clickable = this.$refs.clockwise.getAttribute('clickable') === 'true';
-            if(clickable){
+        calculateRotation(rotationInfo){
+            let {rotation, x, y} = rotationInfo;
+            let newX;
+            let newY;
+            switch(rotation){
+                case 'counterClockwise':
+                    newX = y;
+                    newY = x * -1;
+                    break;
+                case 'mirrorX':
+                    newX = x;
+                    newY = y * -1;
+                    break;
+                case 'mirrorY':
+                    newX = x * -1;
+                    newY = y;
+                    break;
+                case 'clockwise':
+                    newX = y * -1;
+                    newY = x;
+                    break;
+            }
+            return {
+                x: newX,
+                y: newY
+            }
+        },
+        removeSidePieces(charInfo){
+            if(this.isCurrentClass()){
+                this.setArchetypes(charInfo)
+            }
+        },
+        clickable(e){
+            return e.target.getAttribute('clickable') === 'true';
+        },
+        rotate(e, rotation){
+            if(this.clickable(e)){
                 let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.currentCharacter;
-                this.setArchetypes({ ...this.currentCharacter, append: false});
+                let {coordinates} = this.charInfo[this.charName];
+                this.removeSidePieces({ ...this.currentCharacter, append: false});             
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
                     cell.classList.remove('side');
-                    let x = coord.y * -1;
-                    let y = coord.x;
-                    return {x, y};
+                    let calculatedCoords = this.calculateRotation({
+                        x: coord.x,
+                        y: coord.y,
+                        rotation
+                    })
+                    return calculatedCoords;
                 });
-                this.updateCoords(rotatedCoords);
+                this.updateCoords(rotatedCoords);      
             }
         },
-        rotateCounterClockwise(){
-            let clickable = this.$refs.counterClockwise.getAttribute('clickable') === 'true';
-            if(clickable){
-                let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.currentCharacter;
-                this.setArchetypes({ ...this.currentCharacter, append: false});
-                let rotatedCoords = coordinates.map(coord => {
-                    let cell = piece.children[coord.y + 2].children[coord.x + 2];
-                    cell.classList.remove('side');
-                    let x = coord.y;
-                    let y = coord.x * -1;
-                    return {x, y};
-                });
-                this.updateCoords(rotatedCoords);
-            }
-        },
-        mirrorX(){
-            let clickable = this.$refs.mirrorX.getAttribute('clickable') === 'true';
-            if(clickable){
-                let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.currentCharacter;
-                this.setArchetypes({ ...this.currentCharacter, append: false});                let rotatedCoords = coordinates.map(coord => {
-                    let cell = piece.children[coord.y + 2].children[coord.x + 2];
-                    cell.classList.remove('side');
-                    coord.y *= -1;
-                    return coord;
-                });
-                this.updateCoords(rotatedCoords);
-            }
-        },
-        mirrorY(){
-            let clickable = this.$refs.mirrorY.getAttribute('clickable') === 'true';
-            if(clickable){
-                let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.currentCharacter;
-                this.setArchetypes({ ...this.currentCharacter, append: false});                let rotatedCoords = coordinates.map(coord => {
-                    let cell = piece.children[coord.y + 2].children[coord.x + 2];
-                    cell.classList.remove('side');
-                    coord.x *= -1;
-                    return coord;
-                });
-                this.updateCoords(rotatedCoords);
-            }
-        }
     },
     computed: mapGetters(['charInfo', 'currentCharacter'])
 }

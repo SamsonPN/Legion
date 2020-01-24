@@ -39,13 +39,10 @@ export default {
             }) 
         },
         removePiece(e){
-            let {className} = this.charInfo;
-            let charInfo = {
-                className,
-                position: this.position
-            }
+            let charInfo = {...this.charInfo, position: this.position};
             this.removeGridPiece(charInfo);
-            this.reactivateCharacterCard(className, false);
+            this.setArchetypes({...charInfo, append: false});
+            this.reactivateCharacterCard(charInfo.className, false);
             this.removeAllHighlights('CharacterCard');
         },
         setDragImage(e){

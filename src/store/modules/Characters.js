@@ -83,46 +83,8 @@ const actions = {
         let {rowIndex, cellIndex} = charInfo.position;
         let position = (rowIndex * 22) + cellIndex;
         commit('setCurrentCharacter', charInfo);
-        dispatch('removeSidePieces', currentPreset[position]);
         commit('removeOldPosition', position);
         commit('removeCurrentCharacter');
-    },
-    removeSidePieces({ getters }, charInfo){
-        let {coordinates, className} = charInfo;
-        let {currentCharacter} = getters;
-        if(currentCharacter.position && currentCharacter.className === className){
-            let {position, archetype} = currentCharacter;
-            let {rowIndex, cellIndex} = position;
-            let legionrow = [...document.getElementsByClassName('LegionRow')];
-            coordinates.forEach(coord => {
-                let {x, y} = coord;
-                x += cellIndex;
-                y += rowIndex;
-                if( y >= 0 && y < 20 &&
-                    x >= 0 && x < 22){
-                        let cell = legionrow[y].children[x];
-                        let archetypeList = cell.getAttribute('archetypeList');
-                        archetypeList = archetypeList.split(",").filter(el => el.length !== 0);
-                        let index = archetypeList.indexOf(archetype);
-                        if(index !== -1){
-                            archetypeList.splice(index, 1);
-                        }
-                        cell.setAttribute('archetypeList', archetypeList);
-                        let archetypeListLength = archetypeList.length;
-                        let newArchetype;
-                        if(archetypeListLength === 0){
-                            newArchetype = "";
-                        }
-                        else if(archetypeListLength === 1){
-                            newArchetype = archetypeList[0];
-                        }
-                        else {
-                            newArchetype = "Overlap";
-                        }
-                        cell.setAttribute('archetype', newArchetype);
-                }
-            })
-        }
     },
     removeSideClass({ commit }, charInfo){
         let {className, coordinates} = charInfo;
@@ -203,7 +165,6 @@ const actions = {
                 commit('addToPreset', newPosition);
                 commit('setCurrentCharacter', currentCharacter);
                 dispatch('updateCharInfo', state.currentPreset);
-                return true;
             }
         }
     }

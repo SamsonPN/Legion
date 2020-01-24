@@ -19,7 +19,8 @@
                     <GridPiece 
                         v-if="(currentPreset || {})[rowIndex * 22 + cellIndex]" 
                         :charInfo="currentPreset[rowIndex * 22 + cellIndex]"
-                        :position="{rowIndex, cellIndex}"/>
+                        :position="{rowIndex, cellIndex}"
+                    />
             </div>
         </div>
     </div>
