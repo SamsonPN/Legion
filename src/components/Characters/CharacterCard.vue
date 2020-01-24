@@ -92,9 +92,15 @@ export default {
     }
 
     @include for-tablet-only {
-        .CharacterCard > div > p {
-            color: red;
-            font-size: 1.5em;
+        .CharacterCard {
+            height: auto;
+            min-width: 52.5vw;
+            &:not(:last-child){
+                margin-right: 5px;
+            }
+            > div {
+                font-size: 1.15em;
+            }
         }
     }
 

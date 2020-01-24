@@ -107,16 +107,15 @@ export default {
 
     div {
         height: auto;
-        width: 80%;
+        width: 100%;
         display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
+        justify-content: space-around;
         background-color: white;
         background: none;
         color: black;
     }
     img {
-        max-width: 17.5%;
+        max-width: 15%;
         max-height: 20%;
         cursor: pointer;
         &:hover {
@@ -129,8 +128,8 @@ export default {
 
     @include for-tablet-only {
         img {
-            max-width: 12.5%;
-            max-height: 15%;
+            max-width: 17.5%;
+            max-height: 95%;
         }
     }
 </style>

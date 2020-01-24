@@ -74,4 +74,14 @@ export default {
             }
         }
     }
+
+    @include for-tablet-only {
+        #CharacterList {
+            height: auto;
+            > div {
+                display: flex;
+                height: auto;
+            }
+        }
+    }
 </style>

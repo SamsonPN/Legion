@@ -22,8 +22,9 @@ export default {
         computeArchetypeList(charInfo){
             let {archetype, cell, append} = charInfo;
             let archetypeList = cell.getAttribute('archetypeList');
-            archetypeList = append ? archetypeList.concat(`,${archetype}`) : archetypeList;
-            archetypeList = archetypeList.split(",").filter(el => el.length !== 0);
+            archetypeList = append ? archetypeList.concat(archetype) : archetypeList;
+            // split by words beginning with a capital letter
+            archetypeList = archetypeList.match(/[A-Z][a-z]+/g);
             return archetypeList;
         },
         computeArchetype(archetypeInfo){
