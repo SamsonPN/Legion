@@ -61,7 +61,9 @@ export default {
         scrollToCard(e){
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
-            document.getElementById(className + 'Card').scrollIntoView();
+            document.getElementById('Home').scrolling = 'no';
+            let charCard = document.getElementById(className + 'Card');
+            charCard.parentNode.scrollTop = charCard.offsetTop;
             this.highlightCard(this, className);
             this.setCurrentChar();
         }

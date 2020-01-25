@@ -1,8 +1,9 @@
 <template>
   <div 
     id="app">
-    <Header />
-    <router-view/>
+    <Header 
+      v-if="isNotLoginPage"/>
+    <router-view />
   </div>
 </template>
 
@@ -18,6 +19,11 @@
     created(){
       this.fetchCharacters();
       this.fetchPresets();
+    },
+    computed: {
+      isNotLoginPage(){
+        return this.$route.path !== '/';
+      }
     }
    }
  </script>
@@ -37,15 +43,17 @@
     font-family: inherit;
   }
 
-  #app{
+  #app {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     width: 100%;
-    background-image: url('../../assets/Header-Image.jpg');
+    background-color: black;
+    background-image: url(../../assets/Header-Image.jpg);
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     font-family: 'Nunito', sans-serif;
   }
 </style>

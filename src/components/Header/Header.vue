@@ -2,7 +2,7 @@
   <header>
       <p>Samson Nguyen</p>
       <div>
-        <router-link to="/">
+        <router-link to="/home">
             <img src="../../assets/Header/grid.svg" alt="Grid"/>
             <span>  Board  </span>
         </router-link> |
