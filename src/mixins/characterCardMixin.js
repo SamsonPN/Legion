@@ -2,19 +2,12 @@ import CharacterEffect from '../components/Characters/CharacterEffect';
 
 export default {
     methods: {
-        activateRotationImgs(){
-            let rotationImgs = [...document.getElementsByClassName('rotationImg')];
-            rotationImgs.forEach(img => {
-                img.setAttribute('clickable', true);
-            })
-        },
-        clearGrid(){
-            let cells = [...document.getElementsByClassName('LegionCell')];
-            cells.forEach(cell => {
-                cell.setAttribute('archetypeList', "");
-                cell.setAttribute('archetype', "");
-            })
-        },
+        // activateRotationImgs(){
+        //     let rotationImgs = [...document.getElementsByClassName('rotationImg')];
+        //     rotationImgs.forEach(img => {
+        //         img.setAttribute('clickable', true);
+        //     })
+        // },
         computeEffect(charName, level){
             let {classes, effects, values} = CharacterEffect;
             let effectIndex= classes[charName];
@@ -70,31 +63,30 @@ export default {
             }
             return rank;
         },
-        reactivateCharacterCard(className, isOnGrid){
-           if(!isOnGrid){
-                document.getElementById(className + 'Piece').setAttribute('draggable', true);
-                document.getElementById(className + 'Selected').style.display = "none";
-            }
+        changeRotationClickability(className, isClickable){
             let rotationImgs = [...document.getElementById(className + 'Rotation').children];
             rotationImgs.forEach(img => {
-                img.setAttribute('clickable', true);
-            })
+                img.setAttribute('clickable', isClickable);
+            });
         },
+        reactivateCharacterCard(className, isOnGrid){
+            if(!isOnGrid){
+                 document.getElementById(className + 'Piece').setAttribute('draggable', true);
+                 document.getElementById(className + 'Selected').style.display = "none";
+             }
+             this.changeRotationClickability(className, true);
+         },
         removeAllHighlights(element){
             let highlightedItem = [...document.getElementsByClassName(element)];
             highlightedItem.forEach(item => {
                 item.setAttribute('highlighted', false);
             })
         },
-        resetPieceDraggability(){
-            let pieces = [...document.getElementsByClassName('piece')];
-            let cardSelectedImg = [...document.getElementsByClassName('cardSelectedImg')];
-            pieces.forEach(piece => {
-                piece.setAttribute('draggable', true);
-            })
-            cardSelectedImg.forEach(img => {
-                img.style.display = 'none';
-            })
+        deactivateCurrentCard(vm){
+            let {currentCharacter} = vm.$store.getters;
+            if(currentCharacter) {
+                this.changeRotationClickability(currentCharacter.className, false);
+            }
         },
         unhighlightCard(vm){
             let {commit} = vm.$store;

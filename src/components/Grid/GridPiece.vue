@@ -40,9 +40,8 @@ export default {
         },
         removePiece(e){
             let charInfo = {...this.charInfo, position: this.position};
-            this.removeGridPiece(charInfo);
             this.setArchetypes({...charInfo, append: false});
-            this.reactivateCharacterCard(charInfo.className, false);
+            this.removeGridPiece(charInfo);
             this.removeAllHighlights('CharacterCard');
         },
         setDragImage(e){
@@ -59,6 +58,7 @@ export default {
             this.setCurrentCharacter(currentChar);
         },
         scrollToCard(e){
+            this.deactivateCurrentCard(this);
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
             document.getElementById('Home').scrolling = 'no';

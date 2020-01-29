@@ -2,7 +2,7 @@
     <div 
     :id="charName + 'Piece'"
     class="piece"
-    draggable="true"
+    :draggable="draggable"
     @dragstart="highlightCard(vm, charName)"
     @dragend="unhighlightCard(vm, charName)">
         <div
@@ -32,7 +32,7 @@ import characterCardMixin from '../../mixins/characterCardMixin';
 
 export default {
   name: 'CharacterPiece',
-  props: ['charName'],
+  props: ['charName', 'position'],
   data(){
     return {
       pieceSize: [...new Array(5)].map((x, i) => i)
@@ -46,11 +46,15 @@ export default {
     },
     character(){
       return this.charInfo[this.charName];
+    },
+    draggable(){
+      return this.position ? false : true;
     }
   },
   methods: {
     ...mapMutations(['setCurrentCharacter', 'removeCurrentCharacter']),
-    mapCoordinates(coordinates){
+    mapCoordinates(){
+      let {coordinates} = this.character;
       let piece = document.getElementById(this.charName + 'Piece');
       coordinates.forEach(coordinate => {
         let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
@@ -59,16 +63,18 @@ export default {
     },
     isMiddlePiece(row, cell){
       return row === 2 && cell === 2;
+    },
+    setCardDraggable(){
+      let {charName} = this;
+      let draggable = document.getElementById(charName + 'Piece').getAttribute('draggable');
+      document.getElementById(charName + 'Selected').style.display = draggable === 'false' ? 'block' : 'none';
     }
   },
   mounted(){
-    this.mapCoordinates(this.character.coordinates);
+    this.mapCoordinates();
   },
   updated(){
-    let {charName, character} = this;
-    let draggable = document.getElementById(charName + 'Piece').getAttribute('draggable');
-    this.mapCoordinates(character.coordinates);
-    document.getElementById(charName + 'Selected').style.display = draggable === 'false' ? 'block' : 'none';
+    this.mapCoordinates();
   }
 }
 </script>

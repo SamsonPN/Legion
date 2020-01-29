@@ -22,6 +22,11 @@
 import { mapActions } from 'vuex';
 export default {
     name: "ClassSelectBar",
+    data(){
+        return {
+            levels: [60, 100, 140, 200, 250]
+        }
+    },
     methods: {
         ...mapActions(['saveCharData', 'fillLevels']),
         saveChars(){

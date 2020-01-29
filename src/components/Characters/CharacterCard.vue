@@ -1,23 +1,30 @@
 <template>
   <div 
-      :id="charName + 'Card'"
-      class="CharacterCard"
-      highlighted="false">
-      <div>
-        <p>Class: {{charName}}</p>
-        <p>Level: {{level}}</p>
-        <p>Effect: {{computeEffect(charName, level)}}</p> 
-      </div>
+        :id="charName + 'Card'"
+        class="CharacterCard"
+        highlighted="false">
+        <div>
+            <p>Class: {{charName}}</p>
+            <p>Level: {{level}}</p>
+            <p>Effect: {{computeEffect(charName, level)}}</p> 
+        </div>
         <img 
-            :id="charName + 'Selected'" 
+            :id="charName + 'Selected'"
+            :cardSelected="isSelected"
             class="cardSelectedImg"
             src="../../assets/maple-leaf.svg" 
             alt="Maple Leaf"
             title="This piece is already on the board"/> 
-      <div>
-        <CharacterPiece :charName="charName" />
-        <CharacterRotation :charName="charName" />
-      </div>
+        <div>
+            <CharacterPiece 
+                :charName="charName"
+                :position="position"
+            />
+            <CharacterRotation 
+                :charName="charName"
+                :position="position"
+            />
+        </div>
   </div>
 </template>
 
@@ -40,6 +47,12 @@ export default {
         ...mapGetters(['charInfo']),
         level(){
             return this.charInfo[this.charName].level;
+        },
+        position(){
+            return this.charInfo[this.charName].position;
+        },
+        isSelected(){
+            return this.charInfo[this.charName].position ? 'true' : 'false';
         }
     }
 }
@@ -89,6 +102,9 @@ export default {
         right: 0;
         display: none;
         border-radius: 17.5px;
+        &[cardSelected="true"] {
+            display: block;
+        }
     }
 
     @include for-tablet-only {

@@ -17,8 +17,8 @@
                 @dragleave="highlightCells"
                 @drop="insertPiece(rowIndex, cellIndex, $event)">
                     <GridPiece 
-                        v-if="(currentPreset || {})[rowIndex * 22 + cellIndex]" 
-                        :charInfo="currentPreset[rowIndex * 22 + cellIndex]"
+                        v-if="isInPreset(rowIndex, cellIndex)" 
+                        :charInfo="isInPreset(rowIndex, cellIndex)"
                         :position="{rowIndex, cellIndex}"
                     />
             </div>
@@ -43,9 +43,15 @@ export default {
             cells: [...new Array(22)].map((x, i) => i)
         }
     },
+    computed: {
+        ...mapGetters(['currentCharacter', 'currentPreset'])
+    },
     mixins: [characterCardMixin, gridMixin],
     methods:{
         ...mapActions(['insertIntoPreset']),
+        isInPreset(rowIndex, cellIndex){
+            return this.currentPreset[rowIndex * 22 + cellIndex];
+        },
         updateHighlightAttribute(eventInfo){
             let {dragover, row, cell} = eventInfo;
             let legioncell = document.getElementsByClassName('LegionRow')[row].children[cell];
@@ -92,11 +98,11 @@ export default {
                 });
                 this.insertIntoPreset(position);
                 this.removeAllHighlights('LegionCell');
+                this.deactivateCurrentCard(this);
                 this.unhighlightCard(this);
             }
         }
-    },
-    computed: mapGetters(['currentCharacter', 'currentPreset'])
+    }
 }
 </script>
 

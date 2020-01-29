@@ -14,6 +14,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import CharacterCard from './CharacterCard';
+import CharacterCardMixin from '../../mixins/characterCardMixin';
 
 export default {
     name: "CharacterList",
@@ -21,7 +22,7 @@ export default {
         CharacterCard
     },
     computed: {
-        ...mapGetters(['charInfo']),
+        ...mapGetters(['charInfo', 'currentPreset']),
         activeCharInfo(){
             let {charInfo} = this;
             let activeCharInfo = {};

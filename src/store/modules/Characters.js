@@ -24,6 +24,7 @@ const actions = {
             let {presets} = getters;
             commit('updatePresetNumber', presetNumber);
             commit('setCurrentPreset', presets[presetNumber - 1]);
+            dispatch('resetCharInfo');
             dispatch('updateCharInfo', presets[presetNumber - 1].characters);
             commit('setStatPositions', presets[presetNumber - 1].stats);
         }
@@ -32,8 +33,10 @@ const actions = {
         fetch('http://localhost:3000/characters/')
             .then(res => res.json())
             .then(data => {
-                let {id,...characters} = data; 
+                let {id,...characters} = data;
+                let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = characters;
                 commit('setCharacters', characters)
+                commit('setCharInfo', {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate, ...Lab});
             })
             .catch(err => console.error(err))
     },
@@ -51,7 +54,7 @@ const actions = {
             })
     },
     fillLevels({ commit, getters }, level){
-        let characters = {...getters.allCharacters};
+        let characters = JSON.parse(JSON.stringify({...getters.allCharacters}))
         let rankList = {
             "60": "B",
             "100": "A",
@@ -78,12 +81,15 @@ const actions = {
         }
         commit('setCharacters', characters);
     },
-    removeGridPiece({ commit, dispatch, getters }, charInfo){
-        let {currentPreset} = getters;
-        let {rowIndex, cellIndex} = charInfo.position;
-        let position = (rowIndex * 22) + cellIndex;
-        commit('setCurrentCharacter', charInfo);
-        commit('removeOldPosition', position);
+    removeGridPiece({ commit, dispatch, getters }, character){
+        let {className, position} = character;
+        let {rowIndex, cellIndex} = position;
+        let {charInfo} = getters;
+        let oldPosition = (rowIndex * 22) + cellIndex;
+        commit('setCurrentCharacter', character);
+        commit('removeOldPosition', oldPosition);
+        character.position = false;
+        commit('setCharInfo', { ...getters.charInfo, [className] : character })
         commit('removeCurrentCharacter');
     },
     removeSideClass({ commit }, charInfo){
@@ -123,7 +129,7 @@ const actions = {
             })
             .catch(err => console.error(err));
     },
-    updateAllCoordinates({ commit, dispatch }, charInfo){
+    updateAllCoordinates({ commit }, charInfo){
         let {currentCharacter} = state;
         if(currentCharacter && currentCharacter.className === charInfo.className){
             commit('updateCurrentCharCoords', charInfo.value);
@@ -137,19 +143,9 @@ const actions = {
         let charInfo = {...state.charInfo};
         for(let position in preset){
             let {className, coordinates} = preset[position];
-            let rotation = document.getElementById(className + 'Rotation');
-            let piece = document.getElementById(className + 'Piece');
             dispatch('removeSideClass', {...charInfo[className], className});
             charInfo[className].coordinates = coordinates;
-            if(piece){
-                piece.setAttribute('draggable', false);
-            }
-            if(rotation){
-                let rotationImgs = [...rotation.children];
-                rotationImgs.forEach(img => {
-                    img.setAttribute('clickable', false);
-                })
-            }
+            charInfo[className].position = position;
         }
         commit('setCharInfo', charInfo)
     },
@@ -167,6 +163,13 @@ const actions = {
                 dispatch('updateCharInfo', state.currentPreset);
             }
         }
+    },
+    resetCharInfo({ commit, getters}){
+        let charInfo = {...getters.charInfo};
+        for(let char in charInfo){
+            charInfo[char].position = false;
+        }
+        commit('setCharInfo', charInfo);
     }
 }
 
@@ -182,12 +185,8 @@ const mutations = {
         delete currentPresetCopy[oldPosition];
         state.currentPreset = currentPresetCopy;
     },
-    setCharacters: (state, characters) => {
-        let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = characters;
-        state.characters = characters;
-        state.charInfo = {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate, ...Lab};
-    },
-    setCharInfo: (state, charInfo) => state.charInfo = charInfo,
+    setCharacters: (state, characters) => state.characters = characters,
+    setCharInfo: (state, charInfo) => state.charInfo = {...charInfo},
     setCurrentCharacter: (state, currentChar) => {
         let {className, position} = currentChar;
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};

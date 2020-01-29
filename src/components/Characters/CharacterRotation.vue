@@ -3,12 +3,12 @@
         :id="charName + 'Rotation'">
             <img
                 v-for="rotation in rotations"
-                :key="rotation"
-                draggable="false"
                 class="rotationImg"
-                @click="rotate($event, rotation)"
+                draggable="false"
+                :key="rotation"
+                :clickable="isClickable"
                 :src="getRotationImg(rotation)"
-                clickable="true"
+                @click="rotate($event, rotation)"
                 alt="rotations"
             />
     </div>
@@ -25,8 +25,14 @@ export default {
             rotations: ['counterClockwise', 'mirrorX', 'mirrorY', 'clockwise']
         }
     },
-    props: ['charName'],
+    props: ['charName', 'position'],
     mixins: [gridMixin],
+    computed: {
+        ...mapGetters(['charInfo', 'currentCharacter']),
+        isClickable(){
+            return this.position ? 'false' : 'true';
+        }
+    },
     methods: {
         ...mapActions(['removeSidePieces', 'updateAllCoordinates']),
         getRotationImg(rotation){
@@ -96,8 +102,7 @@ export default {
             }
             this.updateAllCoordinates(charInfo);
         }
-    },
-    computed: mapGetters(['charInfo', 'currentCharacter'])
+    }
 }
 </script>
 
@@ -113,18 +118,20 @@ export default {
         background-color: white;
         background: none;
         color: black;
-    }
-    img {
-        max-width: 15%;
-        max-height: 20%;
-        cursor: pointer;
-        &:hover {
-            opacity: 0.5;
+        margin-top: 5px;
+        > img {
+            max-width: 15%;
+            max-height: 20%;
+            cursor: pointer;
+            &:hover {
+                opacity: 0.5;
+            }
+            &[clickable="false"]{
+                opacity: 0.25;
+            }
         }
-        &[clickable="false"]{
-            opacity: 0.25;
-        }
     }
+    
 
     @include for-tablet-only {
         img {

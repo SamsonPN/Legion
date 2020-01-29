@@ -1,11 +1,13 @@
 <template>
   <div id="GridPresets">
       <p>Presets: </p>
-      <p @click="choosePreset(1, $event)" clicked="true">1</p>
-      <p @click="choosePreset(2, $event)" clicked="false">2</p>
-      <p @click="choosePreset(3, $event)" clicked="false">3</p>
-      <p @click="choosePreset(4, $event)" clicked="false">4</p>
-      <p @click="choosePreset(5, $event)" clicked="false">5</p>
+      <p
+        v-for="(preset) in presets"
+        :key="preset"
+        @click="choosePreset(preset)"
+        :clicked="isCurrentPreset(preset)">
+            {{preset}}
+      </p>
   </div>
 </template>
 
@@ -17,28 +19,27 @@ import gridMixin from '../../mixins/gridMixin';
 export default {
     name: "GridPresets",
     mixins: [characterCardMixin, gridMixin],
-    methods: {
-        ...mapActions(['changePreset']),
-        choosePreset(newPresetNumber, e){
-            let {target} = e;
-            if(this.presetNumber !== newPresetNumber){
-                this.clearGrid();
-                this.resetPieceDraggability();
-                this.activateRotationImgs();
-                this.changePreset(newPresetNumber);
-                this.removePresetHighlight();
-                this.resetGridArchetypes();
-                e.target.setAttribute('clicked', true);
-            }
-        },
-        removePresetHighlight(){
-            let presets = [...document.getElementById('GridPresets').children].slice(1);
-            presets.forEach(preset => {
-                preset.setAttribute('clicked', false);
-            })
+    data(){
+        return {
+            presets: [...new Array(5)].map((x, i) => i + 1)
         }
     },
-    computed: mapGetters(['presetNumber'])
+    computed: mapGetters(['presetNumber']),
+    methods: {
+        ...mapActions(['changePreset']),
+        isCurrentPreset(preset){
+            return this.presetNumber === preset;
+        },
+        choosePreset(newPresetNumber, e){
+            if( !this.isCurrentPreset(newPresetNumber) ){
+                // this.activateRotationImgs();
+                this.deactivateCurrentCard(this);
+                this.changePreset(newPresetNumber);
+                this.resetGridArchetypes();
+                this.unhighlightCard(this);
+            }
+        }
+    }
 }
 </script>
 
