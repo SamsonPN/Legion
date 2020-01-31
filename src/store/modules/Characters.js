@@ -30,11 +30,15 @@ const actions = {
         }
     },
     fetchCharacters({ commit }){
-        fetch('http://localhost:3000/characters/')
+        fetch('http://localhost:3000/characters/', {
+            credentials: 'include'
+        })
             .then(res => res.json())
             .then(data => {
                 let {id,...characters} = data;
-                let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = characters;
+                // creates a deep copy of character and puts it into charInfo
+                let charactersCopy = JSON.parse(JSON.stringify(characters));
+                let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = charactersCopy;
                 commit('setCharacters', characters)
                 commit('setCharInfo', {...Warrior, ...Magician, ...Bowman, ...Thief, ...Pirate, ...Lab});
             })
@@ -42,7 +46,9 @@ const actions = {
     },
     fetchPresets({ commit, dispatch, getters }){
         let {presetNumber} = getters;
-        fetch('http://localhost:3000/presets/')
+        fetch('http://localhost:3000/presets/', {
+            credentials: 'include'
+        })
             .then(res => res.json())
             .then(data => {
                 commit('setPresets', data);
@@ -81,10 +87,9 @@ const actions = {
         }
         commit('setCharacters', characters);
     },
-    removeGridPiece({ commit, dispatch, getters }, character){
+    removeGridPiece({ commit, getters }, character){
         let {className, position} = character;
         let {rowIndex, cellIndex} = position;
-        let {charInfo} = getters;
         let oldPosition = (rowIndex * 22) + cellIndex;
         commit('setCurrentCharacter', character);
         commit('removeOldPosition', oldPosition);
@@ -102,10 +107,11 @@ const actions = {
             })
         }
     },
-    saveCharData({ dispatch }){
-        let {characters} = state;
+    saveCharData({ dispatch, getters }){
+        let characters = getters.allCharacters;
         fetch('http://localhost:3000/characters/save', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -119,6 +125,7 @@ const actions = {
         let {currentPreset, presetNumber, statPositions} = getters;
         fetch('http://localhost:3000/presets/save', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -139,8 +146,8 @@ const actions = {
         }
         commit('updateCharInfoCoords', charInfo);
     },
-    updateCharInfo({ commit, dispatch }, preset){
-        let charInfo = {...state.charInfo};
+    updateCharInfo({ commit, dispatch, getters }, preset){
+        let charInfo = {...getters.charInfo};
         for(let position in preset){
             let {className, coordinates} = preset[position];
             dispatch('removeSideClass', {...charInfo[className], className});
@@ -149,19 +156,17 @@ const actions = {
         }
         commit('setCharInfo', charInfo)
     },
-    insertIntoPreset({ commit, dispatch }, newPosition){
-        let {currentCharacter, currentPreset} = state;
+    insertIntoPreset({ commit, dispatch, getters }, newPosition){
+        let {currentCharacter, currentPreset} = getters;
         let {rowIndex, cellIndex} = currentCharacter.position;
         let oldPosition = (rowIndex * 22) + cellIndex;
-        if(currentCharacter){
-            if(!currentPreset[newPosition]) {
-                if(oldPosition || oldPosition === 0){
-                    commit('removeOldPosition', oldPosition);
-                }
-                commit('addToPreset', newPosition);
-                commit('setCurrentCharacter', currentCharacter);
-                dispatch('updateCharInfo', state.currentPreset);
+        if(currentCharacter && !currentPreset[newPosition]){
+            if(oldPosition || oldPosition === 0){
+                commit('removeOldPosition', oldPosition);
             }
+            commit('addToPreset', newPosition);
+            commit('setCurrentCharacter', currentCharacter);
+            dispatch('updateCharInfo', getters.currentPreset);
         }
     },
     resetCharInfo({ commit, getters}){
@@ -186,13 +191,13 @@ const mutations = {
         state.currentPreset = currentPresetCopy;
     },
     setCharacters: (state, characters) => state.characters = characters,
-    setCharInfo: (state, charInfo) => state.charInfo = {...charInfo},
+    setCharInfo: (state, charInfo) => state.charInfo = {...charInfo} ,
     setCurrentCharacter: (state, currentChar) => {
         let {className, position} = currentChar;
         state.currentCharacter = {...state.charInfo[className], ...{className, position}};
     },
     setCurrentPreset: (state, preset) => state.currentPreset = preset.characters,
-    setPresets: (state, presets) => { state.presets = presets },
+    setPresets: (state, presets) => state.presets = presets ,
     updateCharData: (state, charInfo) => {
         let {field, value, className, archetype} = charInfo;
         state.characters[archetype][className][field] = value;

@@ -44,7 +44,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['currentCharacter', 'currentPreset'])
+        ...mapGetters(['currentCharacter', 'currentPreset', 'allCharacters'])
     },
     mixins: [characterCardMixin, gridMixin],
     methods:{

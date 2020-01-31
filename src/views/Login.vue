@@ -4,7 +4,7 @@
             <p>Welcome Maplers!</p>
             <a
                 id="googleBtn"
-                href="http://google.com">
+                href="http://localhost:3000/auth/google">
                 <img 
                     src="../assets/Social/google.jpg"
                     alt="Google Button"
@@ -13,7 +13,7 @@
             </a>
             <a
                 id="fbBtn"
-                href="http://facebook.com">
+                href="http://localhost:3000/auth/facebook">
                     <img
                         src="../assets/Social/facebook.svg" 
                         alt="Facebook Button"
