@@ -1,6 +1,8 @@
 # Maplestory Legion Board
 
-![Legion Board](https://res.cloudinary.com/sotasamson96/image/upload/v1579310199/Screen_Shot_2020-01-17_at_5.15.44_PM_b8oai7.png)
+![Empty Legion Board](https://res.cloudinary.com/sotasamson96/image/upload/v1580600430/Screen_Shot_2020-02-01_at_3.39.24_PM_behymj.png)
+
+![Filled Legion Board](https://res.cloudinary.com/sotasamson96/image/upload/v1580600420/Screen_Shot_2020-02-01_at_3.39.43_PM_sfcfen.png)
 
 ## Project setup
 ```
