@@ -20,6 +20,7 @@ import gridMixin from '../../mixins/gridMixin';
 export default {
     name: "GridPiece",
     props: ['charInfo', 'position'],
+    computed: mapGetters(['currentPreset']),
     mixins: [characterCardMixin, gridMixin],
     methods: {
         ...mapActions(['removeGridPiece']),
@@ -77,13 +78,12 @@ export default {
             append: true
         })
     },
-    computed: mapGetters(['currentPreset']),
     updated(){
         this.setArchetypes({
             ...this.charInfo,
             position: this.position,
             append: true
-        });
+        })
     }
 }
 </script>

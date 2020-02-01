@@ -61,7 +61,7 @@ export default {
         },
         removeSidePieces(charInfo){
             if(this.isCurrentClass()){
-                this.setArchetypes(charInfo)
+                this.setArchetypes(charInfo);
             }
         },
         isCurrentClass(){

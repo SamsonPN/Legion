@@ -74,6 +74,7 @@ export default {
 
     #LegionGridOverlay {
         @include grid-layout;
+        border: 0.5px solid rgba(34, 255, 34, 1);
         position: absolute;
         z-index: -1;
         &[assigning="false"]{

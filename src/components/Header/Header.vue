@@ -2,10 +2,11 @@
   <header>
       <p>Samson Nguyen</p>
       <div>
-        <router-link to="/home">
+        <a 
+            @click="redirectToGrid">
             <img src="../../assets/Header/grid.svg" alt="Grid"/>
             <span>  Board  </span>
-        </router-link> |
+        </a> |
         <router-link to="/select">
             <img src="../../assets/Header/classes.svg" alt="Classes"/>
             <span>  Classes  </span>
@@ -20,7 +21,13 @@
 
 <script>
 export default {
-    name: "Header"
+    name: "Header",
+    methods: {
+        redirectToGrid(){
+            this.$router.push("/home");
+            this.$router.go();
+        }
+    }
 }
 </script>
 

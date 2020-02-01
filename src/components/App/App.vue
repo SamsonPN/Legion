@@ -8,18 +8,18 @@
 </template>
 
  <script>
- import { mapActions } from 'vuex';
+//  import { mapActions } from 'vuex';
  import Header from '../Header/Header';
    export default {
      name: "app",
      components: {
        Header
      },
-    methods: mapActions(['fetchCharacters', 'fetchPresets']),
-    created(){
-      this.fetchCharacters();
-      this.fetchPresets();
-    },
+    // methods: mapActions(['fetchCharacters', 'fetchPresets']),
+    // created(){
+    //   this.fetchCharacters();
+    //   this.fetchPresets();
+    // },
     computed: {
       isNotLoginPage(){
         return this.$route.path !== '/';

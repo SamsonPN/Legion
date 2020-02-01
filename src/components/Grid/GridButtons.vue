@@ -39,8 +39,12 @@ export default {
             }
         },
         initiateSave(){
-            this.resetGridArchetypes();
-            this.savePreset();
+            let confirmSave = window.confirm('Save this preset?');
+            if(confirmSave) {
+                this.resetGridArchetypes();
+                this.savePreset();
+                alert('Preset saved!');
+            }
         }
     }
 }

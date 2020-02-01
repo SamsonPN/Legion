@@ -17,12 +17,14 @@
 
 
 <script>
+import { mapActions } from 'vuex';
 import Grid from '../components/Grid/Grid';
 import GridCounter from '../components/Grid/GridCounter';
 import GridButtons from '../components/Grid/GridButtons';
 import GridOverlay from '../components/Grid/GridOverlay';
 import GridPresets from '../components/Grid/GridPresets';
 import CharacterList from '../components/Characters/CharacterList';
+import gridMixin from '../mixins/gridMixin';
 
 export default {
   name: 'Home',
@@ -33,6 +35,12 @@ export default {
     GridOverlay,
     GridPresets,
     CharacterList
+  },
+  mixins: [gridMixin],
+  methods: mapActions(['fetchCharacters', 'fetchPresets']),
+  created(){
+    this.fetchCharacters();
+    this.fetchPresets();
   }
 }
 </script>
