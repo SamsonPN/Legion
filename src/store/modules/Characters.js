@@ -185,11 +185,7 @@ const mutations = {
         state.currentPreset = currentPresetCopy;
     },
     removeCurrentCharacter: (state) => state.currentCharacter = false,
-    removeOldPosition: (state, oldPosition) => {  
-        let currentPresetCopy = {...state.currentPreset};
-        delete currentPresetCopy[oldPosition];
-        state.currentPreset = currentPresetCopy;
-    },
+    removeOldPosition: (state, oldPosition) => delete state.currentPreset[oldPosition],
     setCharacters: (state, characters) => state.characters = characters,
     setCharInfo: (state, charInfo) => state.charInfo = {...charInfo} ,
     setCurrentCharacter: (state, currentChar) => {

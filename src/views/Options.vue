@@ -5,8 +5,7 @@
 
 <script>
 export default {
-    components: {
-    }
+    name: "Options"
 }
 </script>
 

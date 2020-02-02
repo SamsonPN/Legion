@@ -54,19 +54,7 @@ export default {
         isSelected(){
             return this.charInfo[this.charName].position ? 'true' : 'false';
         }
-    },
-    // mounted(){
-    //     if(this.charName === "Aran") {
-    //         console.log({mounted: this.charInfo})
-    //         console.log({mounted: this.allCharacters})
-    //     }
-    // },
-    // updated(){
-    //     if(this.charName === "Aran") {
-    //         console.log({updated: this.charInfo})
-    //         console.log({updated: this.allCharacters})
-    //     }
-    // }
+    }
 }
 </script>
 

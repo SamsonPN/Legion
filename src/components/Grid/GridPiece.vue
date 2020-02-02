@@ -20,7 +20,7 @@ import gridMixin from '../../mixins/gridMixin';
 export default {
     name: "GridPiece",
     props: ['charInfo', 'position'],
-    computed: mapGetters(['currentPreset']),
+    computed: mapGetters(['currentPreset', 'currentCharacter']),
     mixins: [characterCardMixin, gridMixin],
     methods: {
         ...mapActions(['removeGridPiece']),
@@ -46,6 +46,8 @@ export default {
             this.removeAllHighlights('CharacterCard');
         },
         setDragImage(e){
+            this.deactivateCurrentCard(this);
+            this.unhighlightCard(this);
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
             e.dataTransfer.setDragImage(piece, 80, 80);
@@ -58,13 +60,22 @@ export default {
             };
             this.setCurrentCharacter(currentChar);
         },
+        isTabletView(){
+            let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            return viewportWidth <= 900;
+        },
         scrollToCard(e){
             this.deactivateCurrentCard(this);
             let {className} = this.charInfo;
             let piece = document.getElementById(className + 'Piece');
             document.getElementById('Home').scrolling = 'no';
             let charCard = document.getElementById(className + 'Card');
-            charCard.parentNode.scrollTop = charCard.offsetTop;
+            if(this.isTabletView()) {
+                charCard.parentNode.scrollLeft = charCard.offsetLeft;
+            }
+            else {
+                charCard.parentNode.scrollTop = charCard.offsetTop;
+            }
             this.highlightCard(this, className);
             this.setCurrentChar();
         }
