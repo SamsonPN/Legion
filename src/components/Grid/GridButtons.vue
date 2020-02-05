@@ -28,15 +28,13 @@ export default {
         assignUnits(){
             let grid = document.getElementById('LegionGrid');
             let overlay = document.getElementById('LegionGridOverlay');
-            let assigned = grid.getAttribute('assigning') === 'true' & overlay.getAttribute('assigning') === 'true';
-            if(assigned){
-                grid.setAttribute('assigning', false);
-                overlay.setAttribute('assigning', false);
-            }
-            else {
-                grid.setAttribute('assigning', true);
-                overlay.setAttribute('assigning', true);
-            }
+            let innerGridStats = document.getElementsByClassName('innerGrid');
+            let assigned = grid.getAttribute('assigning') === 'true' && overlay.getAttribute('assigning') === 'true';
+            grid.setAttribute('assigning', !assigned);
+            overlay.setAttribute('assigning', !assigned);
+            innerGridStats.forEach(stat => {
+                stat.setAttribute('assigning', !assigned);
+            })
         },
         initiateSave(){
             let confirmSave = window.confirm('Save this preset?');

@@ -13,19 +13,19 @@
                 :row="rowIndex"
                 :cell="cellIndex">
                 <p
-                    v-if="outerGrid[(rowIndex * 22) + cellIndex]">
-                    {{outerGrid[(rowIndex * 22) + cellIndex]}}
+                    v-if="outerGrid[ position(rowIndex, cellIndex) ]">
+                    {{outerGrid[ position(rowIndex, cellIndex) ]}}
                 </p>
                 <p
-                    v-else-if="innerGrid[(rowIndex * 22) + cellIndex]"
+                    v-else-if="innerGrid[ position(rowIndex, cellIndex) ]"
                     class="innerGrid"
                     draggable="true"
-                    @dragstart="setCurrentStat((rowIndex * 22) + cellIndex)"
+                    assigning="true"
+                    @dragstart="setCurrentStat( position(rowIndex, cellIndex) )"
                     @dragend="resetCurrentStats()"
-                    @dragover.prevent="changeColor"
-                    @dragleave="changeColor"
-                    @drop="switchStats((rowIndex * 22) + cellIndex)">
-                    {{innerGrid[(rowIndex * 22) + cellIndex]}}&#x25B8;
+                    @dragover.prevent=""
+                    @drop="switchStats( position(rowIndex, cellIndex) )">
+                    {{innerGrid[ position(rowIndex, cellIndex) ]}}&#x25B8;
                 </p>
             </div>
         </div>
@@ -47,13 +47,11 @@ export default {
     methods: {
         ...mapActions(['switchStats']),
         ...mapMutations(['removeCurrentStat', 'setCurrentStat']),
-        changeColor(e){
-            let dragover = e.type === 'dragover';
-            e.target.setAttribute('highlighted', dragover);
+        position(row, cell) {
+            return (row * 22) + cell;
         },
         resetCurrentStats(e) {
             this.removeCurrentStat();
-            this.removeAllHighlights('innerGrid');
         }
     },
     computed: {
@@ -77,7 +75,7 @@ export default {
         border: 0.5px solid rgba(34, 255, 34, 1);
         position: absolute;
         z-index: -1;
-        &[assigning="false"]{
+        &[assigning="false"] {
             z-index: 1;
             background: none;
         }
@@ -109,8 +107,19 @@ export default {
 
     .innerGrid {
         cursor: pointer;
-        &[highlighted = "true"]{
+        &[assigning="false"] {
+            animation: glow 1s alternate infinite;
+        }
+    }
+
+    @keyframes glow {
+        from {
+            color: #22FF22;
+            font-size: 1em;
+        }
+        to {
             color: white;
+            font-size: 1.1em;
         }
     }
     
@@ -201,7 +210,7 @@ export default {
     @include tablet-grid-size (
         '#LegionGridOverlay',
         '.LegionCellOverlay'
-    )
+    );
 
     @include for-tablet-small-only {
         .LegionCellOverlay > p {

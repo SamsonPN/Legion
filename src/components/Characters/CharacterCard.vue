@@ -44,7 +44,7 @@ export default {
     props: ['charName'],
     mixins: [characterCardMixin],
     computed: { 
-        ...mapGetters(['charInfo', 'allCharacters']),
+        ...mapGetters(['charInfo', 'allCharacters', 'currentPreset']),
         level(){
             return this.charInfo[this.charName].level;
         },

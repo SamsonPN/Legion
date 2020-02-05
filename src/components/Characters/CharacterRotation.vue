@@ -94,11 +94,10 @@ export default {
                 y: newY
             }
         },
-        updateCoords(rotatedCoords){
+        updateCoords(coordinates){
             let charInfo = {
                 className: this.charName,
-                field: 'coordinates',
-                value: rotatedCoords
+                coordinates
             }
             this.updateAllCoordinates(charInfo);
         }

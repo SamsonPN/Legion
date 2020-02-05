@@ -3,7 +3,7 @@
     :id="charName + 'Piece'"
     class="piece"
     :draggable="draggable"
-    @dragstart="highlightCard(vm, charName)"
+    @dragstart="dragStart"
     @dragend="unhighlightCard(vm, charName)">
         <div
             class="pieceRow"       
@@ -52,7 +52,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setCurrentCharacter', 'removeCurrentCharacter']),
+    ...mapMutations(['removeCurrentCharacter', 'setCurrentCharacter']),
+    dragStart(){
+      let {charName, charInfo} = this;
+      this.highlightCard(charName);
+      this.setCurrentCharacter({
+        ...charInfo[charName],
+        className: charName
+        });
+    },
     mapCoordinates(){
       let {coordinates} = this.character;
       let piece = document.getElementById(this.charName + 'Piece');

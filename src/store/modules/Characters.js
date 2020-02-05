@@ -22,8 +22,8 @@ const actions = {
         let oldPresetNumber = getters.presetNumber;
         if(oldPresetNumber !== presetNumber){
             let {presets} = getters;
-            commit('updatePresetNumber', presetNumber);
-            commit('setCurrentPreset', presets[presetNumber - 1]);
+            commit('setPresetNumber', presetNumber);
+            commit('setCurrentPreset', presets[presetNumber - 1].characters);
             dispatch('resetCharInfo');
             dispatch('updateCharInfo', presets[presetNumber - 1].characters);
             commit('setStatPositions', presets[presetNumber - 1].stats);
@@ -53,7 +53,7 @@ const actions = {
             .then(data => {
                 commit('setPresets', data);
                 if(data.length > 0){
-                    commit('setCurrentPreset', data[presetNumber - 1]);
+                    commit('setCurrentPreset', data[presetNumber - 1].characters);
                     commit('setStatPositions', data[presetNumber - 1].stats);
                     dispatch('updateCharInfo', state.currentPreset);
                 }
@@ -87,12 +87,12 @@ const actions = {
         }
         commit('setCharacters', characters);
     },
-    removeGridPiece({ commit, getters }, character){
+    removeGridPiece({ commit, getters, dispatch }, character){
         let {className, position} = character;
         let {rowIndex, cellIndex} = position;
         let oldPosition = (rowIndex * 22) + cellIndex;
         commit('setCurrentCharacter', character);
-        commit('removeOldPosition', oldPosition);
+        dispatch('removeOldPosition', oldPosition);
         character.position = false;
         commit('setCharInfo', { ...getters.charInfo, [className] : character })
         commit('removeCurrentCharacter');
@@ -136,15 +136,36 @@ const actions = {
             })
             .catch(err => console.error(err));
     },
-    updateAllCoordinates({ commit }, charInfo){
-        let {currentCharacter} = state;
-        if(currentCharacter && currentCharacter.className === charInfo.className){
-            commit('updateCurrentCharCoords', charInfo.value);
+    updateAllCoordinates({ dispatch, getters }, character){
+        // for charInfo, just do className and coordinates!
+        let {className, coordinates} = character;
+        let {currentCharacter} = getters;
+        if(currentCharacter && currentCharacter.className === className){
+            dispatch('updateCurrentCharCoords', coordinates);
             if(currentCharacter.position){
-                commit('updatePresetCoords', charInfo.value);
+                dispatch('updatePresetCoords', coordinates);
             }
         }
-        commit('updateCharInfoCoords', charInfo);
+        dispatch('updateCharInfoCoords', character);
+    },
+    updateCurrentCharCoords({ commit, getters }, coordinates){
+        let currentCharCopy = {...getters.currentCharacter, coordinates};
+        commit('setCurrentCharacter', currentCharCopy);
+    },
+    updateCharInfoCoords({ commit, getters }, character){
+        let { className, coordinates } = character;
+        let charInfoCopy = {...getters.charInfo};
+        charInfoCopy[className].coordinates = coordinates;
+        commit('setCharInfo', charInfoCopy);
+    },
+    updatePresetCoords({ commit, getters}, coordinates) {
+        let {currentCharacter, currentPreset} = getters;
+        let currentCharCopy = {...currentCharacter, coordinates};
+        let currentPresetCopy = {...currentPreset};
+        let {rowIndex, cellIndex} = currentCharacter.position;
+        let position = (rowIndex * 22) + cellIndex;
+        currentPresetCopy = {...currentPresetCopy, [position]: currentCharCopy};
+        commit('setCurrentPreset', currentPresetCopy);
     },
     updateCharInfo({ commit, dispatch, getters }, preset){
         let charInfo = {...getters.charInfo};
@@ -158,12 +179,13 @@ const actions = {
     },
     insertIntoPreset({ commit, dispatch, getters }, newPosition){
         let {currentCharacter, currentPreset} = getters;
-        let {rowIndex, cellIndex} = currentCharacter.position;
-        let oldPosition = (rowIndex * 22) + cellIndex;
+        let oldPosition = false;
+        if(currentCharacter.position) {
+            let {rowIndex, cellIndex} = currentCharacter.position;
+            oldPosition = (rowIndex * 22) + cellIndex;
+        }
         if(currentCharacter && !currentPreset[newPosition]){
-            if(oldPosition || oldPosition === 0){
-                commit('removeOldPosition', oldPosition);
-            }
+            dispatch('removeOldPosition', oldPosition);
             commit('addToPreset', newPosition);
             commit('setCurrentCharacter', currentCharacter);
             dispatch('updateCharInfo', getters.currentPreset);
@@ -175,6 +197,21 @@ const actions = {
             charInfo[char].position = false;
         }
         commit('setCharInfo', charInfo);
+    },
+    updateLevels({ commit, getters }, character){
+        let {archetype, className, coordinates, level} = character;
+        let characters = JSON.parse(JSON.stringify({...getters.allCharacters}))
+        characters[archetype][className].level = level;
+        characters[archetype][className].coordinates = coordinates;
+        commit('setCharacters', characters)
+    },
+    removeOldPosition({ commit, getters }, oldPosition){
+        let isNumber = isNaN(oldPosition) ? false : true;
+        if(isNumber) {
+            let currentPresetCopy = {...getters.currentPreset};
+            delete currentPresetCopy[oldPosition];
+            commit('setCurrentPreset', currentPresetCopy);
+        }
     }
 }
 
@@ -185,35 +222,16 @@ const mutations = {
         state.currentPreset = currentPresetCopy;
     },
     removeCurrentCharacter: (state) => state.currentCharacter = false,
-    removeOldPosition: (state, oldPosition) => delete state.currentPreset[oldPosition],
     setCharacters: (state, characters) => state.characters = characters,
     setCharInfo: (state, charInfo) => state.charInfo = {...charInfo} ,
-    setCurrentCharacter: (state, currentChar) => {
-        let {className, position} = currentChar;
-        state.currentCharacter = {...state.charInfo[className], ...{className, position}};
-    },
-    setCurrentPreset: (state, preset) => state.currentPreset = preset.characters,
-    setPresets: (state, presets) => state.presets = presets ,
-    updateCharData: (state, charInfo) => {
-        let {field, value, className, archetype} = charInfo;
-        state.characters[archetype][className][field] = value;
-    },
-    updateCharInfoCoords: (state, charInfo) => {
-        let { className, field, value } = charInfo;
-        let newCharInfo = {...state.charInfo};
-        newCharInfo[className][field] = value;
-        state.charInfo = newCharInfo;
-    },
-    updateCurrentCharCoords: (state, coordinates) => {
-        let currentCharCopy = {...state.currentCharacter, coordinates};
-        state.currentCharacter = currentCharCopy;
-    },
-    updatePresetCoords: (state, coordinates) => {
-        let {rowIndex, cellIndex} = state.currentCharacter.position;
-        let currentChar = {...state.currentCharacter, coordinates};
-        state.currentPreset = {...state.currentPreset, [(rowIndex * 22) + cellIndex]: currentChar};
-    },
-    updatePresetNumber: (state, presetNumber) => state.presetNumber = presetNumber
+    // setCurrentCharacter: (state, currentChar) => {
+    //     let {className, position} = currentChar;
+    //     state.currentCharacter = {...state.charInfo[className], ...{className, position}};
+    // },
+    setCurrentCharacter: (state, currentCharacter) => state.currentCharacter = currentCharacter,
+    setCurrentPreset: (state, preset) => state.currentPreset = preset,
+    setPresets: (state, presets) => state.presets = presets,
+    setPresetNumber: (state, presetNumber) => state.presetNumber = presetNumber
 }
 
 export default {

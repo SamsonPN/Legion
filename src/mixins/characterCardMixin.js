@@ -2,12 +2,6 @@ import CharacterEffect from '../components/Characters/CharacterEffect';
 
 export default {
     methods: {
-        // activateRotationImgs(){
-        //     let rotationImgs = [...document.getElementsByClassName('rotationImg')];
-        //     rotationImgs.forEach(img => {
-        //         img.setAttribute('clickable', true);
-        //     })
-        // },
         computeEffect(charName, level){
             let {classes, effects, values} = CharacterEffect;
             let effectIndex= classes[charName];
@@ -32,16 +26,10 @@ export default {
             }
             return require(`../assets/ClassIcons/${charName}.png`);
         },
-        highlightCard(vm, charName){
-            let {commit} = vm.$store;
-            let currentChar = {
-                className: charName,
-                position: false
-            };
+        highlightCard(charName){
             let card = document.getElementById(charName + 'Card');
             this.removeAllHighlights('CharacterCard');
             card.setAttribute('highlighted', true);
-            commit('setCurrentCharacter', currentChar);
             this.reactivateCharacterCard(charName, true);
         },
         rankCheck(level){

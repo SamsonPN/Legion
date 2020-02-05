@@ -52,19 +52,6 @@ export default {
         isInPreset(rowIndex, cellIndex){
             return this.currentPreset[rowIndex * 22 + cellIndex];
         },
-        updateHighlightAttribute(eventInfo){
-            let {dragover, row, cell} = eventInfo;
-            let legioncell = document.getElementsByClassName('LegionRow')[row].children[cell];
-            if(dragover){
-                legioncell.setAttribute('highlighted', true);
-            }
-            else {
-                legioncell.removeAttribute('highlighted');
-            }
-        },
-        isNotOverlappingPieces(e){
-            return this.currentCharacter && e.target.nodeName !== "IMG";
-        },
         highlightCells(e){
             let dragover = (e.type === 'dragover');
             if(this.isNotOverlappingPieces(e)){
@@ -86,20 +73,39 @@ export default {
                 })
             }
         },
-        isPositionEmpty(position){
-            return this.currentPreset[position] ? false : true;
+        isNotOverlappingPieces(e){
+            return this.currentCharacter && e.target.nodeName !== "IMG";
         },
-        insertPiece(row, cell, e){
-            let position = (row * 22) + cell;
+        updateHighlightAttribute(eventInfo){
+            let {dragover, row, cell} = eventInfo;
+            let legioncell = document.getElementsByClassName('LegionRow')[row].children[cell];
+            if(dragover){
+                legioncell.setAttribute('highlighted', true);
+            }
+            else {
+                legioncell.removeAttribute('highlighted');
+            }
+        },
+        insertPiece(rowIndex, cellIndex, e){
+            let position = (rowIndex * 22) + cellIndex;
             if(this.isPositionEmpty(position)) {
-                this.setArchetypes({
-                    ...this.currentCharacter,
-                    append: false
-                });
+                this.setCellArchetypes(position);
                 this.insertIntoPreset(position);
                 this.removeAllHighlights('LegionCell');
                 this.deactivateCurrentCard(this);
                 this.unhighlightCard(this);
+            }
+        },
+        isPositionEmpty(position){
+            return this.currentPreset[position] ? false : true;
+        },
+        setCellArchetypes(position){
+            let {currentCharacter} = this;
+            if(currentCharacter.position) {
+                this.setArchetypes({
+                    ...currentCharacter,
+                    append: false
+                })
             }
         }
     }

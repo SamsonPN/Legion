@@ -15,11 +15,6 @@
      components: {
        Header
      },
-    // methods: mapActions(['fetchCharacters', 'fetchPresets']),
-    // created(){
-    //   this.fetchCharacters();
-    //   this.fetchPresets();
-    // },
     computed: {
       isNotLoginPage(){
         return this.$route.path !== '/';

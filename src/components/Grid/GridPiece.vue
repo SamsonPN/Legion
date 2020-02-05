@@ -53,13 +53,6 @@ export default {
             e.dataTransfer.setDragImage(piece, 80, 80);
             this.setCurrentChar();
         },
-        setCurrentChar(){
-            let currentChar = {
-                className: this.charInfo.className,
-                position: this.position
-            };
-            this.setCurrentCharacter(currentChar);
-        },
         isTabletView(){
             let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
             return viewportWidth <= 900;
@@ -76,8 +69,13 @@ export default {
             else {
                 charCard.parentNode.scrollTop = charCard.offsetTop;
             }
-            this.highlightCard(this, className);
+            this.highlightCard(className);
             this.setCurrentChar();
+        },
+        setCurrentChar(){
+            let {charInfo, position} = this;
+            charInfo = {...charInfo, position};
+            this.setCurrentCharacter(charInfo)
         }
     },
     mounted(){

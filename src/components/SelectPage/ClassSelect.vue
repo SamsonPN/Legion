@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Ranks from './ClassSelectRanks';
 import characterCardMixin from '../../mixins/characterCardMixin';
 import CharacterEffect from '../Characters/CharacterEffect';
@@ -31,7 +31,7 @@ export default {
     props: ['archetype', 'classList'],
     mixins: [characterCardMixin],
     methods: {
-        ...mapMutations(['updateCharData']),
+        ...mapActions(['updateLevels']),
         checkNumbersOnly(e, level){
             let {key} = e;
             let numericalInput = parseInt(key);
@@ -58,8 +58,8 @@ export default {
             let {id, value} = e.target;
             let level = parseInt(value);
             let {archetype} = this;
-            if(value === ""){
-                e.target.value = "";
+            if(value === ''){
+                e.target.value = '';
                 return;
             }
             else if(isNaN(level)){
@@ -74,13 +74,12 @@ export default {
             }
             let coordinates = this.computeCoordinates(level, id);
             let data = {
-                field: 'level',
-                value: level,
                 archetype,
                 className: id,
+                level,
                 coordinates
             };
-            this.updateCharData(data);
+            this.updateLevels(data)
         }
     }
 }
