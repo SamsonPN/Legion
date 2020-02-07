@@ -5,7 +5,7 @@ const state = {
     currentCharacter: false,
     currentPreset: {},
     presets: [],
-    presetNumber: 1,
+    presetNumber: 0,
 };
 
 function removeSideClass(charInfo){
@@ -34,8 +34,7 @@ const actions = {
             credentials: 'include'
         })
             .then(res => res.json())
-            .then(data => {
-                let {id,...characters} = data;
+            .then(characters => {
                 // creates a deep copy of character and puts it into charInfo
                 let charactersCopy = JSON.parse(JSON.stringify(characters));
                 let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = charactersCopy;
@@ -50,11 +49,11 @@ const actions = {
             credentials: 'include'
         })
             .then(res => res.json())
-            .then(data => {
-                commit('setPresets', data);
-                if(data.length > 0){
-                    commit('setCurrentPreset', data[presetNumber - 1].characters);
-                    commit('setStatPositions', data[presetNumber - 1].stats);
+            .then(presets => {
+                commit('setPresets', presets);
+                if(presets.length > 0){
+                    commit('setCurrentPreset', presets[presetNumber].characters);
+                    commit('setStatPositions', presets[presetNumber].stats);
                     dispatch('updateCharInfo', state.currentPreset);
                 }
             })
@@ -152,10 +151,10 @@ const actions = {
         if(oldPresetNumber !== presetNumber){
             let {presets} = getters;
             commit('setPresetNumber', presetNumber);
-            commit('setCurrentPreset', presets[presetNumber - 1].characters);
+            commit('setCurrentPreset', presets[presetNumber].characters);
             dispatch('resetCharInfo');
-            dispatch('updateCharInfo', presets[presetNumber - 1].characters);
-            commit('setStatPositions', presets[presetNumber - 1].stats);
+            dispatch('updateCharInfo', presets[presetNumber].characters);
+            commit('setStatPositions', presets[presetNumber].stats);
         }
     },
     resetCharInfo({ commit, getters}){

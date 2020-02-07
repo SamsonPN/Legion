@@ -6,7 +6,7 @@
         :key="preset"
         @click="choosePreset(preset)"
         :clicked="isCurrentPreset(preset)">
-            {{preset}}
+            {{preset + 1}}
       </p>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     mixins: [characterCardMixin, gridMixin],
     data(){
         return {
-            presets: [...new Array(5)].map((x, i) => i + 1)
+            presets: [...new Array(5)].map((x, i) => i)
         }
     },
     computed: mapGetters(['presetNumber']),
@@ -32,7 +32,6 @@ export default {
         },
         choosePreset(newPresetNumber, e){
             if( !this.isCurrentPreset(newPresetNumber) ){
-                // this.activateRotationImgs();
                 this.deactivateCurrentCard(this);
                 this.changePreset(newPresetNumber);
                 this.resetGridArchetypes();

@@ -81,6 +81,9 @@ export default {
             };
             this.updateLevels(data)
         }
+    },
+    mounted(){
+        console.log({classList: this.classList})
     }
 }
 </script>

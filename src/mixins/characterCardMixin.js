@@ -2,9 +2,9 @@ import CharacterEffect from '../components/Characters/CharacterEffect';
 
 export default {
     methods: {
-        computeEffect(charName, level){
+        computeEffect(className, level){
             let {classes, effects, values} = CharacterEffect;
-            let effectIndex= classes[charName];
+            let effectIndex= classes[className];
             let {effect, type} = effects[effectIndex];
             level = parseInt(level);
             let computedEffect;
