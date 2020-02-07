@@ -1,14 +1,12 @@
 <template>
   <div 
     id="app">
-    <Header 
-      v-if="isNotLoginPage"/>
+    <Header v-if="isNotLoginPage"/>
     <router-view />
   </div>
 </template>
 
  <script>
-//  import { mapActions } from 'vuex';
  import Header from '../Header/Header';
    export default {
      name: "app",

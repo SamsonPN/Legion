@@ -1,6 +1,6 @@
 <template>
     <div 
-        :id="charName + 'Rotation'">
+        :id="className + 'Rotation'">
             <img
                 v-for="rotation in rotations"
                 class="rotationImg"
@@ -25,7 +25,7 @@ export default {
             rotations: ['counterClockwise', 'mirrorX', 'mirrorY', 'clockwise']
         }
     },
-    props: ['charName', 'position'],
+    props: ['className', 'position'],
     mixins: [gridMixin],
     computed: {
         ...mapGetters(['charInfo', 'currentCharacter']),
@@ -40,8 +40,8 @@ export default {
         },
         rotate(e, rotation){
             if(this.clickable(e)){
-                let piece = document.getElementById(this.charName + 'Piece');
-                let {coordinates} = this.charInfo[this.charName];
+                let piece = document.getElementById(this.className + 'Piece');
+                let {coordinates} = this.charInfo[this.className];
                 this.removeSidePieces({ ...this.currentCharacter, append: false});             
                 let rotatedCoords = coordinates.map(coord => {
                     let cell = piece.children[coord.y + 2].children[coord.x + 2];
@@ -65,7 +65,7 @@ export default {
             }
         },
         isCurrentClass(){
-            return this.currentCharacter.className === this.charName;
+            return this.currentCharacter.className === this.className;
         },
         calculateRotation(rotationInfo){
             let {rotation, x, y} = rotationInfo;
@@ -96,7 +96,7 @@ export default {
         },
         updateCoords(coordinates){
             let charInfo = {
-                className: this.charName,
+                className: this.className,
                 coordinates
             }
             this.updateAllCoordinates(charInfo);

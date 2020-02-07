@@ -17,20 +17,20 @@ export default {
             }
             return computedEffect;
         },
-        getImage(charName){
-            if(charName === 'Archmage Fire/Poison'){
-                charName = 'FP';
+        getImage(className){
+            if(className === 'Archmage Fire/Poison'){
+                className = 'FP';
             }
-            else if (charName === 'Archmage Ice/Lightning'){
-                charName = 'IL';
+            else if (className === 'Archmage Ice/Lightning'){
+                className = 'IL';
             }
-            return require(`../assets/ClassIcons/${charName}.png`);
+            return require(`../assets/ClassIcons/${className}.png`);
         },
-        highlightCard(charName){
-            let card = document.getElementById(charName + 'Card');
+        highlightCard(className){
+            let card = document.getElementById(className + 'Card');
             this.removeAllHighlights('CharacterCard');
             card.setAttribute('highlighted', true);
-            this.reactivateCharacterCard(charName, true);
+            this.reactivateCharacterCard(className, true);
         },
         rankCheck(level){
             let rank;
@@ -51,12 +51,6 @@ export default {
             }
             return rank;
         },
-        changeRotationClickability(className, isClickable){
-            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
-            rotationImgs.forEach(img => {
-                img.setAttribute('clickable', isClickable);
-            });
-        },
         reactivateCharacterCard(className, isOnGrid){
             if(!isOnGrid){
                  document.getElementById(className + 'Piece').setAttribute('draggable', true);
@@ -64,6 +58,12 @@ export default {
              }
              this.changeRotationClickability(className, true);
          },
+         changeRotationClickability(className, isClickable){
+            let rotationImgs = [...document.getElementById(className + 'Rotation').children];
+            rotationImgs.forEach(img => {
+                img.setAttribute('clickable', isClickable);
+            });
+        },
         removeAllHighlights(element){
             let highlightedItem = [...document.getElementsByClassName(element)];
             highlightedItem.forEach(item => {

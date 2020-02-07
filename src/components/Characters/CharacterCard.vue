@@ -1,15 +1,15 @@
 <template>
   <div 
-        :id="charName + 'Card'"
+        :id="className + 'Card'"
         class="CharacterCard"
         highlighted="false">
         <div>
-            <p>Class: {{charName}}</p>
+            <p>Class: {{className}}</p>
             <p>Level: {{level}}</p>
-            <p>Effect: {{computeEffect(charName, level)}}</p> 
+            <p>Effect: {{computeEffect(className, level)}}</p> 
         </div>
         <img 
-            :id="charName + 'Selected'"
+            :id="className + 'Selected'"
             :cardSelected="isSelected"
             class="cardSelectedImg"
             src="../../assets/maple-leaf.svg" 
@@ -17,11 +17,11 @@
             title="This piece is already on the board"/> 
         <div>
             <CharacterPiece 
-                :charName="charName"
+                :className="className"
                 :position="position"
             />
             <CharacterRotation 
-                :charName="charName"
+                :className="className"
                 :position="position"
             />
         </div>
@@ -41,18 +41,18 @@ export default {
         CharacterRotation,
         CharacterPiece
     },
-    props: ['charName'],
+    props: ['className'],
     mixins: [characterCardMixin],
     computed: { 
         ...mapGetters(['charInfo', 'allCharacters', 'currentPreset']),
         level(){
-            return this.charInfo[this.charName].level;
+            return this.charInfo[this.className].level;
         },
         position(){
-            return this.charInfo[this.charName].position;
+            return this.charInfo[this.className].position;
         },
         isSelected(){
-            return this.charInfo[this.charName].position ? 'true' : 'false';
+            return this.charInfo[this.className].position ? 'true' : 'false';
         }
     }
 }

@@ -1,10 +1,10 @@
 <template>
     <div 
-    :id="charName + 'Piece'"
+    :id="className + 'Piece'"
     class="piece"
     :draggable="draggable"
     @dragstart="dragStart"
-    @dragend="unhighlightCard(vm, charName)">
+    @dragend="unhighlightCard(vm, className)">
         <div
             class="pieceRow"       
             v-for="(row, rowIndex) in pieceSize"
@@ -13,12 +13,12 @@
                 :class="['pieceCell', isMiddlePiece(rowIndex, cellIndex) ? 'main' : '']"
                 v-for="(cell, cellIndex) in pieceSize"
                 :key="cellIndex"
-                :archetype="charInfo[charName].archetype">
+                :archetype="charInfo[className].archetype">
                 <img
                   v-if="isMiddlePiece(rowIndex, cellIndex)"
                   class="main"
                   draggable="false"
-                  :src="getImage(charName)" 
+                  :src="getImage(className)" 
                   alt="Legion Image" 
                   />
             </div>
@@ -32,7 +32,7 @@ import characterCardMixin from '../../mixins/characterCardMixin';
 
 export default {
   name: 'CharacterPiece',
-  props: ['charName', 'position'],
+  props: ['className', 'position'],
   data(){
     return {
       pieceSize: [...new Array(5)].map((x, i) => i)
@@ -45,7 +45,7 @@ export default {
       return this;
     },
     character(){
-      return this.charInfo[this.charName];
+      return this.charInfo[this.className];
     },
     draggable(){
       return this.position ? false : true;
@@ -54,16 +54,16 @@ export default {
   methods: {
     ...mapMutations(['removeCurrentCharacter', 'setCurrentCharacter']),
     dragStart(){
-      let {charName, charInfo} = this;
-      this.highlightCard(charName);
+      let {className, charInfo} = this;
+      this.highlightCard(className);
       this.setCurrentCharacter({
-        ...charInfo[charName],
-        className: charName
+        ...charInfo[className],
+        className: className
         });
     },
     mapCoordinates(){
       let {coordinates} = this.character;
-      let piece = document.getElementById(this.charName + 'Piece');
+      let piece = document.getElementById(this.className + 'Piece');
       coordinates.forEach(coordinate => {
         let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
         cell.classList.add('side');
@@ -71,11 +71,6 @@ export default {
     },
     isMiddlePiece(row, cell){
       return row === 2 && cell === 2;
-    },
-    setCardDraggable(){
-      let {charName} = this;
-      let draggable = document.getElementById(charName + 'Piece').getAttribute('draggable');
-      document.getElementById(charName + 'Selected').style.display = draggable === 'false' ? 'block' : 'none';
     }
   },
   mounted(){

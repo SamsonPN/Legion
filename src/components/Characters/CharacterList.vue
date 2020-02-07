@@ -4,8 +4,7 @@
             <CharacterCard 
                 v-for="(character, name) in activeCharInfo" 
                 :key="name"
-                :charInfo="{character, name}"
-                :charName="name"
+                :className="name"
                 />
         </div>
     </div>

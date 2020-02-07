@@ -116,7 +116,6 @@ const actions = {
             .catch(err => console.error(err));
     },
     updateAllCoordinates({ dispatch, getters }, character){
-        // for charInfo, just do className and coordinates!
         let {className, coordinates} = character;
         let {currentCharacter} = getters;
         if(currentCharacter && currentCharacter.className === className){
