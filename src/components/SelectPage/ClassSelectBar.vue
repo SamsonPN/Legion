@@ -3,15 +3,15 @@
         <div>  
             <span>Auto Fill Levels: </span>
             <div>
-                <p @click="fillLevelHandler">60</p> 
-                <span> | </span>
-                <p @click="fillLevelHandler">100</p>
-                <span> | </span>
-                <p @click="fillLevelHandler">140</p>
-                <span> | </span>
-                <p @click="fillLevelHandler">200</p>
-                <span> | </span>
-                <p @click="fillLevelHandler">250</p>
+                <template
+                        v-for="level in levels">
+                    <p 
+                        :key="level" 
+                        @click="fillLevelHandler(level)">
+                        {{level}}
+                    </p>
+                    <span :key="level + 'span'" v-if="isNot250(level)"> | </span>
+                </template>
             </div>
         </div>
         <button @click="saveChars">Save Characters</button>
@@ -20,6 +20,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+
 export default {
     name: "ClassSelectBar",
     data(){
@@ -29,18 +30,20 @@ export default {
     },
     methods: {
         ...mapActions(['saveCharData', 'fillLevels']),
+        isNot250(level){
+            return level !== 250;
+        },
         saveChars(){
             let SaveChars = window.confirm('Save character data?')
             if(SaveChars){
                 this.saveCharData()
             }
         },
-        fillLevelHandler(e){
-            let level = e.target.textContent;
+        fillLevelHandler(level){
             let levelTextArea = document.getElementsByClassName('levelTextArea');
-            [...levelTextArea].forEach(textarea => {
+            levelTextArea.forEach(textarea => {
                 textarea.value = level;
-            })
+            });
             this.fillLevels(level);
         }
     }
@@ -66,7 +69,6 @@ export default {
         > div {
             display: flex;
             align-items: center;
-            white-space: pre;
             > div {
                 display: flex;
                 > p {
@@ -77,18 +79,23 @@ export default {
                 }
             }
         }
-        > button {
-            outline: none;
-            border-radius: 20px;
-            background-color: #444466;
-            color: white;
-            font-size: 0.75em;
-            padding: 0 7.5px;
-            cursor: pointer;
-                &:hover {
-                    opacity: 0.75;
-                }
-        }
+    }
+
+    button {
+        outline: none;
+        border-radius: 20px;
+        background-color: #444466;
+        color: white;
+        font-size: 0.75em;
+        padding: 0 7.5px;
+        cursor: pointer;
+            &:hover {
+                opacity: 0.75;
+            }
+    }
+
+    span {
+        white-space: pre;
     }
 
     @include for-tablet-only {
