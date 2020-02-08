@@ -8,13 +8,14 @@ $thief: #4E4EE4;
 $pirate: orange;
 $lab: #4CF7F8;
 $size: 30px;
-$largeSize: 2vw;
 $tabletSize: 4.4vw;
+$largeSize: 2.1vw;
 
 //media queries
-$desktop: 68.75em;
-$desktop-small: 64em;
-$tablet: 56.25em;
-$tablet-small-2: 37.875em;
-$tablet-small: 36.125em;
-$mobile: 23.125em;
+$desktop-large: 100em; // 1600px
+$desktop: 68.75em; // 1100px
+$desktop-small: 64em; //1024px
+$tablet: 56.25em; // 900px
+$tablet-small-2: 37.875em; // 606px
+$tablet-small: 36.125em; // 578px
+$mobile: 23.125em; // 370px

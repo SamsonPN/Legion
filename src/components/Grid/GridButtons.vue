@@ -50,6 +50,7 @@ export default {
 
 <style scoped lang="scss">
     @import '../../variables.scss';
+    @import '../../mixins.scss';
 
     #GridBtnsWrapper {
         height: 100%;
@@ -82,6 +83,13 @@ export default {
         }
         &:hover{
             color: yellow;
+        }
+    }
+
+    @include for-desktop-large-only {
+        button {
+            font-size: 3em;
+            border-radius: 30px;
         }
     }
 </style>

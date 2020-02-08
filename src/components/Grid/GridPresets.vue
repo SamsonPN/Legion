@@ -43,6 +43,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../mixins.scss';
+
     #GridPresets{
         height: 100%;
         flex: 1;
@@ -63,7 +65,16 @@ export default {
         }
     }
 
-    @media only screen and (max-width: 500px) {
+    @include for-desktop-large-only {
+        #GridPresets {
+            border-radius: 30px;
+            > p {
+                font-size: 3em;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 31.250em) {
         p:first-of-type {
             display: none;
         }

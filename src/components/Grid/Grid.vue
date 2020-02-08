@@ -144,9 +144,14 @@ export default {
         &[highlighted="true"]{ border: 3px dashed yellow; }
     }
 
+    @include desktop-large-grid-size (
+        '#LegionGrid',
+        '.LegionCell'
+    );
+
     @include tablet-grid-size (
         '#LegionGrid',
         '.LegionCell'
-    )
+    );
     
 </style>

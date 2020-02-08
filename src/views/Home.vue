@@ -83,13 +83,19 @@ export default {
     margin-top: 1vh;
   }
 
+  @include for-desktop-large-only {
+    #GridButtonContainer {
+      width: $largeSize * 22;
+    }
+  }
+
   // stacks grid on top of character list
   @include for-tablet-only {
     #Home {
       flex-direction: column;
     }
     #GridButtonContainer {
-      width: 4.4vw * 22;
+      width: $tabletSize * 22;
     }
   }
 

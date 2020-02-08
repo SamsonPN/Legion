@@ -6,15 +6,19 @@
             @click="redirectToGrid">
             <img src="../../assets/Header/grid.svg" alt="Grid"/>
             <span>  Board  </span>
-        </a> |
+        </a> 
         <router-link to="/select">
             <img src="../../assets/Header/classes.svg" alt="Classes"/>
             <span>  Classes  </span>
-        </router-link> |
+        </router-link> 
         <router-link to="/options">
             <img src="../../assets/Header/options.svg" alt="Options"/>
             <span>  Options  </span>
-        </router-link>
+        </router-link> 
+        <a href="http://localhost:3000/auth/logout">
+            <img src="../../assets/Header/logout.svg" alt="Logout">
+            <span>  Logout  </span>
+        </a>
       </div>
   </header>
 </template>
@@ -35,11 +39,10 @@ export default {
     @import '../../mixins.scss';
 
     header {
-        width: 100%;
         height: auto;
+        width: 100%;
         display: flex;
         justify-content: space-between;
-        align-items: center;
         background-color: rgba(0, 0, 0, 1);
         padding: 0px 5px;
         font: {
@@ -59,7 +62,7 @@ export default {
         }
     }
 
-    a, p{
+    a, p {
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -69,12 +72,14 @@ export default {
         &:hover{
             opacity: 0.75;
         }
+        &:last-of-type {
+            color: red;
+        }
     }
 
-    img{
+    img {
         height: 50px;
         width: 50px;
-        padding-top: 5px;
     }
 
     @include for-desktop-small-only {

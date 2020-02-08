@@ -207,6 +207,17 @@ export default {
         }
     }
 
+    @include desktop-large-grid-size (
+        '#LegionGridOverlay',
+        '.LegionCellOverlay'
+    );
+
+    @include for-desktop-large-only {
+        .LegionCellOverlay > p {
+            font-size: 1.5em;
+        }
+    }
+
     @include tablet-grid-size (
         '#LegionGridOverlay',
         '.LegionCellOverlay'

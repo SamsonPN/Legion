@@ -126,11 +126,17 @@ export default {
     border-radius: 3.5px;
   }
 
-  @include for-tablet-only {
-    $size: 4.4vw;
+  @include for-desktop-large-only {
     .pieceCell {
-      width: $size;
-      height: $size;
+      width: $largeSize;
+      height: $largeSize;
+    }
+  }
+
+  @include for-tablet-only {
+    .pieceCell {
+      width: $tabletSize;
+      height: $tabletSize;
     }
   }
 

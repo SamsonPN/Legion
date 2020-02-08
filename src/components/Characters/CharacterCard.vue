@@ -107,6 +107,12 @@ export default {
         }
     }
 
+    @include for-desktop-large-only {
+        .CharacterCard > div {
+            font-size: 1.5em;
+        }
+    }
+
     @include for-tablet-only {
         .CharacterCard {
             height: auto;

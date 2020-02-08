@@ -70,6 +70,12 @@ export default {
         }
     }
 
+    @include for-desktop-large-only {
+        #GridCounter > p {
+            font-size: 1.75em;
+        }  
+    }
+
     @include for-tablet-only {
         #GridCounter > p {
             font-size: 1.5em;

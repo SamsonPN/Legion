@@ -48,6 +48,12 @@
 
 //media queries
 
+@mixin for-desktop-large-only {
+    @media only screen and (min-width: $desktop-large) {
+        @content;
+    }
+}
+
 @mixin for-desktop-only {
     @media only screen and (max-width: $desktop) {
         @content;
@@ -84,17 +90,30 @@
     }
 }
 
-@mixin tablet-grid-size($gridElem, $cellElem) {
-    @include for-tablet-only {
-        $size: 4.4vw;
+
+@mixin desktop-large-grid-size($gridElem, $cellElem) {
+    @include for-desktop-large-only() {
         #{$gridElem} {
-            max-height: $size * 20;
-            max-width: $size  * 22;
+            max-height: $largeSize * 20;
+            max-width: $largeSize * 22;
         }
 
         #{$cellElem} {
-            width: $size;
-            height: $size;
+            width: $largeSize;
+            height: $largeSize;
+        }
+    }
+}
+@mixin tablet-grid-size($gridElem, $cellElem) {
+    @include for-tablet-only {
+        #{$gridElem} {
+            max-height: $tabletSize * 20;
+            max-width: $tabletSize * 22;
+        }
+
+        #{$cellElem} {
+            width: $tabletSize;
+            height: $tabletSize;
         }
     }
 }
