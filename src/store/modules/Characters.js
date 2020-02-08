@@ -30,7 +30,7 @@ const getters = {
 
 const actions = {
     fetchCharacters({ commit }){
-        fetch('http://localhost:3000/characters/', {
+        fetch('https://legion-backend.herokuapp.com/characters/', {
             credentials: 'include'
         })
             .then(res => res.json())
@@ -45,7 +45,7 @@ const actions = {
     },
     fetchPresets({ commit, dispatch, getters }){
         let {presetNumber} = getters;
-        fetch('http://localhost:3000/presets/', {
+        fetch('https://legion-backend.herokuapp.com/presets/', {
             credentials: 'include'
         })
             .then(res => res.json())
@@ -88,7 +88,7 @@ const actions = {
     },
     saveCharData({ dispatch, getters }){
         let characters = getters.allCharacters;
-        fetch('http://localhost:3000/characters/save', {
+        fetch('https://legion-backend.herokuapp.com/characters/save', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -102,7 +102,7 @@ const actions = {
     },
     savePreset({ getters, dispatch }){
         let {currentPreset, presetNumber, statPositions} = getters;
-        fetch('http://localhost:3000/presets/save', {
+        fetch('https://legion-backend.herokuapp.com/presets/save', {
             method: 'POST',
             credentials: 'include',
             headers: {

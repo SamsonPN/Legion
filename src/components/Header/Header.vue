@@ -15,6 +15,10 @@
             <img src="../../assets/Header/options.svg" alt="Options"/>
             <span>  Options  </span>
         </router-link> 
+        <router-link to="/options">
+            <img src="../../assets/Header/FAQ1.svg" alt="Options"/>
+            <span>  FAQ  </span>
+        </router-link> 
         <a href="http://localhost:3000/auth/logout">
             <img src="../../assets/Header/logout.svg" alt="Logout">
             <span>  Logout  </span>
