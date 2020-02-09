@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from '../views/Login';
 import Home from '../views/Home';
 import Select from '../views/Select';
+import FAQ from '../views/FAQ';
 import Options from '../views/Options';
 
 Vue.use(VueRouter)
@@ -22,6 +23,11 @@ const routes = [
     path: '/select',
     name: 'select',
     component: Select
+  },
+  {
+    path: '/faq',
+    name: 'faq',
+    component: FAQ
   },
   {
     path: '/options',

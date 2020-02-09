@@ -1,5 +1,6 @@
 <template>
-    <div id="LegionGridOverlay"
+    <div 
+        id="LegionGridOverlay"
         assigning="true">
         <div 
             class="LegionRowOverlay"
@@ -72,7 +73,7 @@ export default {
 
     #LegionGridOverlay {
         @include grid-layout;
-        border: 0.5px solid rgba(34, 255, 34, 1);
+        border: 0.5px solid var(--primary-grid-color);
         position: absolute;
         z-index: -1;
         &[assigning="false"] {
@@ -101,11 +102,12 @@ export default {
             size: 1em;
             weight: 900;
         }
-        color: #22FF22;
+        color: var(--outer-stat-color);
         background-color: rgba(0, 0, 0, 0.75);
     }
 
     .innerGrid {
+        color: var(--inner-stat-color);
         cursor: pointer;
         &[assigning="false"] {
             animation: glow 1s alternate infinite;

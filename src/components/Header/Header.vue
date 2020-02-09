@@ -1,6 +1,6 @@
 <template>
   <header>
-      <p>Samson Nguyen</p>
+      <!-- <p>Samson Nguyen</p> -->
       <div>
         <a 
             @click="redirectToGrid">
@@ -15,8 +15,8 @@
             <img src="../../assets/Header/options.svg" alt="Options"/>
             <span>  Options  </span>
         </router-link> 
-        <router-link to="/options">
-            <img src="../../assets/Header/FAQ1.svg" alt="Options"/>
+        <router-link to="/faq">
+            <img src="../../assets/Header/FAQ.svg" alt="Options"/>
             <span>  FAQ  </span>
         </router-link> 
         <a href="http://localhost:3000/auth/logout">
@@ -53,10 +53,10 @@ export default {
             size: 2.5em;
             weight: 200;
         }
-        > p {
-            flex: 1;
-            pointer-events: none;
-        }
+        // > p {
+        //     flex: 1;
+        //     pointer-events: none;
+        // }
         > div {
             display: flex;
             justify-content: space-between;

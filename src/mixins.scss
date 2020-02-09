@@ -7,7 +7,7 @@
     flex-direction: column;
     margin-top: 3px;
     border-radius: 3.5px;
-    background-color: rgba(21, 21, 21, 1);     
+    background-color: var(--grid-background-color);    
     z-index: 0;
 }
 
@@ -21,27 +21,27 @@
 
 @mixin archetype-colors { 
     &[archetype="Warrior"]{ 
-        background-color: $warrior; 
+        background-color: var(--warrior); 
         border: 1px white solid;
     }
     &[archetype="Magician"]{ 
-        background-color: $magician; 
+        background-color: var(--magician);
         border: 1px white solid;
     }
     &[archetype="Bowman"]{ 
-        background-color: $bowman;
+        background-color: var(--bowman);
         border: 1px white solid; 
     }
     &[archetype="Thief"]{ 
-        background-color: $thief; 
+        background-color: var(--thief); 
         border: 1px white solid;
     }
     &[archetype="Pirate"]{ 
-        background-color: $pirate; 
+        background-color: var(--pirate); 
         border: 1px white solid;
     }
     &[archetype="Lab"]{ 
-        background-color: $lab; 
+        background-color: var(--lab); 
         border: 1px white solid;
     }
 }

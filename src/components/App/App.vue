@@ -18,10 +18,25 @@
         return this.$route.path !== '/';
       }
     }
-   }
+  }
  </script>
  
 <style>
+
+  :root {
+    --primary-grid-color: #22FF22;
+    --grid-background-color: #151515;
+    --grid-line-color: gray;
+    --outer-stat-color: #22FF22;
+    --inner-stat-color: #22FF22;
+    --warrior: red;
+    --magician: #1414FF;
+    --bowman: #90EE90;
+    --thief: #4E4EE4;
+    --pirate: orange;
+    --lab: #4CF7F8;
+  }
+
   html, body {
     font-size: 100%;
   }
