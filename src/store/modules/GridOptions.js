@@ -4,9 +4,13 @@ const state = {
 }
 
 function useGridOptions(options){
-    for(let option in options) {
-        if(options[option] !== '' && options !== 'gridLines'){
-            document.documentElement.style.setProperty(option, options[option])
+    for(let opt in options) {
+        if(options[opt] !== '' && opt !== 'gridLines'){
+            let optionTextArea = document.getElementById(opt);
+            document.documentElement.style.setProperty(opt, options[opt])
+            if(optionTextArea){
+                optionTextArea.placeholder = options[opt];
+            }
         }
     }
 }
@@ -64,7 +68,7 @@ const actions = {
 }
 
 const mutations = {
-    setOptions: (state, options) => {state.options = options; console.log(state.options)},
+    setOptions: (state, options) => state.options = options,
     setGridLines: (state, gridLines) => state.gridLines = gridLines
 }
 

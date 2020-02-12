@@ -120,7 +120,7 @@ export default {
 
     @keyframes glow {
         from {
-            color: #22FF22;
+            color: var(--inner-stat-color);
             font-size: 1em;
         }
         to {

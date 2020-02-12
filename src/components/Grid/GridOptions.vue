@@ -10,6 +10,7 @@
                 {{optionDisplay}}
                 </p>
             <textarea
+                :id="optionCSS"
                 @change="changeColor($event, optionCSS)"
                 @keypress.enter.prevent=""
                 rows="1"

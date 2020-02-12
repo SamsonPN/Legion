@@ -54,7 +54,7 @@ const actions = {
                 if(presets.length > 0){
                     commit('setCurrentPreset', presets[presetNumber].characters);
                     commit('setStatPositions', presets[presetNumber].stats);
-                    dispatch('updateCharInfo', state.currentPreset);
+                    dispatch('updateCharInfo', presets[presetNumber].characters);
                 }
             })
     },

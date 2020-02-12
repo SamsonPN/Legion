@@ -149,7 +149,7 @@ export default {
                 color: white;
             }
             > #GridSaveBtn {
-                margin-left: 5.5%;
+                margin-left: 5%;
             }
         }
     }

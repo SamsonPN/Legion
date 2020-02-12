@@ -27,12 +27,12 @@
 </template>
 
 <script>
+
 export default {
     name: "Header",
     methods: {
         redirectToGrid(){
             this.$router.push("/home");
-            this.$router.go();
         }
     }
 }

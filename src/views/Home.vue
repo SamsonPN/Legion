@@ -39,9 +39,19 @@ export default {
   mixins: [gridMixin],
   methods: mapActions(['fetchCharacters', 'fetchPresets', 'fetchOptions']),
   created(){
-    this.fetchCharacters();
-    this.fetchPresets();
+    this.fetchCharacters()
+      .then(() => {
+        this.fetchPresets();
+      })
     this.fetchOptions();
+  },
+  beforeRouteEnter(to, from, next){
+    if(to.name === 'home') {
+      next(vm => {
+        vm.resetGridArchetypes();
+      })
+    }
+    next();
   }
 }
 </script>
