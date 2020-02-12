@@ -1,6 +1,5 @@
 <template>
   <header>
-      <!-- <p>Samson Nguyen</p> -->
       <div>
         <a 
             @click="redirectToGrid">
@@ -53,10 +52,6 @@ export default {
             size: 2.5em;
             weight: 200;
         }
-        // > p {
-        //     flex: 1;
-        //     pointer-events: none;
-        // }
         > div {
             display: flex;
             justify-content: space-between;

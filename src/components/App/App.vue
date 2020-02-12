@@ -39,6 +39,7 @@
 
   html, body {
     font-size: 100%;
+    background-color: black;
   }
 
   * {

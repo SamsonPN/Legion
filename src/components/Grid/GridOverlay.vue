@@ -12,7 +12,8 @@
                 v-for="(cell, cellIndex) in cells"
                 :key="cellIndex"
                 :row="rowIndex"
-                :cell="cellIndex">
+                :cell="cellIndex"
+                :gridLines="gridLines">
                 <p
                     v-if="outerGrid[ position(rowIndex, cellIndex) ]">
                     {{outerGrid[ position(rowIndex, cellIndex) ]}}
@@ -56,7 +57,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['statPositions']),
+        ...mapGetters(['statPositions', 'gridLines']),
         outerGrid(){
             return this.statPositions.outerGrid || {};
         },
@@ -91,6 +92,9 @@ export default {
         @include cell-layout;
         justify-content: center;
         align-items: center;
+        &[gridLines="true"] {
+            border: 1px solid var(--grid-line-color);
+        }
     }
 
     p {

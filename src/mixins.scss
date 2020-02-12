@@ -46,6 +46,20 @@
     }
 }
 
+@mixin option-colors {
+    &[option="Grid"]{ color: var(--primary-grid-color) ;}
+    &[option="Grid Background"]{ color: var(--grid-background-color); }
+    &[option="Grid Line"]{ color: var(--grid-line-color); }
+    &[option="Outer Stat"]{ color: var(--outer-stat-color); }
+    &[option="Inner Stat"]{ color: var(--inner-stat-color); }
+    &[option="Warrior"]{ color: var(--warrior); }
+    &[option="Magician"]{ color: var(--magician); }
+    &[option="Bowman"]{ color: var(--bowman); }
+    &[option="Thief"]{ color: var(--thief); }
+    &[option="Pirate"]{ color: var(--pirate); }
+    &[option="Lab"]{ color: var(--lab); }
+}
+
 //media queries
 
 @mixin for-desktop-large-only {

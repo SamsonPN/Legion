@@ -13,7 +13,7 @@
                 :class="['pieceCell', isMiddlePiece(rowIndex, cellIndex) ? 'main' : '']"
                 v-for="(cell, cellIndex) in pieceSize"
                 :key="cellIndex"
-                :archetype="charInfo[className].archetype">
+                :archetype="archetype">
                 <img
                   v-if="isMiddlePiece(rowIndex, cellIndex)"
                   class="main"
@@ -49,6 +49,9 @@ export default {
     },
     draggable(){
       return this.position ? false : true;
+    },
+    archetype(){
+      return (this.character || {}).archetype;
     }
   },
   methods: {
@@ -62,12 +65,14 @@ export default {
         });
     },
     mapCoordinates(){
-      let {coordinates} = this.character;
-      let piece = document.getElementById(this.className + 'Piece');
-      coordinates.forEach(coordinate => {
-        let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
-        cell.classList.add('side');
-      })
+      let coordinates = (this.character || {}).coordinates;
+      if(coordinates) {
+        let piece = document.getElementById(this.className + 'Piece');
+        coordinates.forEach(coordinate => {
+          let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
+          cell.classList.add('side');
+        })
+      }
     },
     isMiddlePiece(row, cell){
       return row === 2 && cell === 2;
