@@ -74,7 +74,7 @@ export default {
 
     #LegionGridOverlay {
         @include grid-layout;
-        border: 0.5px solid var(--primary-grid-color);
+        border: 1px solid var(--primary-grid-color);
         position: absolute;
         z-index: -1;
         &[assigning="false"] {
@@ -93,7 +93,7 @@ export default {
         justify-content: center;
         align-items: center;
         &[gridLines="true"] {
-            border: 1px solid var(--grid-line-color);
+            border: 0.5px solid var(--grid-line-color);
         }
     }
 

@@ -37,10 +37,11 @@ export default {
     CharacterList
   },
   mixins: [gridMixin],
-  methods: mapActions(['fetchCharacters', 'fetchPresets']),
+  methods: mapActions(['fetchCharacters', 'fetchPresets', 'fetchOptions']),
   created(){
     this.fetchCharacters();
     this.fetchPresets();
+    this.fetchOptions();
   }
 }
 </script>

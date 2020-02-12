@@ -15,7 +15,8 @@
                 rows="1"
                 maxLength="10"
                 :type="type"
-                :option="optionDisplay">
+                :option="optionDisplay"
+                :placeholder="optionValue(optionCSS)">
             </textarea>
         </div>
         <div
@@ -41,20 +42,39 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     name: 'GridOptions',
     props: ['options', 'type'],
     computed: mapGetters(['gridLines']),
     methods: {
-        ...mapMutations(['toggleGridLines']),
+        ...mapActions(['toggleGridLines', 'changeOptions']),
         isGridOption(){
             return this.type === 'grid';
         },
+        optionValue(option){
+            let style = window.getComputedStyle(document.body);
+            return style.getPropertyValue(option);
+        },
         changeColor(e, option){
             let color = e.target.value;
-            document.documentElement.style.setProperty(option, color);
-        }
+            if(this.isColor(color)) {
+                document.documentElement.style.setProperty(option, color);
+                this.changeOptions({
+                    option,
+                    value: color
+                })
+            }
+            else if(color !== ''){
+                alert('Please choose another color!')
+                e.target.value = '';
+            }
+        },
+        isColor(color){
+            let s = new Option().style;
+            s.color = color;
+            return s.color !== '';
+        },
     }
 }
 </script>

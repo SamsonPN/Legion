@@ -30,7 +30,16 @@
           </div>
       </div>
       <div id="GridSaveContainer">
-        <button id="GridSaveBtn">Save</button>
+        <button
+            id="GridResetBtn"
+            @click="initiateResetOptions">
+            Reset
+        </button>
+        <button 
+            id="GridSaveBtn"
+            @click="initiateSaveOptions">
+            Save
+        </button>
       </div>
   </div>
 </template>
@@ -51,9 +60,9 @@ export default {
     data(){
         return {
             gridOptions: {
-            'Grid': '--primary-grid-color',
+            'Grid Color': '--primary-grid-color',
             'Grid Background': '--grid-background-color',
-            'Grid Line': '--grid-line-color',
+            'Grid Lines': '--grid-line-color',
             'Outer Stat': '--outer-stat-color',
             'Inner Stat': '--inner-stat-color'
             },
@@ -75,7 +84,24 @@ export default {
             ]
         }
     },
-    methods: mapActions(['fetchCharacters', 'fetchOptions']),
+    methods: {
+        ...mapActions(['fetchCharacters', 'fetchOptions', 'saveOptions', 'resetOptions']),
+        initiateSaveOptions(){
+            let save = window.confirm('Save these options?');
+            if(save){
+                this.saveOptions();
+                alert('Options Saved!');
+            }
+        },
+        initiateResetOptions(){
+            alert('WARNING: THIS WILL RESET ALL COLOR OPTIONS TO THEIR DEFAULT SETTINGS!')
+            let confirm = window.confirm('RESET OPTIONS?')
+            if(confirm){
+                this.resetOptions();
+                this.$router.go();
+            }
+        }
+    },
     created(){
         this.fetchCharacters();
         this.fetchOptions();
@@ -105,13 +131,25 @@ export default {
             }
         }
         > #GridSaveContainer {
-            justify-content: flex-start;
-            background-color: red;
+            width: 100%;
+            justify-content: center;
             > button {
-                width: 10%;
+                width: 20%;
                 border-radius: 30px;
+                border: none;
                 font-size: 1.5em;
                 background-color: white;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.75;
+                }
+            }
+            > #GridResetBtn {
+                background-color: red;
+                color: white;
+            }
+            > #GridSaveBtn {
+                margin-left: 5.5%;
             }
         }
     }
