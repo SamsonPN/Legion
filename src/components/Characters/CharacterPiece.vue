@@ -29,10 +29,11 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 import characterCardMixin from '../../mixins/characterCardMixin';
+import ClassRanks from '../SelectPage/ClassSelectRanks';
 
 export default {
   name: 'CharacterPiece',
-  props: ['className', 'position'],
+  props: ['className', 'position', 'option'],
   data(){
     return {
       pieceSize: [...new Array(5)].map((x, i) => i)
@@ -56,6 +57,9 @@ export default {
   },
   methods: {
     ...mapMutations(['removeCurrentCharacter', 'setCurrentCharacter']),
+    isMiddlePiece(row, cell){
+      return row === 2 && cell === 2;
+    },
     dragStart(){
       let {className, charInfo} = this;
       this.highlightCard(className);
@@ -65,17 +69,25 @@ export default {
         });
     },
     mapCoordinates(){
-      let coordinates = (this.character || {}).coordinates;
-      if(coordinates) {
-        let piece = document.getElementById(this.className + 'Piece');
-        coordinates.forEach(coordinate => {
-          let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
-          cell.classList.add('side');
-        })
-      }
+      let piece = document.getElementById(this.className + 'Piece');
+      let coordinates = this.getCoordinates();
+      coordinates.forEach(coordinate => {
+        let cell = piece.children[coordinate.y + 2].children[coordinate.x + 2];
+        cell.classList.add('side');
+      })
     },
-    isMiddlePiece(row, cell){
-      return row === 2 && cell === 2;
+    getCoordinates(){
+      let coordinates;
+      if(this.$route.name === 'options') {
+        coordinates = ClassRanks['SSS'][this.option];
+      }
+      else if (this.character) {
+        coordinates = this.character.coordinates;
+      }
+      else {
+        coordinates = [];
+      }
+      return coordinates;
     }
   },
   mounted(){

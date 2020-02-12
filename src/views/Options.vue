@@ -1,53 +1,51 @@
 <template>
     <div id="Options">
-      <div>
-        <div>
-            <Overlay />
-        </div>
-        <div>
-            <Option 
-                :options="gridOptions" 
-                :type="'grid'"
-            />
-        </div>
-      </div>
-      <div>
-          <div>
-                <div id="pieceWrapper">
-                    <CharacterPiece 
-                    v-for="_class in classes"
-                    :key="_class"
-                    draggable="false"
-                    :className="_class"
+
+        <div
+            class="optColumn">
+            <div>
+                <Overlay />
+            </div>
+            <div>
+                <Option 
+                    :options="gridOptions" 
+                    :type="'grid'"
                 />
-                </div>
-          </div>
-          <div>
-            <Option 
-                :options="pieceOptions"
-                :type="'piece'"
-            />
-          </div>
-      </div>
-      <div id="GridSaveContainer">
-        <button
-            id="GridResetBtn"
-            @click="initiateResetOptions">
-            Reset
-        </button>
-        <button 
-            id="GridSaveBtn"
-            @click="initiateSaveOptions">
-            Save
-        </button>
-      </div>
+            </div>
+        </div>
+
+        <div
+            class="optColumn">
+            <div>
+                    <div id="pieceWrapper">
+                        <CharacterPiece 
+                            draggable="false"
+                            v-for="(className, archetype) in classes"
+                            :key="className"
+                            :className="className"
+                            :option="archetype"
+                        />
+                    </div>
+            </div>
+            <div>
+                <Option 
+                    :options="pieceOptions"
+                    :type="'piece'"
+                />
+            </div>
+        </div>
+        
+        <OptionButtons />
+        <OptionPreset />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import Overlay from '../components/Grid/GridOverlay';
-import Option from '../components/Grid/GridOptions';
+import Option from '../components/OptionsPage/OptionSelect';
+import OptionButtons from '../components/OptionsPage/OptionButtons';
+import OptionPreset from '../components/OptionsPage/OptionPreset';
 import CharacterPiece from '../components/Characters/CharacterPiece';
 
 export default {
@@ -55,7 +53,9 @@ export default {
     components: {
         CharacterPiece,
         Overlay,
-        Option
+        Option,
+        OptionButtons,
+        OptionPreset
     },
     data(){
         return {
@@ -74,36 +74,20 @@ export default {
             'Pirate': '--pirate',
             'Lab': '--lab'
             },
-            classes: [
-                'Aran',
-                'Luminous',
-                'Mercedes',
-                'Phantom',
-                'Shade',
-                'Enhanced Lab Piece'
-            ]
-        }
-    },
-    methods: {
-        ...mapActions(['fetchCharacters', 'fetchOptions', 'saveOptions', 'resetOptions']),
-        initiateSaveOptions(){
-            let save = window.confirm('Save these options?');
-            if(save){
-                this.saveOptions();
-                alert('Options Saved!');
-            }
-        },
-        initiateResetOptions(){
-            alert('WARNING: THIS WILL RESET ALL COLOR OPTIONS TO THEIR DEFAULT SETTINGS!')
-            let confirm = window.confirm('RESET OPTIONS?')
-            if(confirm){
-                this.resetOptions();
-                this.$router.go();
+            classes: {
+                'Warrior': 'Aran' ,
+                'Magician': 'Luminous',
+                'Bowman': 'Mercedes',
+                'Thief': 'Phantom',
+                'Pirate': 'Shade',
+                'Enhanced Lab Piece': 'Enhanced Lab Piece'
             }
         }
     },
+    methods: mapActions(['fetchCharacters', 'fetchPresets', 'fetchOptions']),
     created(){
         this.fetchCharacters();
+        this.fetchPresets();
         this.fetchOptions();
     }
 }
@@ -120,7 +104,7 @@ export default {
         background-color: rgba(0, 0, 0, 0.85);
         z-index: 0;
         color: white;
-        > div {
+        > .optColumn {
             display: flex;
             justify-content: space-around;
             flex: 1;
@@ -128,28 +112,6 @@ export default {
                 display: flex;
                 justify-content: center;
                 flex: 1;
-            }
-        }
-        > #GridSaveContainer {
-            width: 100%;
-            justify-content: center;
-            > button {
-                width: 20%;
-                border-radius: 30px;
-                border: none;
-                font-size: 1.5em;
-                background-color: white;
-                cursor: pointer;
-                &:hover {
-                    opacity: 0.75;
-                }
-            }
-            > #GridResetBtn {
-                background-color: red;
-                color: white;
-            }
-            > #GridSaveBtn {
-                margin-left: 5%;
             }
         }
     }
