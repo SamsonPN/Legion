@@ -216,6 +216,10 @@ const actions = {
         characters[archetype][className].level = level;
         characters[archetype][className].coordinates = coordinates;
         commit('setCharacters', characters)
+    },
+    resetCurrentPreset({ commit, dispatch}){
+        commit('setCurrentPreset', {});
+        dispatch('savePreset');
     }
 }
 

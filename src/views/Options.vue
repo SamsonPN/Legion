@@ -36,7 +36,7 @@
         </div>
         
         <OptionButtons />
-        <OptionPreset />
+        <OptionDanger />
   </div>
 </template>
 
@@ -45,7 +45,7 @@ import { mapActions } from 'vuex';
 import Overlay from '../components/Grid/GridOverlay';
 import Option from '../components/OptionsPage/OptionSelect';
 import OptionButtons from '../components/OptionsPage/OptionButtons';
-import OptionPreset from '../components/OptionsPage/OptionPreset';
+import OptionDanger from '../components/OptionsPage/OptionDanger';
 import CharacterPiece from '../components/Characters/CharacterPiece';
 
 export default {
@@ -55,7 +55,7 @@ export default {
         Overlay,
         Option,
         OptionButtons,
-        OptionPreset
+        OptionDanger
     },
     data(){
         return {
