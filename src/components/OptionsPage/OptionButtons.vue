@@ -3,10 +3,10 @@
         id="OptionButtons">
         <div
             class="OptionBtn"
-            id="OptionDownloadBtn">
+            id="OptionDownloadBtn"
+            @click="downloadJSON">
             <p>Presets</p>
             <a
-                @click="downloadJSON"
                 href=""
                 ref="downloadAnchor">
                 <img src="../../assets/save.svg" alt="Save">
@@ -39,7 +39,8 @@ export default {
             let {downloadAnchor} = this.$refs;
             let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.presets));
             downloadAnchor.setAttribute('href', dataStr);
-            downloadAnchor.setAttribute('download', 'Presets.json')
+            downloadAnchor.setAttribute('download', 'Presets.json');
+            downloadAnchor.click();
         },
         initiateResetOptions(){
             alert('WARNING: THIS WILL RESET ALL COLOR OPTIONS TO THEIR DEFAULT SETTINGS!')
@@ -71,7 +72,7 @@ export default {
             border-radius: 30px;
             font-size: 1.5em;
             color: white;
-            cursor: pointer;
+            cursor: url('../../assets/ms-cursor.png'), auto;
             &:hover {
                 opacity: 0.75;
             }
@@ -85,9 +86,11 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                pointer-events: none;
                 img {
                     height: 35px;
                     width: 35px;
+                    cursor: url('../../assets/ms-cursor.png'), auto;
                 }
             }
         }

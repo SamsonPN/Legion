@@ -72,7 +72,7 @@ export default {
             > div {
                 display: flex;
                 > p {
-                    cursor: pointer;
+                    cursor: url('../../assets/ms-cursor.png'), auto;
                     &:hover {
                         color: gold;
                     }
@@ -88,7 +88,7 @@ export default {
         color: white;
         font-size: 0.75em;
         padding: 0 7.5px;
-        cursor: pointer;
+        cursor: url('../../assets/ms-cursor.png'), auto;
             &:hover {
                 opacity: 0.75;
             }

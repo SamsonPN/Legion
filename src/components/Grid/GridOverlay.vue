@@ -112,7 +112,7 @@ export default {
 
     .innerGrid {
         color: var(--inner-stat-color);
-        cursor: pointer;
+        cursor: url('../../assets/ms-cursor.png'), auto;
         &[assigning="false"] {
             animation: glow 1s alternate infinite;
         }

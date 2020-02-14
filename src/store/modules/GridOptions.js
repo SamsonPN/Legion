@@ -22,7 +22,9 @@ const getters = {
 
 const actions = {
     fetchOptions({ commit }){
-        fetch('http://localhost:3000/options/')
+        fetch('https://legion-backend.herokuapp.com/options/', {
+            credentials: 'include'
+        })
             .then(res => res.json())
             .then(data => {
                 let {options} = data;
@@ -35,8 +37,9 @@ const actions = {
     },
     saveOptions({ dispatch, getters }) {
         let {options} = getters;
-        fetch('http://localhost:3000/options/save', {
+        fetch('https://legion-backend.herokuapp.com/options/save', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -1,11 +1,10 @@
 <template>
   <header>
       <div>
-        <a 
-            @click="redirectToGrid">
+        <router-link to="/home">
             <img src="../../assets/Header/grid.svg" alt="Grid"/>
             <span>  Board  </span>
-        </a> 
+        </router-link> 
         <router-link to="/select">
             <img src="../../assets/Header/classes.svg" alt="Classes"/>
             <span>  Classes  </span>
@@ -27,14 +26,8 @@
 </template>
 
 <script>
-
 export default {
-    name: "Header",
-    methods: {
-        redirectToGrid(){
-            this.$router.push("/home");
-        }
-    }
+    name: "Header"
 }
 </script>
 
@@ -67,7 +60,7 @@ export default {
         text-decoration: none;
         color: white;
         white-space: pre;
-        cursor: pointer;
+        cursor: url('../../assets/ms-click.gif'), auto;
         &:hover{
             opacity: 0.75;
         }

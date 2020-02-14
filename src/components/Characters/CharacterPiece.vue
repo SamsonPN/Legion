@@ -128,7 +128,7 @@ export default {
   .main, .side{
     visibility: visible;
     position: relative;
-    cursor: pointer;
+    cursor: url('../../assets/drag-cursor.png'), auto;
   }
 
   .main{

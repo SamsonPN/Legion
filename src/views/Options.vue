@@ -1,6 +1,8 @@
 <template>
     <div id="Options">
-
+        <div>
+            <p>Customize Colors</p>
+        </div>
         <div
             class="optColumn">
             <div>
@@ -94,6 +96,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../variables.scss';
     $size: 1.5vw;
 
     #Options {
@@ -104,6 +107,19 @@ export default {
         background-color: rgba(0, 0, 0, 0.85);
         z-index: 0;
         color: white;
+        > div:first-child {
+            display: flex;
+            border-bottom: 3px solid white;
+            margin-bottom: 20px;
+            > p {
+                padding-left: 10px;
+                font-size: 3em;
+                background-image: linear-gradient(to right, #73c2fb, #87ceeb, #ffd700, #ffa001, #f46a4e, #73c2fb);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
         > .optColumn {
             display: flex;
             justify-content: space-around;

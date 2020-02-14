@@ -58,7 +58,7 @@ export default {
             color: white;
             font-size: 2em;
             &[clicked="true"], &:first-of-type ~ p:hover{
-                cursor: pointer;
+                cursor: url('../../assets/ms-cursor.png'), auto;
                 color: yellow;
                 text-shadow: 0 0 10px yellow;
             }

@@ -121,7 +121,7 @@ export default {
         > img {
             max-width: 15%;
             max-height: 20%;
-            cursor: pointer;
+            cursor: url('../../assets/ms-cursor.png'), auto;
             &:hover {
                 opacity: 0.5;
             }

@@ -40,6 +40,7 @@
   html, body {
     font-size: 100%;
     background-color: black;
+    cursor: url('../../assets/ms-cursor.png'), auto;
   }
 
   * {
@@ -53,11 +54,11 @@
   }
 
   #app {
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    width: 100%;
     background-color: black;
     background-image: url(../../assets/Header-Image.jpg);
     background-position: center;

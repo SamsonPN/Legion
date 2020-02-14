@@ -4,7 +4,7 @@
             <p>Welcome Maplers!</p>
             <a
                 id="googleBtn"
-                href="https://legion-backend.herokuapp.com/auth/google">
+                :href="`${url}/google`">
                 <img 
                     src="../assets/Social/google.jpg"
                     alt="Google Button"
@@ -13,7 +13,7 @@
             </a>
             <a
                 id="fbBtn"
-                href="https://legion-backend.herokuapp.com/auth/facebook">
+                :href="`${url}/facebook`">
                     <img
                         src="../assets/Social/facebook.svg" 
                         alt="Facebook Button"
@@ -37,7 +37,12 @@
 
 <script>
 export default {
-    name: "Login"
+    name: "Login",
+    computed: {
+        url(){
+            return 'https://legion-backend.herokuapp.com/auth';
+        }
+    }
 }
 </script>
 
@@ -81,8 +86,11 @@ export default {
         border-radius: 3px;
         font-family: 'Roboto', sans-serif;
         text-decoration: none;
-        cursor: pointer;
+        cursor: url('../assets/ms-cursor.png'), auto;
         margin-bottom: 5%;
+        &:hover {
+            opacity: 0.75;
+        }
     }
 
     #googleBtn {

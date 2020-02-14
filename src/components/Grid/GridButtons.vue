@@ -70,7 +70,7 @@ export default {
         border: 1px solid white;
         border-radius: 20px;
         color: white;
-        cursor: pointer;
+        cursor: url('../../assets/ms-cursor.png'), auto;
         font: {
             size: 2em;
             weight: 400;

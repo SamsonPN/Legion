@@ -60,7 +60,7 @@ export default {
   @import '../variables.scss';
   @import '../mixins.scss';
 
-  #Home{
+  #Home {
     min-height: 100vh;
     width: 100%;
     display: flex;

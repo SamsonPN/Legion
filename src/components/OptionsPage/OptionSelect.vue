@@ -130,7 +130,7 @@ export default {
             align-items: center;
             border-radius: inherit;
             background-color: blue;
-            cursor: pointer;
+            cursor: url('../../assets/ms-cursor.png'), auto;
         }
     }
 

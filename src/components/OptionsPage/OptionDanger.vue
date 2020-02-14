@@ -13,8 +13,13 @@
             </div>
         </div>
         <div
-            id="OptionDelete">
-            DELETE ACCOUNT
+            id="OptionDeleteWrapper">
+            <p>All of your user, preset, and character information will be deleted.</p>
+            <div
+                id="OptionDelete"
+                @click="deleteAccount">
+                DELETE ACCOUNT
+            </div>
         </div>
     </div>
 </template>
@@ -36,6 +41,23 @@ export default {
             if(confirm) {
                 this.resetCurrentPreset();
             }
+        },
+        deleteAccount(){
+            alert('WARNING: THIS WILL REMOVE ALL OF YOUR INFORMATION FROM OUR DATABASE.')
+            let confirm = window.confirm("Are you sure you want to proceed? This is irreversible!")
+            if(confirm) {
+                let url = 'http://localhost:3000'
+                window.location.href = '/';
+                fetch(`${url}/presets/delete`, {
+                    method: 'DELETE'
+                });
+                fetch(`${url}/characters/delete`, {
+                    method: 'DELETE'
+                });
+                fetch(`${url}/options/delete`, {
+                    method: 'DELETE'
+                });
+            }
         }
     }
 }
@@ -48,9 +70,13 @@ export default {
         align-items: center;
         margin-top: 30px;
         > p {
-            margin-left: 6.5%;
+            width: 100%;
+            align-self: flex-start;
+            padding-left: 10px;
             font-size: 3em;
             color: red;
+            border-bottom: 3px solid white;
+            margin-bottom: 20px;
         }
     }
 
@@ -75,8 +101,11 @@ export default {
                 font-size: 2em;
                 background-color: red;
                 color: white;
-                cursor: pointer;
+                cursor: url('../../assets/ms-cursor.png'), auto;
                 z-index: 1;
+                &:hover {
+                    opacity: 0.75;
+                }
             }
             > #GridPresets {
                 flex: initial;
@@ -87,14 +116,33 @@ export default {
         }
     }
 
+    #OptionDeleteWrapper {
+        width: 100%;
+        margin-top: 30px;
+        > p, div {
+            margin-left: 6.5%;
+        }
+        > p {
+            font-size: 2em;
+            margin-left: 6.5%;
+            margin-bottom: 20px;
+        }
+    }
+
     #OptionDelete {
-        width: 80%;
+        margin-top: 20px;
+        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 30px;
         font-size: 2em;
         background-color: red;
         color: white;
+        cursor: url('../../assets/ms-cursor.png'), auto;
+        &:hover {
+            opacity: 0.75;
+        }
     }
 
 </style>

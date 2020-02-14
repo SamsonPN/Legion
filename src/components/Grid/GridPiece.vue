@@ -109,7 +109,7 @@ export default {
         top: 0;
         left: 0;
         object-fit: cover;
-        cursor: pointer;
+        cursor: url('../../assets/ms-cursor.png'), auto;
     }
 
 </style>
