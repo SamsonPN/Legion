@@ -64,6 +64,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../mixins.scss';
+
     #OptionDanger {
         display: flex;
         flex-direction: column;
@@ -91,13 +93,15 @@ export default {
         }
         > div {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             width: 100%;
             > button {
-                width: 20%;
                 border: none;
                 border-radius: 30px;
+                margin-right: 6.5%;
+                white-space: nowrap;
+                padding: 0 20px;
                 font-size: 2em;
                 background-color: red;
                 color: white;
@@ -109,7 +113,8 @@ export default {
             }
             > #GridPresets {
                 flex: initial;
-                width: 55%;
+                width: 50%;
+                margin-left: 6.5%;
                 font-size: 1em;
                 z-index: 1;
             }
@@ -118,30 +123,89 @@ export default {
 
     #OptionDeleteWrapper {
         width: 100%;
-        margin-top: 30px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         > p, div {
             margin-left: 6.5%;
         }
         > p {
+            align-self: flex-start;
             font-size: 2em;
             margin-left: 6.5%;
-            margin-bottom: 20px;
         }
     }
 
     #OptionDelete {
-        margin-top: 20px;
-        width: 30%;
         display: flex;
         justify-content: center;
         align-items: center;
+        align-self: flex-start;
         border-radius: 30px;
+        margin: 20px 0px;
+        padding: 0 10px;
         font-size: 2em;
+        text-align: center;
         background-color: red;
         color: white;
         cursor: url('../../assets/ms-cursor.png'), auto;
         &:hover {
             opacity: 0.75;
+        }
+    }
+
+    @include for-desktop-large-only {
+        #OptionDanger > p {
+            font-size: 5em;
+        }
+        #OptionPresetWrapper {
+            > p, > div > button {
+                font-size: 3.5em;
+            }
+        }
+        #OptionDeleteWrapper {
+            > p, #OptionDelete {
+                font-size: 3.5em;
+            }
+        }
+    }
+
+    @include for-tablet-only {
+        #OptionDeleteWrapper > div {
+            margin-left: 0;
+        }
+        #OptionDelete {
+            align-self: center;
+            width: 87%;
+        }
+    }
+
+    @include for-tablet-small-2-only {
+        #OptionPresetWrapper {
+            > p {
+                margin-left: 0;
+                padding: 0 35px;
+            }
+            > div {
+                flex-direction: column;
+                align-items: center;
+                > #GridPresets, button {
+                    width: 90%;
+                    margin: 10px 0px;
+                }
+            }  
+        }
+        #OptionDelete {
+            width: 90%;
+        }
+    }
+
+    @include for-mobile-only {
+        #OptionDelete {
+            padding: 0px;
+            letter-spacing: 0.1px;
         }
     }
 

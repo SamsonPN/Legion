@@ -1,5 +1,5 @@
 <template>
-    <div id="GridOptions">
+    <div id="OptionSelect">
         <div
             v-for="(optionCSS, optionDisplay) in options"
             :key="optionDisplay"
@@ -83,7 +83,7 @@ export default {
 <style scoped lang="scss">
     @import '../../mixins.scss';
 
-    #GridOptions {
+    #OptionSelect {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -104,6 +104,7 @@ export default {
     textarea, textarea:focus {
         resize: none;
         outline: none;
+        width: 77.5%;
         border-radius: 30px;
         padding: 0 10px;
         font-size: 1.5em;
@@ -114,8 +115,7 @@ export default {
     }
 
     #GridLineOption {
-        width: 77.25%;
-        height: 23.5%;
+        width: 77.5%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -129,6 +129,7 @@ export default {
             justify-content: center;
             align-items: center;
             border-radius: inherit;
+            font-size: 1.5em;
             background-color: blue;
             cursor: url('../../assets/ms-cursor.png'), auto;
         }
@@ -148,5 +149,21 @@ export default {
         }
     }
 
+    @include for-desktop-large-only {
+        textarea, textarea:focus, .optionDisplay, #GridLineOption > div {
+            font-size: 3.5em;
+        }
+    }
+
+    @include for-tablet-small-only {
+         #OptionSelect {
+             grid-template-columns: repeat(1, 1fr);
+         }
+
+         textarea, textarea:focus, #GridLineOption {
+             width: 88%;
+         }
+
+    }
 
 </style>

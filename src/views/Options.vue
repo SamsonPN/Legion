@@ -96,6 +96,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../mixins.scss';
     @import '../variables.scss';
     $size: 1.5vw;
 
@@ -146,10 +147,6 @@ export default {
         }
     }
 
-    p {
-        font-size: 1.5em;
-    }
-
     #pieceWrapper {
         width: 100%;
         display: grid;
@@ -160,6 +157,54 @@ export default {
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+    }
+
+    @include for-desktop-large-only {
+        #Options > div:first-of-type > p {
+            font-size: 5em;
+        }
+        #LegionGridOverlay {
+            /deep/ .LegionCellOverlay {
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    @include for-tablet-only {
+        #LegionGridOverlay {
+            $size: 3vw;
+            max-height: $size * 20;
+            max-width: $size * 22;
+            margin-bottom: 20px;
+            /deep/ .LegionCellOverlay {
+                height: $size;
+                width: $size;
+            }
+        }
+        .optColumn {
+            flex-direction: column;
+        }
+    }
+
+    @include for-tablet-small-only {
+        #LegionGridOverlay {
+            $size: 4vw;
+            max-height: $size * 20;
+            max-width: $size * 22;
+            margin-bottom: 20px;
+            /deep/ .LegionCellOverlay {
+                height: $size;
+                width: $size;
+            }
+        }
+    }
+
+    @include for-mobile-only {
+        #LegionGridOverlay {
+            /deep/ .LegionCellOverlay {
+                font-size: 0.5em;
+            }
         }
     }
 

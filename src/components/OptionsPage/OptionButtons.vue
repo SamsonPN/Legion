@@ -62,10 +62,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../../mixins.scss';
+
     #OptionButtons {
         width: 100%;
         display: flex;
         justify-content: space-around;
+        margin-top: 10px;
         > .OptionBtn {
             width: 20%;
             border: none;
@@ -87,7 +90,7 @@ export default {
                 justify-content: center;
                 align-items: center;
                 pointer-events: none;
-                img {
+                > img {
                     height: 35px;
                     width: 35px;
                     cursor: url('../../assets/ms-cursor.png'), auto;
@@ -99,6 +102,33 @@ export default {
         }
         > #OptionSaveBtn {
             background-color: green;
+        }
+    }
+
+    @include for-desktop-large-only {
+        #OptionButtons > .OptionBtn {
+            font-size: 3em;
+        }
+        #OptionButtons > #OptionDownloadBtn > a > img {
+            height: 75px;
+            width: 75px;
+        }
+    }
+
+    @include for-tablet-small-2-only {
+        #OptionButtons > .OptionBtn {
+            width: 30%;
+        }
+    }
+
+    @include for-tablet-small-only {
+        #OptionButtons {
+           flex-direction: column;
+           align-items: center;
+           > .OptionBtn {
+               width: 88%;
+               margin-bottom: 20px;
+           } 
         }
     }
 </style>
