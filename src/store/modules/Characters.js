@@ -220,6 +220,9 @@ const actions = {
     resetCurrentPreset({ commit, dispatch}){
         commit('setCurrentPreset', {});
         dispatch('savePreset');
+        setTimeout(() => {
+            window.location.reload(true);
+        }, 1000);
     }
 }
 

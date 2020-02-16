@@ -110,7 +110,6 @@ export default {
     @import '../../mixins.scss';
 
     div {
-        height: auto;
         width: 100%;
         display: flex;
         justify-content: space-around;
@@ -119,8 +118,7 @@ export default {
         color: black;
         margin-top: 5px;
         > img {
-            max-width: 15%;
-            max-height: 20%;
+            max-width: 19%;
             cursor: url('../../assets/ms-cursor.png'), auto;
             &:hover {
                 opacity: 0.5;
@@ -128,14 +126,6 @@ export default {
             &[clickable="false"]{
                 opacity: 0.25;
             }
-        }
-    }
-    
-
-    @include for-tablet-only {
-        img {
-            max-width: 17.5%;
-            max-height: 95%;
         }
     }
 </style>

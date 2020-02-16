@@ -92,20 +92,20 @@ export default {
         > div:last-child {
             align-items: center;
         }
-    }
-    
-    img {
-        max-width: 17.5%;
-        max-height: 25%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: none;
-        border-radius: 17.5px;
-        &[cardSelected="true"] {
-            display: block;
+        > img {
+            max-width: 17.5%;
+            max-height: 25%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: none;
+            border-radius: 17.5px;
+            &[cardSelected="true"] {
+                display: block;
+            }
         }
     }
+
 
     @include for-desktop-large-only {
         .CharacterCard > div {

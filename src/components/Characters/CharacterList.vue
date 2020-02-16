@@ -77,7 +77,7 @@ export default {
 
     @include for-tablet-only {
         #CharacterList {
-            height: auto;
+            max-height: none;
             > div {
                 display: flex;
                 height: auto;

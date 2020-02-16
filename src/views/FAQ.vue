@@ -40,9 +40,24 @@
             <p>FAQ</p>
             <ol>
                 <li>
-                    Something went wrong. What should I do ?
+                    <strong>
+                        Something went wrong. What should I do ?
+                    </strong>
                     <ol>
                         <li class="sublist">Refresh the page. It'll likely solve most of your issues.</li>
+                    </ol>
+                </li>
+                <li>
+                    A piece is on the board yet I am able to add a duplicate. What is going on?
+                    <ol>
+                        <li class="sublist">
+                            The server can be slow sometimes and your preset might not be fetched correctly.
+                            In this case, just refresh the page.
+                        </li>
+                        <li class="sublist">
+                            If you have already added the duplicate piece to the board, just remove it and save.
+                            If you added the duplicate to the board and haven't saved, just refresh the page.
+                        </li>
                     </ol>
                 </li>
                 <li>
