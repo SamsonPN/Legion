@@ -74,6 +74,16 @@ export default {
         width: 50px;
     }
 
+    @include for-desktop-large-only {
+        header {
+            font-size: 5em;
+        } 
+        img {
+            height: 80px;
+            width: 80px;
+        }
+    }
+
     @include for-desktop-small-only {
         span{
             display: none;

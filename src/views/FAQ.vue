@@ -1,14 +1,14 @@
 <template>
     <div id="FAQ">
         <div>
-            <p>Getting started:</p>
+            <p>Getting Started</p>
             <ol>
                 <li>
-                    Go to the Classs page, fill out your character information, and save.
+                    Go to the Classes page, fill out your character information, and save.
                     <ol>
                         <li class="sublist">
                             You can choose to auto-fill every character to a certain level, i.e. 
-                            all level 200s or 250s or you type in the level by their name. Eligible
+                            all level 200s or 250s or you can type in the level by their name. Eligible
                             legion characters are from 60-275.
                         </li>
                     </ol>
@@ -19,8 +19,11 @@
                     <ol>
                         <li class="sublist">Drag and drop pieces onto the board.</li>
                         <li class="sublist">Rotate pieces before or after they've been placed on the board.</li>
-                        <li class="sublist">If a piece is on the board, clicking on its icon will allow you to rotate it freely.</li>
-                        <li class="sublist">Right clicking a piece's icon to remove it from the board.</li>
+                        <li class="sublist">
+                            If a piece is on the board, clicking on its icon will automatically scroll to its character card.
+                            From there, you can freely rotate the pieces as long as the card is still highlighted.
+                        </li>
+                        <li class="sublist">Right click a piece's icon to remove it from the board.</li>
                     </ol>
                 </li>
                 <li>
@@ -34,16 +37,22 @@
         </div>
 
         <div>
-            <p>FAQ:</p>
+            <p>FAQ</p>
             <ol>
+                <li>
+                    Something went wrong. What should I do ?
+                    <ol>
+                        <li class="sublist">Refresh the page. It'll likely solve most of your issues.</li>
+                    </ol>
+                </li>
                 <li>
                     When I change my character's level in the Classes page, why doesn't the character's shape get 
                     updated on the grid?
                     <ol>
                         <li class="sublist">
-                            The grid contains a list of characters on the board for a particular preset. Each character
-                            has a list of coordinates that help create its shape. When changing its level, these coordinates
-                            <strong>ARE NOT CHANGED</strong>, thus its shape is not updated.
+                            The grid uses a preset list which houses the positions and informaton (coordinates, level, etc) of each character. These
+                            coordinates help create the piece's shape on the board. When changing a character's level, these coordinates
+                            <strong>ARE NOT CHANGED</strong> in the preset list, thus its shape is not updated.
                             </li>
                         <li class="sublist">
                             The way to fix this issue is to remove the piece from the grid by right clicking on its icon,
@@ -72,7 +81,7 @@
                         <li class="sublist">
                             The grid is made up of two 2D matrices stacked on top of each other. The topmost
                             grid contains the legion pieces and is transparent while the bottom contains the 
-                            stats and stling. The Assign button switches their orientation.
+                            stats and styling. The Assign button switches their orientation.
                         </li>
                     </ol>
                 </li>
@@ -121,15 +130,15 @@
                     Where did you get the legion information from?
                     <ol>
                         <li class="sublist">
-                            A 
+                            The
                             <a href="https://dexless.com/guides/legion-guide.154/">legion guide</a> 
                             written by Jushi that was published on dexless.com. This resource was invaluable
-                            for legion effects, legion ranks, and character shapes.
+                            for legion ranks, and character effects and shapes.
                         </li>
                         <li class="sublist">
                             I also used
                             <a href="https://ayumilove.net/maplestory-maple-union-guide">Ayumilove's site</a>
-                            for supplemental legion information and for some skill icons as well.
+                            for supplemental information and for some skill icons as well.
                         </li>
                         <li class="sublist">
                             <a href="https://www.youtube.com/watch?v=OYL7NNsgymU">KyoWantsCute's legion video.</a>
@@ -139,6 +148,15 @@
                         <li class="sublist">
                             <a href="https://orangemushroom.net/">Orange Mushroom's Blog</a> for extra info and for
                             snagging skill icons.
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    Where did you get the icons from?
+                    <ol>
+                        <li class="sublist">
+                            From the
+                            <a href="https://thenounproject.com/">Noun Project</a>.
                         </li>
                     </ol>
                 </li>
@@ -177,37 +195,44 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    @import '../mixins.scss';
+
     #FAQ {
         height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.7);
         color: white;
         > div {
-            padding: 0px 10px;
+            padding: 0px 5px;
             > p {
                 font-size: 3em;
-                color: red;
+                color: yellow;
+                border-bottom: 3px solid white;
             }
             > ol {
-                padding: 0 50px;
+                margin-left: 20px;
                 margin-bottom: 10px;
                 font-size: 1.75em;
                 line-height: 2;
                 list-style: {
-                    position: outside;
+                    position: inside;
                     type: upper-roman;
                     type: decimal;
+                }
+                > li {
+                    font-weight: 200;
+                    color: yellow;
                 }
             }
         }
     }
 
-
     .sublist {
-        margin-left: 30px;
+        margin-left: 40px;
         font-size: 0.75em;
+        color: white;
         list-style: {
             position: inside;
             type: lower-alpha;
@@ -219,6 +244,29 @@ export default {
         cursor: url('../assets/ms-cursor.png'), auto;
         &:hover {
             color: red;
+        }
+    }
+
+    @include for-desktop-large-only {
+        #FAQ > div {
+            > p {
+               font-size: 5em; 
+            }
+            > ol {
+                font-size: 3em;
+            } 
+        }
+    }
+
+    @include for-tablet-small-only {
+        .sublist {
+            margin-left: 20px;
+        }
+    }
+
+    @include for-mobile-only {
+        #FAQ > div > ol {
+            margin-left: 0px;
         }
     }
 </style>
