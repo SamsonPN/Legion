@@ -167,11 +167,55 @@
                     </ol>
                 </li>
                 <li>
-                    Where did you get the icons from?
+                    Where did you get the icons and cursors from?
                     <ol>
-                        <li class="sublist">
-                            From the
+                        <!-- <li class="sublist">
+                            Icons from the
                             <a href="https://thenounproject.com/">Noun Project</a>.
+                        </li> -->
+                        <li class="sublist">
+                           Mirror Horizontally by Ben Davis from the
+                           <a href="https://thenounproject.com/icon/320170/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           Mirror Vertically by Ben Davis from the
+                           <a href="https://thenounproject.com/icon/320171/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           Rotate by sevgenjory from the
+                           <a href="https://thenounproject.com/icon/1543478/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           Rotate by Sergey Demushkin from the
+                           <a href="https://thenounproject.com/icon/479739/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           Sword Dual by João Filipe F. Rocha from the
+                           <a href="https://thenounproject.com/icon/1586413/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           options by Thengakola from the
+                           <a href="https://thenounproject.com/icon/866115/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           grid by Numero Uno from the
+                           <a href="https://thenounproject.com/icon/933325/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           overlap by ProSymbols from the
+                           <a href="https://thenounproject.com/icon/585574/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           FAQ by BomSymbols from the
+                           <a href="https://thenounproject.com/icon/1140958/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                           Log Out by b farias from the
+                           <a href="https://thenounproject.com/icon/1644657/">Noun Project</a>
+                        </li>
+                        <li class="sublist">
+                            Cursors from 
+                            <a href="http://www.rw-designer.com/cursor-set/original-maplestory-white">RealWorld Graphics</a>
                         </li>
                     </ol>
                 </li>

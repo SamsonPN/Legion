@@ -1,13 +1,16 @@
 <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 24 30" 
-    fill="none" 
+    xmlns:xlink="http://www.w3.org/1999/xlink" 
+    version="1.1" 
     x="0px" 
-    y="0px"
-    style="transform:translateY(7.5%);">
-    <path 
-        fill-rule="evenodd" 
-        clip-rule="evenodd" 
-        d="M21 3H19V21H21V3ZM10.5 7.02122L9.02127 8.43122L11.8537 11L3 11V12.9999L11.8537 12.9999L9.02127 15.5688L10.5 16.9788L14.3857 13.4142C15.2048 12.6331 15.2048 11.3668 14.3856 10.5858L10.5 7.02122Z" 
-        fill="red"/>
+    y="0px" 
+    viewBox="0 0 100 125" 
+    style="enable-background:new 0 0 100 100; transform:translateY(12.5%);" 
+    xml:space="preserve">
+    <g>
+        <path 
+            fill="red"
+            d="M75,15l-5,5l16.25,16.25H65V0H0v85l45,15V85h20V43.75h21.25L70,60l5,5l25-25L75,15z M60,36.25H50v7.5h10V80H45V15L15,5h45   
+               V36.25z"/>
+    </g>
 </svg>
