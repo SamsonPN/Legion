@@ -21,43 +21,29 @@
 
 @mixin archetype-colors { 
     &[archetype="Warrior"]{ 
-        background-color: var(--warrior); 
+        background-color: $warrior; 
         border: 1px white solid;
     }
     &[archetype="Magician"]{ 
-        background-color: var(--magician);
+        background-color: $magician;
         border: 1px white solid;
     }
     &[archetype="Bowman"]{ 
-        background-color: var(--bowman);
+        background-color: $bowman;
         border: 1px white solid; 
     }
     &[archetype="Thief"]{ 
-        background-color: var(--thief); 
+        background-color: $thief; 
         border: 1px white solid;
     }
     &[archetype="Pirate"]{ 
-        background-color: var(--pirate); 
+        background-color: $pirate; 
         border: 1px white solid;
     }
     &[archetype="Lab"]{ 
-        background-color: var(--lab); 
+        background-color: $lab; 
         border: 1px white solid;
     }
-}
-
-@mixin option-colors {
-    &[option="Grid"]{ color: var(--primary-grid-color) ;}
-    &[option="Grid Background"]{ color: var(--grid-background-color); }
-    &[option="Grid Line"]{ color: var(--grid-line-color); }
-    &[option="Outer Stat"]{ color: var(--outer-stat-color); }
-    &[option="Inner Stat"]{ color: var(--inner-stat-color); }
-    &[option="Warrior"]{ color: var(--warrior); }
-    &[option="Magician"]{ color: var(--magician); }
-    &[option="Bowman"]{ color: var(--bowman); }
-    &[option="Thief"]{ color: var(--thief); }
-    &[option="Pirate"]{ color: var(--pirate); }
-    &[option="Lab"]{ color: var(--lab); }
 }
 
 //media queries

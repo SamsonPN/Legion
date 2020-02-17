@@ -23,7 +23,7 @@ export default {
     methods: mapActions(['fetchCharacters']),
     computed: mapGetters(['allCharacters']),
     created(){
-        this.fetchCharacters();
+        this.fetchCharacters(this);
     }
 }
 </script>
@@ -41,10 +41,10 @@ export default {
         justify-content: space-around;
     }
     
-    #WarriorSelect { color: var(--warrior); }
-    #MagicianSelect { color: var(--magician); }
-    #BowmanSelect { color: var(--bowman); } 
-    #ThiefSelect { color: var(--thief); }
-    #PirateSelect { color: var(--pirate); }
-    #LabSelect { color: var(--lab); }
+    #WarriorSelect { color: $warrior; }
+    #MagicianSelect { color: $magician; }
+    #BowmanSelect { color: $bowman; } 
+    #ThiefSelect { color: $thief }
+    #PirateSelect { color: $pirate }
+    #LabSelect { color: $lab }
 </style>

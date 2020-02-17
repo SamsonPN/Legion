@@ -88,7 +88,7 @@ export default {
     },
     methods: mapActions(['fetchCharacters', 'fetchPresets', 'fetchOptions']),
     created(){
-        this.fetchCharacters();
+        this.fetchCharacters(this);
         this.fetchPresets();
         this.fetchOptions();
     }

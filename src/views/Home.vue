@@ -39,7 +39,7 @@ export default {
   mixins: [gridMixin],
   methods: mapActions(['fetchCharacters', 'fetchPresets', 'fetchOptions']),
   created(){
-    this.fetchCharacters()
+    this.fetchCharacters(this)
       .then(() => {
         this.fetchPresets();
       })

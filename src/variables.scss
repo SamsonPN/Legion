@@ -1,12 +1,12 @@
 $grid: #FF22FF;
 $innerQuadrant: 2.25px solid var(--primary-grid-color);
 $outerQuadrant: 1.125px solid var(--primary-grid-color);
-$warrior: red;
-$magician: #1414FF;
-$bowman: #90EE90;
-$thief: #4E4EE4;
-$pirate: orange;
-$lab: #4CF7F8;
+$warrior: var(--warrior); // red
+$magician: var(--magician); //#1414FF
+$bowman: var(--bowman); //#90EE90
+$thief: var(--thief); //#4E4EE4
+$pirate: var(--pirate); //orange
+$lab: var(--lab); //#4CF7F8
 $size: 30px;
 $tabletSize: 4.4vw;
 $largeSize: 2.1vw;

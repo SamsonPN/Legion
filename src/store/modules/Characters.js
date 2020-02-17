@@ -29,12 +29,17 @@ const getters = {
 };
 
 const actions = {
-    fetchCharacters({ commit }){
+    fetchCharacters({ commit }, vm){
         fetch('https://legion-backend.herokuapp.com/characters/', {
             credentials: 'include'
         })
             .then(res => res.json())
             .then(characters => {
+                if(characters.error && vm.$route.name !== 'login') {
+                    vm.$router.push({
+                        path: '/'
+                    });
+                }
                 // creates a deep copy of character and puts it into charInfo
                 let charactersCopy = JSON.parse(JSON.stringify(characters));
                 let {Warrior, Magician, Bowman, Thief, Pirate, Lab} = charactersCopy;
