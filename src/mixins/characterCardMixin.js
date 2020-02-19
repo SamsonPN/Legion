@@ -24,7 +24,7 @@ export default {
             else if (className === 'Archmage Ice/Lightning'){
                 className = 'IL';
             }
-            return require(`../assets/ClassIcons/${className}.png`);
+            return require(`../assets/ClassIcons/${className.toUpperCase()}.png`);
         },
         highlightCard(className){
             let card = document.getElementById(className + 'Card');

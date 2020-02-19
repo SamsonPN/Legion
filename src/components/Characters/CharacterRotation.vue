@@ -36,7 +36,7 @@ export default {
     methods: {
         ...mapActions(['removeSidePieces', 'updateAllCoordinates']),
         getRotationImg(rotation){
-            return require(`../../assets/Rotations/${rotation}.svg`);
+            return require(`../../assets/Rotations/${rotation.toUpperCase()}.svg`);
         },
         rotate(e, rotation){
             if(this.clickable(e)){
