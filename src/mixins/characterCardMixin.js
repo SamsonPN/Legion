@@ -25,7 +25,7 @@ export default {
                 className = 'IL';
             }
             else {
-                className = className.split(' ').join(' ').toUpperCase();
+                className = className.split(' ').join('').toUpperCase();
             }
             return require(`../assets/ClassIcons/${className}.png`);
         },
