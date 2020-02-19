@@ -63,34 +63,6 @@ const actions = {
                 }
             })
     },
-    fillLevels({ commit, getters }, level){
-        let characters = JSON.parse(JSON.stringify({...getters.allCharacters}))
-        let rankList = {
-            "60": "B",
-            "100": "A",
-            "140": "S",
-            "200": "SS",
-            "250": "SSS"
-        }
-        for(let archetypes in characters){
-            for(let _class in characters[archetypes]){
-                let rank = rankList[level];
-                let coordinates;
-                if(rank === 'SSS' && (_class === "Xenon" || _class === "Enhanced Lab Piece")){
-                    coordinates = Ranks[rank][_class];
-                }
-                else if (rank === 'SS' && _class === "Enhanced Lab Piece"){
-                    coordinates = Ranks[rank][_class];
-                }
-                else {
-                    coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetypes];
-                }
-                characters[archetypes][_class].level = level;
-                characters[archetypes][_class].coordinates = coordinates;
-            }
-        }
-        commit('setCharacters', characters);
-    },
     saveCharData({ dispatch, getters }){
         let characters = getters.allCharacters;
         fetch('https://legion-backend.herokuapp.com/characters/save', {
@@ -119,6 +91,34 @@ const actions = {
                 dispatch('fetchPresets');
             })
             .catch(err => console.error(err));
+    },
+    fillLevels({ commit, getters }, level){
+        let characters = JSON.parse(JSON.stringify({...getters.allCharacters}))
+        let rankList = {
+            "60": "B",
+            "100": "A",
+            "140": "S",
+            "200": "SS",
+            "250": "SSS"
+        }
+        for(let archetypes in characters){
+            for(let _class in characters[archetypes]){
+                let rank = rankList[level];
+                let coordinates;
+                if(rank === 'SSS' && (_class === "Xenon" || _class === "Enhanced Lab Piece")){
+                    coordinates = Ranks[rank][_class];
+                }
+                else if (rank === 'SS' && _class === "Enhanced Lab Piece"){
+                    coordinates = Ranks[rank][_class];
+                }
+                else {
+                    coordinates = ['A', 'B'].includes(rank) ? Ranks[rank] : Ranks[rank][archetypes];
+                }
+                characters[archetypes][_class].level = level;
+                characters[archetypes][_class].coordinates = coordinates;
+            }
+        }
+        commit('setCharacters', characters);
     },
     updateAllCoordinates({ dispatch, getters }, character){
         let {className, coordinates} = character;

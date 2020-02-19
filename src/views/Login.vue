@@ -20,17 +20,6 @@
                     />
                     <p>Log in With Facebook</p>
             </a>
-            <a 
-                id="guestBtn"
-                href="http://localhost:8080/#/home"
-                >
-                <img 
-                    src="../assets/Social/guest.svg" 
-                    alt="">
-                <p>Login as Guest User</p>
-            </a>
-
-
         </div>
     </div>
 </template>
@@ -78,10 +67,9 @@ export default {
     }
 
     a {
-        height: 40px;
-        width: 227px;
+        height: $btn-height;
+        width: $btn-width;
         display: flex;
-        justify-content: flex-start;
         align-items: center;
         border-radius: 3px;
         font-family: 'Roboto', sans-serif;
@@ -98,9 +86,9 @@ export default {
         color: black;
         font-size: 1em;
         > img {
-        max-height: 100%;
-        width: 20%;
-        margin-right: 10%;
+            max-height: 90%;
+            width: 20%;
+            margin-right: 10%;
         }
     }
 
@@ -112,7 +100,7 @@ export default {
         > img {
             max-height: 60%;
             margin-left: 12px;
-            margin-right: 10px;  
+            margin-right: 10px;
         }
         > p {
             white-space: nowrap;
@@ -120,17 +108,26 @@ export default {
         }
     }
 
-    #guestBtn {
-        background-color: black;
-        color: white;
-        > img {
-            max-width: 15%;
-            margin-left: 7.5px;
-            margin-right: 7.5%;
-            padding-top: 7.5px;
+    @include for-desktop-large-only {
+        #Login > div > p {
+            font-size: 5vw;
         }
-        > p {
-            font-size: 1em;
+        a {
+            height: 80px;
+            width: 454px;
+        }
+        #googleBtn {
+            font-size: 2em;
+            > img {
+                margin-right: 7.5%;
+            }
+        }
+        #fbBtn {
+            font-size: 2.1em;
+            > img {
+                margin-left: 24px;
+                margin-right: 20px;
+            }
         }
     }
 
