@@ -31,7 +31,7 @@ export default {
     props: ['archetype', 'classList'],
     mixins: [characterCardMixin],
     methods: {
-        ...mapActions(['updateLevels']),
+        ...mapActions(['updateCharactersLevels']),
         checkNumbersOnly(e, level){
             let {key} = e;
             let numericalInput = parseInt(key);
@@ -79,7 +79,7 @@ export default {
                 level,
                 coordinates
             };
-            this.updateLevels(data)
+            this.updateCharactersLevels(data)
         }
     }
 }

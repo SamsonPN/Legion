@@ -29,7 +29,7 @@ const getters = {
 };
 
 const actions = {
-    fetchCharacters({ commit }, vm){
+    fetchCharacters: ({ commit }, vm) => {
         fetch('https://legion-backend.herokuapp.com/characters/', {
             credentials: 'include'
         })
@@ -48,7 +48,7 @@ const actions = {
             })
             .catch(err => console.error(err))
     },
-    fetchPresets({ commit, dispatch, getters }){
+    fetchPresets: ({ commit, dispatch, getters }) => {
         let {presetNumber} = getters;
         fetch('https://legion-backend.herokuapp.com/presets/', {
             credentials: 'include'
@@ -63,7 +63,7 @@ const actions = {
                 }
             })
     },
-    saveCharData({ dispatch, getters }){
+    saveCharData: ({ dispatch, getters }) => {
         let characters = getters.allCharacters;
         fetch('https://legion-backend.herokuapp.com/characters/save', {
             method: 'POST',
@@ -77,7 +77,7 @@ const actions = {
             dispatch('fetchCharacters');
         })
     },
-    savePreset({ getters, dispatch }){
+    savePreset: ({ getters, dispatch }) => {
         let {currentPreset, presetNumber, statPositions} = getters;
         fetch('https://legion-backend.herokuapp.com/presets/save', {
             method: 'POST',
@@ -92,7 +92,7 @@ const actions = {
             })
             .catch(err => console.error(err));
     },
-    fillLevels({ commit, getters }, level){
+    fillLevels: ({ commit, getters }, level) => {
         let characters = JSON.parse(JSON.stringify({...getters.allCharacters}))
         let rankList = {
             "60": "B",
@@ -120,7 +120,7 @@ const actions = {
         }
         commit('setCharacters', characters);
     },
-    updateAllCoordinates({ dispatch, getters }, character){
+    updateAllCoordinates: ({ dispatch, getters }, character) => {
         let {className, coordinates} = character;
         let {currentCharacter} = getters;
         if(currentCharacter && currentCharacter.className === className){
@@ -131,17 +131,17 @@ const actions = {
         }
         dispatch('updateCharInfoCoords', character);
     },
-    updateCurrentCharCoords({ commit, getters }, coordinates){
+    updateCurrentCharCoords: ({ commit, getters }, coordinates) => {
         let currentCharCopy = {...getters.currentCharacter, coordinates};
         commit('setCurrentCharacter', currentCharCopy);
     },
-    updateCharInfoCoords({ commit, getters }, character){
+    updateCharInfoCoords: ({ commit, getters }, character) => {
         let { className, coordinates } = character;
         let charInfoCopy = {...getters.charInfo};
         charInfoCopy[className].coordinates = coordinates;
         commit('setCharInfo', charInfoCopy);
     },
-    updatePresetCoords({ commit, getters}, coordinates) {
+    updatePresetCoords: ({ commit, getters}, coordinates) => {
         let {currentCharacter, currentPreset} = getters;
         let currentCharCopy = {...currentCharacter, coordinates};
         let currentPresetCopy = {...currentPreset};
@@ -150,25 +150,25 @@ const actions = {
         currentPresetCopy = {...currentPresetCopy, [position]: currentCharCopy};
         commit('setCurrentPreset', currentPresetCopy);
     },
-    changePreset({ commit, dispatch, getters }, presetNumber){
+    changePreset: ({ commit, dispatch, getters }, presetNumber) => {
         let oldPresetNumber = getters.presetNumber;
         if(oldPresetNumber !== presetNumber){
             let {presets} = getters;
             commit('setPresetNumber', presetNumber);
             commit('setCurrentPreset', presets[presetNumber].characters);
-            dispatch('resetCharInfo');
+            dispatch('resetCharInfoPositions');
             dispatch('updateCharInfo', presets[presetNumber].characters);
             commit('setStatPositions', presets[presetNumber].stats);
         }
     },
-    resetCharInfo({ commit, getters}){
+    resetCharInfoPositions: ({ commit, getters}) => {
         let charInfo = {...getters.charInfo};
         for(let char in charInfo){
             charInfo[char].position = false;
         }
         commit('setCharInfo', charInfo);
     },
-    removeGridPiece({ commit, getters, dispatch }, character){
+    removeGridPiece: ({ commit, getters, dispatch }, character) => {
         let {className, position} = character;
         let {rowIndex, cellIndex} = position;
         let oldPosition = (rowIndex * 22) + cellIndex;
@@ -178,7 +178,7 @@ const actions = {
         commit('setCharInfo', { ...getters.charInfo, [className] : character })
         commit('removeCurrentCharacter');
     },
-    insertIntoPreset({ dispatch, getters }, newPosition){
+    insertIntoPreset: ({ dispatch, getters }, newPosition) => {
         let {currentCharacter, currentPreset} = getters;
         let oldPosition = false;
         if(currentCharacter.position) {
@@ -191,7 +191,7 @@ const actions = {
             dispatch('updateCharInfo', getters.currentPreset);
         }
     },
-    removeOldPosition({ commit, getters }, oldPosition){
+    removeOldPosition: ({ commit, getters }, oldPosition) => {
         let isNumber = isNaN(oldPosition) ? false : true;
         if(isNumber) {
             let currentPresetCopy = {...getters.currentPreset};
@@ -199,13 +199,13 @@ const actions = {
             commit('setCurrentPreset', currentPresetCopy);
         }
     },
-    addToPreset({ commit, getters }, position){
+    addToPreset: ({ commit, getters }, position) => {
         let {currentCharacter, currentPreset} = getters;
         let currentPresetCopy = {...currentPreset};
         currentPresetCopy[position] = currentCharacter;
         commit('setCurrentPreset', currentPresetCopy);
     },
-    updateCharInfo({ commit, getters }, preset){
+    updateCharInfo: ({ commit, getters }, preset) => {
         let charInfo = {...getters.charInfo};
         for(let position in preset){
             let {className, coordinates} = preset[position];
@@ -215,7 +215,7 @@ const actions = {
         }
         commit('setCharInfo', charInfo)
     },
-    updateLevels({ commit, getters }, character){
+    updateCharactersLevels: ({ commit, getters }, character) => {
         let {archetype, className, coordinates, level} = character;
         let characters = JSON.parse(JSON.stringify({...getters.allCharacters}))
         characters[archetype][className].level = level;

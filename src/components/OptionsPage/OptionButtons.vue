@@ -47,7 +47,9 @@ export default {
             let confirm = window.confirm('RESET OPTIONS?')
             if(confirm){
                 this.resetOptions();
-                this.$router.go();
+                setTimeout(() => {
+                    this.$router.go();
+                }, 1500);
             }
         },
         initiateSaveOptions(){
