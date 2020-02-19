@@ -19,15 +19,12 @@ export default {
         },
         getImage(className){
             if(className === 'Archmage Fire/Poison'){
-                className = 'FP';
+                className = 'fp';
             }
             else if (className === 'Archmage Ice/Lightning'){
-                className = 'IL';
+                className = 'il';
             }
-            else {
-                className = className.split(' ').join('').toUpperCase();
-            }
-            return require(`../assets/ClassIcons/${className}.png`);
+            return require(`../assets/ClassIcons/${className.toLowerCase()}.png`);
         },
         highlightCard(className){
             let card = document.getElementById(className + 'Card');

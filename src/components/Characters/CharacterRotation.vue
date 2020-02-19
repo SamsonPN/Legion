@@ -22,7 +22,7 @@ export default {
     name: "CharacterRotation",
     data(){
         return {
-            rotations: ['counterClockwise', 'mirrorX', 'mirrorY', 'clockwise']
+            rotations: ['CounterClockwise', 'MirrorX', 'MirrorY', 'Clockwise']
         }
     },
     props: ['className', 'position'],
@@ -36,8 +36,7 @@ export default {
     methods: {
         ...mapActions(['removeSidePieces', 'updateAllCoordinates']),
         getRotationImg(rotation){
-            let newRotation = rotation.charAt(0).toUpperCase() + rotation.slice(1);
-            return require(`../../assets/Rotations/${newRotation}.svg`);
+            return require(`../../assets/Rotations/${rotation}.svg`);
         },
         rotate(e, rotation){
             if(this.clickable(e)){
@@ -73,19 +72,19 @@ export default {
             let newX;
             let newY;
             switch(rotation){
-                case 'counterClockwise':
+                case 'CounterClockwise':
                     newX = y;
                     newY = x * -1;
                     break;
-                case 'mirrorX':
+                case 'MirrorX':
                     newX = x;
                     newY = y * -1;
                     break;
-                case 'mirrorY':
+                case 'MirrorY':
                     newX = x * -1;
                     newY = y;
                     break;
-                case 'clockwise':
+                case 'Clockwise':
                     newX = y * -1;
                     newY = x;
                     break;
