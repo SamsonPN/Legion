@@ -1,6 +1,7 @@
 <template>
   <div 
-    id="app">
+    id="app"
+    class="disable-scrollbars">
     <Header v-if="isNotLoginPage"/>
     <router-view />
   </div>
@@ -47,12 +48,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      width: 0px;
-      background: transparent;
-    }
   }
 
   textarea, button, input{
@@ -71,5 +66,15 @@
     background-size: cover;
     background-repeat: no-repeat;
     font-family: 'Nunito', sans-serif;
+  }
+
+  .disable-scrollbars {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 </style>

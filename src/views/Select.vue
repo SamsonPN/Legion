@@ -1,5 +1,7 @@
 <template>
-  <div id="Select">
+  <div 
+    id="Select"
+    class="disable-scrollbars">
       <Bar />
       <ClassSelect
         v-for="(classList, archetype) in allCharacters" 

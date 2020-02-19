@@ -1,5 +1,7 @@
 <template>
-    <div id="Options">
+    <div 
+        id="Options"
+        class="disable-scrollbars">
         <div>
             <p>Customize Colors</p>
         </div>

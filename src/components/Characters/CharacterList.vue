@@ -1,6 +1,8 @@
 <template>
     <div id="CharacterList">
-        <div id="CardContainer">
+        <div 
+            id="CardContainer"
+            class="disable-scrollbars">
             <CharacterCard 
                 v-for="(character, name) in activeCharInfo" 
                 :key="name"

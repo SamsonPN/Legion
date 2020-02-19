@@ -1,5 +1,7 @@
 <template>
-  <div id="Home">
+  <div 
+    id="Home"
+    class="disable-scrollbars">
     <div class="column1">
       <Grid />
       <GridOverlay />
