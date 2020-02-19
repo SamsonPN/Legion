@@ -102,6 +102,7 @@ export default {
     }
 
     textarea, textarea:focus {
+        overflow-x: hidden;
         resize: none;
         outline: none;
         width: 77.5%;
