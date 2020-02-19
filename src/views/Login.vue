@@ -67,8 +67,8 @@ export default {
     }
 
     a {
-        height: $btn-height;
-        width: $btn-width;
+        height: 40px;
+        width: 227px;
         display: flex;
         align-items: center;
         border-radius: 3px;
