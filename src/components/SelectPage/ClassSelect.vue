@@ -114,6 +114,7 @@ export default {
     }
 
     textarea {
+        overflow-x: hidden;
         outline: none;
         resize: none;
         border: {
