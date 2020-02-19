@@ -222,7 +222,7 @@ const actions = {
         characters[archetype][className].coordinates = coordinates;
         commit('setCharacters', characters)
     },
-    resetCurrentPreset({ commit, dispatch}){
+    resetCurrentPreset: ({ commit, dispatch}) => {
         commit('setCurrentPreset', {});
         dispatch('savePreset');
         setTimeout(() => {

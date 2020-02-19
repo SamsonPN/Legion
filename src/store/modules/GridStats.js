@@ -30,7 +30,7 @@ const getters = {
 }
 
 const actions = {
-    switchStats({ commit, getters }, newStat){
+    switchStats: ({ commit, getters }, newStat) => {
         let {currentStat, statPositions} = getters;
         if(currentStat && currentStat !== newStat){
             let innerGrid = {...statPositions.innerGrid};

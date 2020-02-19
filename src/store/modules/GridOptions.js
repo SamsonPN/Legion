@@ -21,7 +21,7 @@ const getters = {
 }
 
 const actions = {
-    fetchOptions({ commit }){
+    fetchOptions: ({ commit }) => {
         fetch('https://legion-backend.herokuapp.com/options/', {
             credentials: 'include'
         })
@@ -35,7 +35,7 @@ const actions = {
                 }
             })
     },
-    saveOptions({ dispatch, getters }) {
+    saveOptions: ({ dispatch, getters }) => {
         let {options} = getters;
         fetch('https://legion-backend.herokuapp.com/options/save', {
             method: 'POST',
@@ -49,14 +49,14 @@ const actions = {
                 dispatch('fetchOptions');
             })
     },
-    changeOptions({ commit, getters }, optionInfo){
+    changeOptions: ({ commit, getters }, optionInfo) => {
         let {options} = getters;
         let optionsCopy = {...options};
         let {option, value} = optionInfo;
         optionsCopy[option] = value;
         commit('setOptions', optionsCopy);
     },
-    toggleGridLines({ commit, dispatch, getters }){
+    toggleGridLines: ({ commit, dispatch, getters }) => {
         let {gridLines} = getters;
         dispatch('changeOptions', {
             option: 'gridLines',
@@ -64,7 +64,7 @@ const actions = {
         });
         commit('setGridLines', !gridLines);
     },
-    resetOptions({ commit, dispatch }){
+    resetOptions: ({ commit, dispatch }) => {
         commit('setOptions', {});
         dispatch('saveOptions')
     }
