@@ -46,7 +46,7 @@ export default {
             alert('WARNING: THIS WILL REMOVE ALL OF YOUR INFORMATION FROM OUR DATABASE.')
             let confirm = window.confirm("Are you sure you want to proceed? This is irreversible!")
             if(confirm) {
-                let url = 'https://legion-backend.herokuapp.com/characters'
+                let url = 'https://legion-backend.herokuapp.com'
                 Promise.all([
                     fetch(`${url}/presets/delete`, { method: 'DELETE' }),
                     fetch(`${url}/characters/delete`, { method: 'DELETE' }),
