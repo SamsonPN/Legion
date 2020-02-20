@@ -48,9 +48,9 @@ export default {
             if(confirm) {
                 let url = 'https://legion-backend.herokuapp.com'
                 Promise.all([
-                    fetch(`${url}/presets/delete`, { method: 'DELETE' }),
-                    fetch(`${url}/characters/delete`, { method: 'DELETE' }),
-                    fetch(`${url}/options/delete`, { method: 'DELETE' })
+                    fetch(`${url}/presets/delete`, { method: 'DELETE', credentials: 'include' }),
+                    fetch(`${url}/characters/delete`, { method: 'DELETE', credentials: 'include' }),
+                    fetch(`${url}/options/delete`, { method: 'DELETE', credentials: 'include' })
                 ])
                     .then(() => {
                         this.$router.push({ name: 'login' })
