@@ -118,7 +118,7 @@ export default {
         color: black;
         margin-top: 5px;
         > img {
-            max-width: 19%;
+            max-width: 17.5%;
             cursor: url('../../assets/ms-cursor.png'), auto;
             &:hover {
                 opacity: 0.5;
