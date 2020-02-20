@@ -47,7 +47,6 @@ export default {
             let confirm = window.confirm("Are you sure you want to proceed? This is irreversible!")
             if(confirm) {
                 let url = 'http://localhost:3000'
-                window.location.href = '/';
                 fetch(`${url}/presets/delete`, {
                     method: 'DELETE'
                 });
@@ -57,6 +56,9 @@ export default {
                 fetch(`${url}/options/delete`, {
                     method: 'DELETE'
                 });
+                this.setTimeOut(() => {
+                    window.location.href = '/';
+                }, 1500)
             }
         }
     }
