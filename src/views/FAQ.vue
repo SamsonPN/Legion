@@ -1,7 +1,6 @@
 <template>
     <div 
-        id="FAQ"
-        class="disable-scrollbars">
+        id="FAQ">
         <div>
             <p>Getting Started</p>
             <ol>

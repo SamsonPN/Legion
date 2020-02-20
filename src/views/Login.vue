@@ -1,7 +1,6 @@
 <template>
     <div 
-        id="Login"
-        class="disable-scrollbars">
+        id="Login">
         <div>
             <p>Welcome Maplers!</p>
             <a

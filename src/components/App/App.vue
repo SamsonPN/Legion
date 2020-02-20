@@ -72,9 +72,10 @@
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
+  }
+
+  .disable-scrollbars::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 </style>
