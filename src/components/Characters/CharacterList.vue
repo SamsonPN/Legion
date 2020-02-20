@@ -51,8 +51,6 @@ export default {
         width: 100%;
         margin-top: 1vh;
         color: white;
-        // scrollbar-width: none;
-        // -ms-overflow-style: none;
         z-index: 0;
          > div {
             overflow: auto;
@@ -63,10 +61,6 @@ export default {
             grid-gap: 0.5rem;
             border-radius: 20px;
          }
-        //  &:-webkit-scrollbar {
-        //      width: 0;
-        //      height: 0;
-        //  }
     }
 
     @include for-desktop-only {
