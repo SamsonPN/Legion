@@ -56,7 +56,7 @@ export default {
                 fetch(`${url}/options/delete`, {
                     method: 'DELETE'
                 });
-                this.setTimeOut(() => {
+                setTimeOut(() => {
                     window.location.href = '/';
                 }, 1500)
             }
