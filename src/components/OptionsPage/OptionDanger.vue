@@ -46,19 +46,15 @@ export default {
             alert('WARNING: THIS WILL REMOVE ALL OF YOUR INFORMATION FROM OUR DATABASE.')
             let confirm = window.confirm("Are you sure you want to proceed? This is irreversible!")
             if(confirm) {
-                let url = 'http://localhost:3000'
-                fetch(`${url}/presets/delete`, {
-                    method: 'DELETE'
-                });
-                fetch(`${url}/characters/delete`, {
-                    method: 'DELETE'
-                });
-                fetch(`${url}/options/delete`, {
-                    method: 'DELETE'
-                });
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1500)
+                let url = 'https://legion-backend.herokuapp.com/characters'
+                Promise.all([
+                    fetch(`${url}/presets/delete`, { method: 'DELETE' }),
+                    fetch(`${url}/characters/delete`, { method: 'DELETE' }),
+                    fetch(`${url}/options/delete`, { method: 'DELETE' })
+                ])
+                    .then(() => {
+                        this.$router.push({ name: 'login' })
+                    })
             }
         }
     }

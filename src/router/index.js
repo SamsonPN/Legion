@@ -18,12 +18,6 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home,
-    beforeRouteEnter: (to, from, next) => {
-      alert('')
-      console.log(from);
-      console.log(to)
-      next();
-    }
   },
   {
     path: '/select',
@@ -45,10 +39,5 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
-// router.beforeEach((to, from, next) => {
-//   console.log({to, from, next});
-//   next();
-// })
 
 export default router
