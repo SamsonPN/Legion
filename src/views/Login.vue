@@ -47,8 +47,6 @@ export default {
         align-items: center;
         overflow: hidden; 
         > div {
-            height: auto;
-            width: auto;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -59,7 +57,7 @@ export default {
             background-color: rgba(0, 0, 0, 0.75);
             > p {
                 white-space: nowrap;
-                font-size: 4.5em;
+                font-size: 5.5vw;
                 color: white;
                 margin-top: 5%;
                 margin-bottom: 5%;
@@ -68,11 +66,11 @@ export default {
     }
 
     a {
-        height: 40px;
-        width: 227px;
+        height: 60px;
+        width: 350px;
         display: flex;
         align-items: center;
-        border-radius: 3px;
+        border-radius: 5px;
         font-family: 'Roboto', sans-serif;
         text-decoration: none;
         cursor: url('../assets/ms-cursor.png'), auto;
@@ -80,16 +78,21 @@ export default {
         &:hover {
             opacity: 0.75;
         }
+        > p {
+            white-space: nowrap;
+            margin: auto;
+        }
     }
 
     #googleBtn {
         background-color: white;
         color: black;
-        font-size: 1em;
         > img {
-            max-height: 90%;
-            width: 20%;
-            margin-right: 10%;
+            max-height: 80%;
+            border-radius: 5px;
+        }
+        > p {
+            font-size: 1.65vw;
         }
     }
 
@@ -97,46 +100,82 @@ export default {
         background-color: #1971E2;
         color: white;
         font-weight: 700;
-        font-size: 1.05em;
         > img {
-            max-height: 60%;
-            margin-left: 12px;
-            margin-right: 10px;
+            height: 75%;
+            margin-left: 12.5px;
         }
         > p {
-            white-space: nowrap;
+            font-size: 1.75vw;
             letter-spacing: 0.5px;
         }
     }
 
     @include for-desktop-large-only {
-        #Login > div > p {
-            font-size: 5vw;
-        }
         a {
-            height: 80px;
-            width: 454px;
+            height: 100px;
+            width: 60%;
         }
-        #googleBtn {
-            font-size: 2em;
-            > img {
-                margin-right: 7.5%;
-            }
+        #Login > div > p {
+            font-size: 7.5vw;  
+        }
+        #googleBtn > p {
+            font-size: 3vw;
         }
         #fbBtn {
-            font-size: 2.1em;
-            > img {
-                margin-left: 24px;
-                margin-right: 20px;
+            > p {
+                font-size: 3vw;
             }
         }
     }
 
-    @include for-tablet-small-only {
-        #Login > div > p {
-            font-size: 10vw;
+    @include for-desktop-extra-large-only {
+        a {
+            height: 140px;
         }
     }
 
+    @include for-desktop-only {
+        #Login > div > p {
+            font-size: 7.5vw;  
+        }
+        #googleBtn > p {
+            font-size: 2.05vw;
+        }
+        #fbBtn > p {
+            font-size: 2.1vw;
+        }
+    }
 
+    @include for-tablet-only {
+        #Login > div > p {
+            font-size: 10vw;  
+        }
+        #googleBtn > p {
+            font-size: 2.75vw;
+        }
+        #fbBtn > p {
+            font-size: 2.8vw;
+        }
+    }
+
+    @include for-tablet-small-2-only {
+        #googleBtn > p {
+            font-size: 4vw;
+        }
+        #fbBtn > p {
+            font-size: 4.25vw;
+        }
+    }
+
+    @include for-mobile-only {
+        a {
+            width: 300px;
+        }
+        #googleBtn > p {
+            font-size: 5.25vw;
+        }
+        #fbBtn > p {
+            font-size: 5.5vw;
+        }
+    }
 </style>

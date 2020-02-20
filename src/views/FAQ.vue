@@ -258,14 +258,12 @@ export default {
     @import '../mixins.scss';
 
     #FAQ {
-        // height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 1);
         color: white;
         > div {
-            height: auto;
             padding: 0px 5px;
             > p {
                 font-size: 3em;

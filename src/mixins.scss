@@ -48,6 +48,13 @@
 
 //media queries
 
+// 2560px
+@mixin for-desktop-extra-large-only {
+    @media only screen and (min-width: $desktop-extra-large) {
+        @content;
+    }
+}
+
 // 1600px
 @mixin for-desktop-large-only {
     @media only screen and (min-width: $desktop-large) {
