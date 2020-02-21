@@ -1,5 +1,6 @@
 module.exports = {
     classes: {
+        "Adele": 0,
         "Aran": 8,
         "Blaster": 10,
         "Dark Knight": 5,
