@@ -18,9 +18,6 @@
       isNotLoginPage(){
         return this.$route.path !== '/';
       }
-    },
-    mounted() {
-      document.domain = 'samsonn.com';
     }
   }
  </script>

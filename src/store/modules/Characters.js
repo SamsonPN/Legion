@@ -31,7 +31,6 @@ const getters = {
 const actions = {
     fetchCharacters: ({ commit }, vm) => {
         fetch('https://legion-backend.samsonn.com/characters/', {
-            mode: 'same-origin',
             credentials: 'include'
         })
             .then(res => res.json())
@@ -52,7 +51,6 @@ const actions = {
     fetchPresets: ({ commit, dispatch, getters }) => {
         let {presetNumber} = getters;
         fetch('https://legion-backend.samsonn.com/presets/', {
-            mode: 'same-origin',
             credentials: 'include'
         })
             .then(res => res.json())
@@ -69,7 +67,6 @@ const actions = {
         let characters = getters.allCharacters;
         fetch('https://legion-backend.samsonn.com/characters/save', {
             method: 'POST',
-            mode: 'same-origin',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
@@ -84,7 +81,6 @@ const actions = {
         let {currentPreset, presetNumber, statPositions} = getters;
         fetch('https://legion-backend.samsonn.com/presets/save', {
             method: 'POST',
-            mode: 'same-origin',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
