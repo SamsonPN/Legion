@@ -20,7 +20,7 @@
       }
     },
     mounted() {
-      document.domain = 'legion-backend.samsonn.com';
+      document.domain = 'samsonn.com';
     }
   }
  </script>
