@@ -18,6 +18,9 @@
       isNotLoginPage(){
         return this.$route.path !== '/';
       }
+    },
+    mounted() {
+      document.domain = 'legion-backend.samsonn.com';
     }
   }
  </script>
