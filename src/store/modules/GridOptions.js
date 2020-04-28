@@ -22,7 +22,8 @@ const getters = {
 
 const actions = {
     fetchOptions: ({ commit }) => {
-        fetch('https://legion-backend.herokuapp.com/options/', {
+        fetch('https://legion-backend.samsonn.com/options/', {
+            mode: 'same-origin',
             credentials: 'include'
         })
             .then(res => res.json())
@@ -37,8 +38,9 @@ const actions = {
     },
     saveOptions: ({ dispatch, getters }) => {
         let {options} = getters;
-        fetch('https://legion-backend.herokuapp.com/options/save', {
+        fetch('https://legion-backend.samsonn.com/options/save', {
             method: 'POST',
+            mode: 'same-origin',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'

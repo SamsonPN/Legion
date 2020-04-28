@@ -30,7 +30,7 @@ export default {
     name: "Login",
     computed: {
         url(){
-            return 'https://legion-backend.herokuapp.com/auth';
+            return 'https://legion-backend.samsonn.com/auth';
         }
     }
 }
