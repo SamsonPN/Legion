@@ -17,7 +17,7 @@
             <img src="../../assets/Header/FAQ.svg" alt="Options"/>
             <span>  FAQ  </span>
         </router-link> 
-        <a href="https://legion-backend.herokuapp.com/auth/logout">
+        <a href="https://legion-backend.samsonn.com/auth/logout">
             <img src="../../assets/Header/logout.svg" alt="Logout">
             <span>  Logout  </span>
         </a>
